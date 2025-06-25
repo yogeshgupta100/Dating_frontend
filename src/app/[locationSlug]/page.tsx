@@ -7,7 +7,27 @@ import {
   generateMetaDescription,
   generateKeywords,
 } from "../../utils/slug";
-import { getLocationBySlug, getLocationById } from "../../services/Locations";
+import { getLocationBySlug, getLocationById, getLocations } from "../../services/Locations";
+
+// Generate static params for all locations
+export async function generateStaticParams() {
+  try {
+    const locations = await getLocations();
+    return locations.map((location) => ({
+      locationSlug: location.slug || location.id.toString(),
+    }));
+  } catch (error) {
+    console.error('Error generating static params for locations:', error);
+    // Return some default locations as fallback
+    return [
+      { locationSlug: 'jaipur' },
+      { locationSlug: 'mumbai' },
+      { locationSlug: 'delhi' },
+      { locationSlug: 'bangalore' },
+      { locationSlug: 'chennai' },
+    ];
+  }
+}
 
 // Server-side metadata generation
 export async function generateMetadata({ params }: { params: { locationSlug: string } }): Promise<Metadata> {
