@@ -1,11 +1,15 @@
+'use client';
+
 import React from 'react';
 import { Menu, X } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 const scrollToSection = (id: string) => {
-  const el = document.getElementById(id);
-  if (el) {
-    el.scrollIntoView({ behavior: 'smooth' });
+  if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
   }
 };
 
