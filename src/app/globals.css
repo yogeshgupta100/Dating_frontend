@@ -1,4 +1,6 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   --background: #ffffff;
@@ -15,7 +17,7 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
-    --foreground: #ededed;
+    --foreground: #000000;
   }
 }
 
@@ -23,4 +25,20 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Style links in content areas to be orange */
+.location-content a {
+  color: #ff6b35 !important;
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+
+.location-content a:hover {
+  color: #e55a2b !important;
+  text-decoration: underline;
+}
+
+.location-content a:visited {
+  color: #ff6b35 !important;
 }

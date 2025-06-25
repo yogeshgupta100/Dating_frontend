@@ -1,0 +1,28 @@
+import React from 'react';
+
+const ProfileHero: React.FC<{ profile_img: any, banner_img: any, name: any }> = ({ profile_img, banner_img, name }) => {
+
+  return (
+    <div className="relative w-full mb-10">
+      <div className="relative w-full h-64 md:h-80 flex items-center justify-center bg-gray-300">
+        <img
+          src={banner_img || "/banner_image.jpg"}
+          alt="Video section background"
+          className="absolute inset-0 w-full h-full object-cover object-center opacity-80"
+        />
+        <h1 className="relative z-10 text-white text-3xl md:text-5xl font-bold text-center drop-shadow-lg">
+          Video section
+        </h1>
+        <div className="w-45 h-40 absolute left-[50%] md:left-[20%] bottom-0 translate-x-[-50%] translate-y-1/2 z-20">
+          <img
+            src={profile_img || "/default-profile.jpg"}
+            alt={name || "Profile"}
+            className="w-36 h-36 md:w-48 md:h-48 rounded-full object-cover shadow-md bg-white"
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ProfileHero; 
