@@ -9,25 +9,8 @@ import {
 } from "../../utils/slug";
 import { getLocationBySlug, getLocationById, getLocations } from "../../services/Locations";
 
-// Generate static params for all locations
-export async function generateStaticParams() {
-  try {
-    const locations = await getLocations();
-    return locations.map((location) => ({
-      locationSlug: location.slug || location.id.toString(),
-    }));
-  } catch (error) {
-    console.error('Error generating static params for locations:', error);
-    // Return some default locations as fallback
-    return [
-      { locationSlug: 'jaipur' },
-      { locationSlug: 'mumbai' },
-      { locationSlug: 'delhi' },
-      { locationSlug: 'bangalore' },
-      { locationSlug: 'chennai' },
-    ];
-  }
-}
+// Enable dynamic rendering for this page
+export const dynamic = 'force-dynamic';
 
 // Server-side metadata generation
 export async function generateMetadata({ params }: { params: { locationSlug: string } }): Promise<Metadata> {
@@ -41,7 +24,7 @@ export async function generateMetadata({ params }: { params: { locationSlug: str
       };
     }
 
-    const locationName = location.name || slugToText(params.locationSlug);
+    const locationName = location.name;
     const pageTitle = location.seo_title || `${locationName} Escorts - Premium Call Girls Service`;
     const pageDescription = location.seo_desc || `Premium ${locationName} escorts service offering verified call girls with cash payment and free door delivery 24/7. Safe, discreet, and professional escort services in ${locationName}.`;
     const pageKeywords = location.seo_keywords?.join(', ') || `${locationName} escorts, call girls ${locationName}, escort service ${locationName}, ${locationName} call girls, premium escorts ${locationName}, verified escorts ${locationName}`;

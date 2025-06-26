@@ -1,8 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
+  // output: 'export', // Removed to enable true dynamic routing
   trailingSlash: true,
   images: {
+    domains: ['pro.abellarora.com'], // Add your image domains here
     unoptimized: true,
   },
   webpack(config) {
