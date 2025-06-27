@@ -1,12 +1,12 @@
 // Cloudinary configuration for browser environment
-const cloudName = process.env.VITE_CLOUDINARY_CLOUD_NAME;
-const apiKey = process.env.VITE_CLOUDINARY_API_KEY;
-const apiSecret = process.env.VITE_CLOUDINARY_API_SECRET;
+const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
+const apiKey = process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY;
+const apiSecret = process.env.NEXT_PUBLIC_CLOUDINARY_API_SECRET;
 
 // Validate environment variables
 if (!cloudName || !apiKey || !apiSecret) {
   console.error('Missing Cloudinary environment variables. Please check your .env file.');
-  console.error('Required variables: VITE_CLOUDINARY_CLOUD_NAME, VITE_CLOUDINARY_API_KEY, VITE_CLOUDINARY_API_SECRET');
+  console.error('Required variables: NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME, NEXT_PUBLIC_CLOUDINARY_API_KEY, NEXT_PUBLIC_CLOUDINARY_API_SECRET');
 }
 
 export interface CloudinaryUploadResult {

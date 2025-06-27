@@ -52,12 +52,9 @@ const Header = () => {
         {isMenuOpen && (
           <div className="md:hidden py-4 border-t">
             <div className="flex flex-col space-y-4">
-              <button onClick={() => handleNav('home')} className="text-gray-700 hover:text-red-500 transition-colors">Home</button>
-              <button onClick={() => handleNav('about')} className="text-gray-700 hover:text-red-500 transition-colors">About</button>
-              <button onClick={() => handleNav('gallery')} className="text-gray-700 hover:text-red-500 transition-colors">Gallery</button>
-              <button onClick={() => handleNav('people')} className="text-gray-700 hover:text-red-500 transition-colors">People</button>
-              <button onClick={() => handleNav('states')} className="text-gray-700 hover:text-red-500 transition-colors">States</button>
-              <button onClick={() => handleNav('disclaimer')} className="text-gray-700 hover:text-red-500 transition-colors">Disclaimer</button>
+            <button onClick={() => handleNav('home')} className="text-gray-700 hover:text-red-500 transition-colors">Home</button>
+            <button onClick={() => handleNav('about')} className="text-gray-700 hover:text-red-500 transition-colors">About</button>
+            <button onClick={() => handleNav('gallery')} className="text-gray-700 hover:text-red-500 transition-colors">Gallery</button>
             </div>
           </div>
         )}

@@ -11,7 +11,7 @@ interface LocationFormData {
   slug: string;
   seo_title: string;
   seo_desc: string;
-  seo_keywords: string[];
+  seo_keyword: string[];
   faq: string;
   selected_location_id?: string;
 }
@@ -33,7 +33,7 @@ const LocationForm: React.FC<LocationFormProps> = ({ location, onSubmit, onCance
     slug: '',
     seo_title: '',
     seo_desc: '',
-    seo_keywords: [],
+    seo_keyword: [],
     faq: '',
   });
   const [slugSuggestions, setSlugSuggestions] = React.useState<string[]>([]);
@@ -57,7 +57,7 @@ const LocationForm: React.FC<LocationFormProps> = ({ location, onSubmit, onCance
       slug: data.slug || '',
       seo_title: data.seo_title || '',
       seo_desc: data.seo_desc || '',
-      seo_keywords: data.seo_keywords || [],
+      seo_keyword: data.seo_keyword || [],
       faq: data.faq || '',
     });
   };
@@ -81,7 +81,7 @@ const LocationForm: React.FC<LocationFormProps> = ({ location, onSubmit, onCance
       slug: formData.slug,
       seo_title: formData.seo_title,
       seo_desc: formData.seo_desc,
-      seo_keywords: formData.seo_keywords,
+      seo_keyword: formData.seo_keyword,
       faq: formData.faq,
     });
   };
@@ -242,8 +242,8 @@ const LocationForm: React.FC<LocationFormProps> = ({ location, onSubmit, onCance
         <label className="block text-sm font-medium text-gray-700 mb-1">SEO Keywords <span className="text-xs text-gray-500">(comma separated)</span></label>
         <input
           type="text"
-          name="seo_keywords"
-          value={formData.seo_keywords}
+          name="seo_keyword"
+          value={formData.seo_keyword}
           onChange={handleChange}
           className="block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 transition px-3 py-2"
           placeholder="Enter keywords, separated by commas"

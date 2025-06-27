@@ -11,7 +11,7 @@ export interface LocationResponse {
   updated_at: string;
   seo_title?: string;
   seo_desc?: string;
-  seo_keywords?: string[];
+  seo_keyword?: string[];
   faq?: string;
 }
 

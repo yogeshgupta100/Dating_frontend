@@ -29,7 +29,8 @@ import {
 } from "../utils/slug";
 import { useProfileStore } from '../store/profileStore';
 import { renderHtmlContent } from '../utils/htmlUtils';
-
+import { VerifiedSection } from "./VerifiedSection";
+import Gallery from "./Gallery";
 const galleryImages = [
   "https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?auto=compress&cs=tinysrgb&w=400",
   "https://images.pexels.com/photos/1040880/pexels-photo-1040880.jpeg?auto=compress&cs=tinysrgb&w=400",
@@ -188,9 +189,10 @@ export default function LocationPageClient() {
             <h1 className="text-2xl md:text-4xl md:w-3/4 mx-auto font-bold text-gray-900 mb-4">
               {location?.heading}
             </h1>
-            <p className="text-xl text-gray-600 max-w-6xl mx-auto md:pt-4">
-              {location?.sub_heading}
-            </p>
+            <div
+                className="text-lg text-gray-800 max-w-6xl mx-auto md:pt-4 location-content"
+                dangerouslySetInnerHTML={renderHtmlContent(location?.sub_heading || "")}
+              />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 mb-16">
@@ -218,6 +220,7 @@ export default function LocationPageClient() {
               />
             ))}
           </div>
+          <Gallery showHeading={false}/>
 
           <section className="mb-20">
             <div className="text-center mb-12">
@@ -269,6 +272,8 @@ export default function LocationPageClient() {
               ))}
             </div>
           </section>
+          
+          <VerifiedSection />
 
           <section className="mb-20">
             <div className="text-center mb-4">
@@ -282,6 +287,7 @@ export default function LocationPageClient() {
             </div>
             <CarCarousel images={galleryImages} />
           </section>
+
 
           <div className="max-w-6xl mx-auto">
             <Disclaimer />

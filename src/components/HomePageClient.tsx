@@ -15,6 +15,8 @@ import { generateUniqueSlug } from "../utils/slug";
 import Header from "./Header";
 import Footer from "./Footer";
 import { renderHtmlContent } from '../utils/htmlUtils';
+import { VerifiedSection } from "./VerifiedSection";
+import Gallery from "./Gallery";
 
 const carImages = [
   "http://res.cloudinary.com/dznqar2xr/image/upload/v1750583536/dating-app/profiles/toihekxceyx3wifjihg1.jpg",
@@ -22,21 +24,6 @@ const carImages = [
   "http://res.cloudinary.com/dznqar2xr/image/upload/v1750583536/dating-app/profiles/toihekxceyx3wifjihg1.jpg",
   "http://res.cloudinary.com/dznqar2xr/image/upload/v1750583536/dating-app/profiles/toihekxceyx3wifjihg1.jpg",
   "http://res.cloudinary.com/dznqar2xr/image/upload/v1750583536/dating-app/profiles/toihekxceyx3wifjihg1.jpg",
-];
-
-const peopleImages = [
-  "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=400",
-  "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=400",
-  "https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&w=400",
-  "https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg?auto=compress&cs=tinysrgb&w=400",
-  "https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?auto=compress&cs=tinysrgb&w=400",
-  "https://images.pexels.com/photos/1040880/pexels-photo-1040880.jpeg?auto=compress&cs=tinysrgb&w=400",
-  "https://images.pexels.com/photos/1212984/pexels-photo-1212984.jpeg?auto=compress&cs=tinysrgb&w=400",
-  "https://images.pexels.com/photos/1542085/pexels-photo-1542085.jpeg?auto=compress&cs=tinysrgb&w=400",
-  "https://images.pexels.com/photos/1382734/pexels-photo-1382734.jpeg?auto=compress&cs=tinysrgb&w=400",
-  "https://images.pexels.com/photos/1820770/pexels-photo-1820770.jpeg?auto=compress&cs=tinysrgb&w=400",
-  "https://images.pexels.com/photos/1559486/pexels-photo-1559486.jpeg?auto=compress&cs=tinysrgb&w=400",
-  "https://images.pexels.com/photos/1499327/pexels-photo-1499327.jpeg?auto=compress&cs=tinysrgb&w=400",
 ];
 
 const paragraph = `Building meaningful connections has never been more important in today's digital age. Our platform brings together like-minded individuals who are serious about finding genuine relationships. Through our advanced matching algorithm and personalized approach, we help create lasting bonds that go beyond surface-level attraction. Whether you're looking for companionship, friendship, or a life partner, we provide a safe and welcoming environment for authentic connections to flourish.`;
@@ -108,25 +95,6 @@ export default function HomePageClient() {
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
                   About Us
                 </h2>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-                  <div className="text-center">
-                    <Users className="h-12 w-12 text-red-500 mx-auto mb-4" />
-                    <h3 className="text-xl font-semibold text-black mb-2">Verified Call Girls</h3>
-                    <p className="text-gray-600">
-                      Verified profiles across India
-                    </p>
-                  </div>
-                  <div className="text-center">
-                    <Shield className="h-12 w-12 text-red-500 mx-auto mb-4" />
-                    <h3 className="text-xl font-semibold text-black mb-2">100% Secure</h3>
-                    <p className="text-gray-600">Privacy and safety guaranteed</p>
-                  </div>
-                  <div className="text-center">
-                    <MapPin className="h-12 w-12 text-red-500 mx-auto mb-4" />
-                    <h3 className="text-xl font-semibold text-black mb-2">Pan India</h3>
-                    <p className="text-gray-600">Coverage across all states</p>
-                  </div>
-                </div>
               </div>
               <div className="space-y-6 text-lg text-gray-700 leading-relaxed">
                 <p>{paragraph}</p>
@@ -137,32 +105,9 @@ export default function HomePageClient() {
           </section>
 
           {/* People Gallery */}
-          <section id="gallery" className="mb-20">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                Meet Amazing People
-              </h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                Connect with genuine individuals who are ready for meaningful
-                relationships.
-              </p>
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {peopleImages.map((src, idx) => (
-                <div
-                  key={idx}
-                  className="aspect-square rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-                >
-                  <img
-                    src={src}
-                    alt={`Person ${idx + 1}`}
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                  />
-                </div>
-              ))}
-            </div>
-          </section>
+          <Gallery />
+
+          <VerifiedSection />
 
           {/* States Coverage */}
           <section className="mb-20">

@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: { params: { locationSlug: str
     const locationName = location.name;
     const pageTitle = location.seo_title || `${locationName} Escorts - Premium Call Girls Service`;
     const pageDescription = location.seo_desc || `Premium ${locationName} escorts service offering verified call girls with cash payment and free door delivery 24/7. Safe, discreet, and professional escort services in ${locationName}.`;
-    const pageKeywords = location.seo_keywords?.join(', ') || `${locationName} escorts, call girls ${locationName}, escort service ${locationName}, ${locationName} call girls, premium escorts ${locationName}, verified escorts ${locationName}`;
+    const pageKeywords = location.seo_keyword || `${locationName} escorts, call girls ${locationName}, escort service ${locationName}, ${locationName} call girls, premium escorts ${locationName}, verified escorts ${locationName}`;
 
     return {
       title: pageTitle,
