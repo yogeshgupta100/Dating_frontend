@@ -78,7 +78,7 @@ export default function HomePageClient() {
           <section className="mb-20">
             <div className="text-center mb-12">
               <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                Jaipur Escorts Service offers Cash Payment & Free Delivery
+                Delhi Escorts Service offers Cash Payment & Free Delivery
               </h1>
               <div
                 className="max-w-5xl mx-auto space-y-6 text-lg text-gray-600 leading-relaxed location-content"

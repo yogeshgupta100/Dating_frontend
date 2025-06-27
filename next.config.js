@@ -3,8 +3,17 @@ const nextConfig = {
   // output: 'export', // Removed to enable dynamic routes
   trailingSlash: true,
   images: {
-    domains: ['pro.abellarora.com'], // Add your image domains here
+    // Configure for Vercel deployment
+    domains: ['pro.abellarora.com'],
+    formats: ['image/webp', 'image/avif'],
   },
+  // Optimize for Vercel
+  experimental: {
+    serverComponentsExternalPackages: [],
+  },
+  // Performance optimizations
+  compress: true,
+  poweredByHeader: false,
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
