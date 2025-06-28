@@ -19,11 +19,12 @@ import { VerifiedSection } from "./VerifiedSection";
 import Gallery from "./Gallery";
 
 const carImages = [
-  "http://res.cloudinary.com/dznqar2xr/image/upload/v1750583536/dating-app/profiles/toihekxceyx3wifjihg1.jpg",
-  "http://res.cloudinary.com/dznqar2xr/image/upload/v1750583536/dating-app/profiles/toihekxceyx3wifjihg1.jpg",
-  "http://res.cloudinary.com/dznqar2xr/image/upload/v1750583536/dating-app/profiles/toihekxceyx3wifjihg1.jpg",
-  "http://res.cloudinary.com/dznqar2xr/image/upload/v1750583536/dating-app/profiles/toihekxceyx3wifjihg1.jpg",
-  "http://res.cloudinary.com/dznqar2xr/image/upload/v1750583536/dating-app/profiles/toihekxceyx3wifjihg1.jpg",
+  "http://res.cloudinary.com/dpmknwklm/image/upload/v1751050380/dating-app/banners/fefp5wju9louqsqy9j2d.jpg",
+  "http://res.cloudinary.com/dpmknwklm/image/upload/v1751050513/dating-app/profiles/byl4mt7g46ewv6jzoe87.jpg",
+  // "http://res.cloudinary.com/dpmknwklm/image/upload/v1751050459/dating-app/banners/az09b062duh3bceedxzl.jpg",
+  "http://res.cloudinary.com/dpmknwklm/image/upload/v1751050513/dating-app/banners/skse6swh4lklbzigazx9.jpg",
+  "http://res.cloudinary.com/dpmknwklm/image/upload/v1751050458/dating-app/profiles/fgsym9bjyi9mxxumhpje.jpg",
+  "http://res.cloudinary.com/dpmknwklm/image/upload/v1751050379/dating-app/profiles/sjinrqpbizy9qdri4kqz.jpg",
 ];
 
 const paragraph = `Building meaningful connections has never been more important in today's digital age. Our platform brings together like-minded individuals who are serious about finding genuine relationships. Through our advanced matching algorithm and personalized approach, we help create lasting bonds that go beyond surface-level attraction. Whether you're looking for companionship, friendship, or a life partner, we provide a safe and welcoming environment for authentic connections to flourish.`;

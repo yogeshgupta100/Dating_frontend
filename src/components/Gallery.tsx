@@ -1,16 +1,16 @@
 const peopleImages = [
-    "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=400",
-    "https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=400",
-    "https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&w=400",
-    "https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg?auto=compress&cs=tinysrgb&w=400",
-    "https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?auto=compress&cs=tinysrgb&w=400",
-    "https://images.pexels.com/photos/1040880/pexels-photo-1040880.jpeg?auto=compress&cs=tinysrgb&w=400",
-    "https://images.pexels.com/photos/1212984/pexels-photo-1212984.jpeg?auto=compress&cs=tinysrgb&w=400",
-    "https://images.pexels.com/photos/1542085/pexels-photo-1542085.jpeg?auto=compress&cs=tinysrgb&w=400",
-    "https://images.pexels.com/photos/1382734/pexels-photo-1382734.jpeg?auto=compress&cs=tinysrgb&w=400",
-    "https://images.pexels.com/photos/1820770/pexels-photo-1820770.jpeg?auto=compress&cs=tinysrgb&w=400",
-    "https://images.pexels.com/photos/1559486/pexels-photo-1559486.jpeg?auto=compress&cs=tinysrgb&w=400",
-    "https://images.pexels.com/photos/1499327/pexels-photo-1499327.jpeg?auto=compress&cs=tinysrgb&w=400",
+    "http://res.cloudinary.com/dpmknwklm/image/upload/v1751049871/dating-app/profiles/mbe9jv6ihlv5fgjptprp.jpg",
+    "http://res.cloudinary.com/dpmknwklm/image/upload/v1751049872/dating-app/banners/wm287wzsdiggyr0xtkba.jpg",
+    "http://res.cloudinary.com/dpmknwklm/image/upload/v1751049989/dating-app/profiles/dojb5cqr52mk3ga3vpml.jpg",
+    "http://res.cloudinary.com/dpmknwklm/image/upload/v1751049990/dating-app/banners/ykqumosukus28xrwxvwg.jpg",
+    "http://res.cloudinary.com/dpmknwklm/image/upload/v1751050049/dating-app/profiles/iqqwqwwcxcr2r7bbzi0q.jpg",
+    "https://res.cloudinary.com/dpmknwklm/image/upload/v1751050049/dating-app/profiles/iqqwqwwcxcr2r7bbzi0q.jpg",
+    "http://res.cloudinary.com/dpmknwklm/image/upload/v1751050111/dating-app/profiles/g3xrm1lrfh29ewmjmlpy.jpg",
+    "http://res.cloudinary.com/dpmknwklm/image/upload/v1751050112/dating-app/banners/oyalqpnjkkujluuyijqw.jpg",
+    "http://res.cloudinary.com/dpmknwklm/image/upload/v1751050173/dating-app/profiles/kxvsxbcpeff2feu6tzbu.jpg",
+    "http://res.cloudinary.com/dpmknwklm/image/upload/v1751050174/dating-app/banners/zjkxwf4bmuvctck69xcn.jpg",
+    "http://res.cloudinary.com/dpmknwklm/image/upload/v1751050250/dating-app/profiles/g2oaayk7kmygvohl2gio.jpg",
+    "http://res.cloudinary.com/dpmknwklm/image/upload/v1751050251/dating-app/banners/s24fxawbtejuuxgr54fc.jpg",
   ];
 
 export default function Gallery({ showHeading = true }: { showHeading?: boolean }) {

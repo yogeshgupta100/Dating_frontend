@@ -48,29 +48,29 @@ const CarCarousel: React.FC<CarCarouselProps> = ({
     if (absIndex === 0) {
       return {
         transform: 'translateX(0%) scale(1)',
-        zIndex: 20,
+        zIndex: 30,
         opacity: 1,
       };
     } else if (absIndex === 1) {
       const direction = diff > 0 ? 1 : -1;
       return {
         transform: `translateX(${direction * 60}%) scale(0.85)`,
-        zIndex: 15,
-        opacity: 0.8,
+        zIndex: 20,
+        opacity: 0.9,
       };
     } else if (absIndex === 2) {
       const direction = diff > 0 ? 1 : -1;
       return {
         transform: `translateX(${direction * 100}%) scale(0.7)`,
         zIndex: 10,
-        opacity: 0.5,
+        opacity: 0.6,
       };
     } else {
       const direction = diff > 0 ? 1 : -1;
       return {
         transform: `translateX(${direction * 120}%) scale(0.6)`,
-        zIndex: 5,
-        opacity: 0.2,
+        zIndex: 1,
+        opacity: 0.3,
       };
     }
   };
@@ -112,7 +112,7 @@ const CarCarousel: React.FC<CarCarouselProps> = ({
               <img
                 src={image}
                 alt={getAltText(index)}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-contain"
                 loading={index <= 2 ? "eager" : "lazy"}
                 decoding="async"
                 fetchPriority={index === currentIndex ? "high" : "low"}
