@@ -27,12 +27,12 @@ export default function AdminLocationsPage() {
     }
   };
 
-  const handleSubmit = async (formData: {name: string, phone_number: string, heading: string, sub_heading: string, content: string, slug: string, seo_title: string, seo_desc: string, seo_keywords: string[], faq: string}) => {
+  const handleSubmit = async (formData: {name: string, phone_number: string, heading: string, sub_heading: string, content: string, slug: string, seo_title: string, seo_desc: string, seo_keyword: string[], faq: string}) => {
     try {
       if (selectedLocation) {
-        await updateLocation(selectedLocation.id.toString(), formData.name, formData.phone_number, formData.heading, formData.sub_heading, formData.content, formData.slug, formData.seo_title, formData.seo_desc, formData.seo_keywords, formData.faq);
+        await updateLocation(selectedLocation.id.toString(), formData.name, formData.phone_number, formData.heading, formData.sub_heading, formData.content, formData.slug, formData.seo_title, formData.seo_desc, formData.seo_keyword, formData.faq);
       } else {
-        await createLocation(formData.name, formData.phone_number, formData.heading, formData.sub_heading, formData.content, formData.slug, formData.seo_title, formData.seo_desc, formData.seo_keywords, formData.faq);
+        await createLocation(formData.name, formData.phone_number, formData.heading, formData.sub_heading, formData.content, formData.slug, formData.seo_title, formData.seo_desc, formData.seo_keyword, formData.faq);
       }
       fetchLocations();
       setIsFormOpen(false);
