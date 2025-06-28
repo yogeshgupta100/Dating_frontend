@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+/* FuturaPT-Book Font */
+@font-face {
+  font-family: 'FuturaPT-Book';
+  src: url('/fonts/FuturaPT-Book.woff2') format('woff2'),
+       url('/fonts/FuturaPT-Book.woff') format('woff'),
+       url('/fonts/FuturaPT-Book.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -24,7 +35,90 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'FuturaPT-Book', Arial, Helvetica, sans-serif;
+}
+
+/* Global heading styles with FuturaPT-Book font and #000 color */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'FuturaPT-Book', Arial, Helvetica, sans-serif !important;
+  color: #000 !important;
+}
+
+/* Mobile-specific line height for headings */
+@media (max-width: 768px) {
+  h1, h2, h3, h4, h5, h6 {
+    line-height: 1.2 !important;
+  }
+}
+
+/* Global text styles with FuturaPT-Book font and #000 color */
+p, li, blockquote, span, div, a, strong, em, b, i, u, small, sub, sup, mark, del, ins, code, pre, kbd, samp, var, cite, abbr, acronym, dfn, address, q, time, data, ruby, rt, rp, bdi, bdo, wbr {
+  font-family: 'FuturaPT-Book', Arial, Helvetica, sans-serif !important;
+  color: #000 !important;
+}
+
+/* Mobile-specific line height for text content */
+@media (max-width: 768px) {
+  p, li, blockquote, span, div {
+    line-height: 1.3 !important;
+  }
+}
+
+/* Override any Tailwind text color classes for headings */
+h1.text-gray-900, h2.text-gray-900, h3.text-gray-900, h4.text-gray-900, h5.text-gray-900, h6.text-gray-900,
+h1.text-black, h2.text-black, h3.text-black, h4.text-black, h5.text-black, h6.text-black,
+h1.text-white, h2.text-white, h3.text-white, h4.text-white, h5.text-white, h6.text-white {
+  color: #000 !important;
+}
+
+/* Override any Tailwind text color classes for text elements */
+p.text-gray-900, li.text-gray-900, blockquote.text-gray-900, span.text-gray-900, div.text-gray-900,
+p.text-black, li.text-black, blockquote.text-black, span.text-black, div.text-black,
+p.text-white, li.text-white, blockquote.text-white, span.text-white, div.text-white,
+p.text-gray-600, li.text-gray-600, blockquote.text-gray-600, span.text-gray-600, div.text-gray-600,
+p.text-gray-700, li.text-gray-700, blockquote.text-gray-700, span.text-gray-700, div.text-gray-700 {
+  color: #000 !important;
+}
+
+/* Ensure font family is applied even with Tailwind font classes */
+h1.font-bold, h2.font-bold, h3.font-bold, h4.font-bold, h5.font-bold, h6.font-bold,
+h1.font-semibold, h2.font-semibold, h3.font-semibold, h4.font-semibold, h5.font-semibold, h6.font-semibold,
+h1.font-medium, h2.font-medium, h3.font-medium, h4.font-medium, h5.font-medium, h6.font-medium {
+  font-family: 'FuturaPT-Book', Arial, Helvetica, sans-serif !important;
+}
+
+/* Ensure font family is applied to text elements with Tailwind font classes */
+p.font-bold, li.font-bold, blockquote.font-bold, span.font-bold, div.font-bold,
+p.font-semibold, li.font-semibold, blockquote.font-semibold, span.font-semibold, div.font-semibold,
+p.font-medium, li.font-medium, blockquote.font-medium, span.font-medium, div.font-medium,
+p.font-normal, li.font-normal, blockquote.font-normal, span.font-normal, div.font-normal {
+  font-family: 'FuturaPT-Book', Arial, Helvetica, sans-serif !important;
+}
+
+/* Additional text elements and their variations */
+label, input, textarea, select, button, th, td, caption, figcaption, legend, fieldset {
+  font-family: 'FuturaPT-Book', Arial, Helvetica, sans-serif !important;
+  color: #000 !important;
+}
+
+/* Override any remaining Tailwind text color classes */
+.text-gray-900, .text-black, .text-white, .text-gray-600, .text-gray-700, .text-gray-500, .text-gray-400 {
+  color: #000 !important;
+}
+
+/* Ensure all font weights use FuturaPT-Book */
+.font-thin, .font-extralight, .font-light, .font-normal, .font-medium, .font-semibold, .font-bold, .font-extrabold, .font-black {
+  font-family: 'FuturaPT-Book', Arial, Helvetica, sans-serif !important;
+}
+
+/* Utility class for FuturaPT-Book font */
+.font-futura {
+  font-family: 'FuturaPT-Book', Arial, Helvetica, sans-serif !important;
+}
+
+/* Utility class for black color */
+.text-black-custom {
+  color: #000 !important;
 }
 
 /* Style links in content areas to be orange */
@@ -43,15 +137,16 @@ body {
   color: #ff6b35 !important;
 }
 
-/* Ensure proper heading styles in location-content */
+/* Ensure proper heading styles in location-content with FuturaPT-Book */
 .location-content h1 {
   font-size: 2rem !important;
   font-weight: 700 !important;
   line-height: 1.2 !important;
   margin-bottom: 1rem !important;
   margin-top: 1.5rem !important;
-  color: #111827 !important;
+  color: #000 !important;
   text-align: left !important;
+  font-family: 'FuturaPT-Book', Arial, Helvetica, sans-serif !important;
 }
 
 .location-content h2 {
@@ -60,8 +155,9 @@ body {
   line-height: 1.3 !important;
   margin-bottom: 0.75rem !important;
   margin-top: 1.25rem !important;
-  color: #111827 !important;
+  color: #000 !important;
   text-align: left !important;
+  font-family: 'FuturaPT-Book', Arial, Helvetica, sans-serif !important;
 }
 
 .location-content h3 {
@@ -70,8 +166,9 @@ body {
   line-height: 1.4 !important;
   margin-bottom: 0.5rem !important;
   margin-top: 1rem !important;
-  color: #111827 !important;
+  color: #000 !important;
   text-align: left !important;
+  font-family: 'FuturaPT-Book', Arial, Helvetica, sans-serif !important;
 }
 
 .location-content h4 {
@@ -80,8 +177,9 @@ body {
   line-height: 1.4 !important;
   margin-bottom: 0.5rem !important;
   margin-top: 0.75rem !important;
-  color: #111827 !important;
+  color: #000 !important;
   text-align: left !important;
+  font-family: 'FuturaPT-Book', Arial, Helvetica, sans-serif !important;
 }
 
 .location-content h5 {
@@ -90,8 +188,9 @@ body {
   line-height: 1.4 !important;
   margin-bottom: 0.5rem !important;
   margin-top: 0.75rem !important;
-  color: #111827 !important;
+  color: #000 !important;
   text-align: left !important;
+  font-family: 'FuturaPT-Book', Arial, Helvetica, sans-serif !important;
 }
 
 .location-content h6 {
@@ -100,26 +199,33 @@ body {
   line-height: 1.4 !important;
   margin-bottom: 0.5rem !important;
   margin-top: 0.75rem !important;
-  color: #111827 !important;
+  color: #000 !important;
   text-align: left !important;
+  font-family: 'FuturaPT-Book', Arial, Helvetica, sans-serif !important;
 }
 
 .location-content p {
   margin-bottom: 1rem !important;
   line-height: 1.6 !important;
   text-align: left !important;
+  font-family: 'FuturaPT-Book', Arial, Helvetica, sans-serif !important;
+  color: #000 !important;
 }
 
 .location-content ul, .location-content ol {
   margin-bottom: 1rem !important;
   padding-left: 1.5rem !important;
   text-align: left !important;
+  font-family: 'FuturaPT-Book', Arial, Helvetica, sans-serif !important;
+  color: #000 !important;
 }
 
 .location-content li {
   margin-bottom: 0.25rem !important;
   line-height: 1.6 !important;
   text-align: left !important;
+  font-family: 'FuturaPT-Book', Arial, Helvetica, sans-serif !important;
+  color: #000 !important;
 }
 
 .location-content blockquote {
@@ -127,16 +233,60 @@ body {
   padding-left: 1rem !important;
   margin: 1rem 0 !important;
   font-style: italic !important;
-  color: #6b7280 !important;
+  color: #000 !important;
   text-align: left !important;
+  font-family: 'FuturaPT-Book', Arial, Helvetica, sans-serif !important;
 }
 
 .location-content strong {
   font-weight: 700 !important;
   text-align: left !important;
+  font-family: 'FuturaPT-Book', Arial, Helvetica, sans-serif !important;
+  color: #000 !important;
 }
 
 .location-content em {
   font-style: italic !important;
   text-align: left !important;
+  font-family: 'FuturaPT-Book', Arial, Helvetica, sans-serif !important;
+  color: #000 !important;
+}
+
+/* Mobile-specific line heights for location-content */
+@media (max-width: 768px) {
+  .location-content h1 {
+    line-height: 1.1 !important;
+  }
+  
+  .location-content h2 {
+    line-height: 1.2 !important;
+  }
+  
+  .location-content h3 {
+    line-height: 1.2 !important;
+  }
+  
+  .location-content h4 {
+    line-height: 1.2 !important;
+  }
+  
+  .location-content h5 {
+    line-height: 1.2 !important;
+  }
+  
+  .location-content h6 {
+    line-height: 1.2 !important;
+  }
+  
+  .location-content p {
+    line-height: 1.3 !important;
+  }
+  
+  .location-content li {
+    line-height: 1.3 !important;
+  }
+  
+  .location-content blockquote {
+    line-height: 1.3 !important;
+  }
 }

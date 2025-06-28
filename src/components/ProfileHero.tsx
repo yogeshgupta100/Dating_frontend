@@ -6,13 +6,10 @@ const ProfileHero: React.FC<{ banner_img: any }> = ({ banner_img }) => {
     <div className="w-full mb-10">
       <div className="relative w-full h-64 md:h-80 flex items-center justify-center bg-gray-300">
         <img
-          src={banner_img || "/banner_image.jpg"}
+          src={banner_img ?? "/banner_image.jpg"}
           alt="Video section background"
           className="absolute inset-0 w-full h-full object-cover object-center opacity-80"
         />
-        <h1 className="relative z-10 text-white text-3xl md:text-5xl font-bold text-center drop-shadow-lg">
-          Video section
-        </h1>
       </div>
     </div>
   );

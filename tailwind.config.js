@@ -6,7 +6,11 @@ module.exports = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'futura': ['FuturaPT-Book', 'Arial', 'Helvetica', 'sans-serif'],
+      },
+    },
   },
   plugins: [],
 };
