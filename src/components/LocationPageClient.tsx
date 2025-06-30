@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
@@ -25,8 +25,8 @@ import {
   generateMetaDescription,
   generateProfileSlug,
 } from "../utils/slug";
-import { useProfileStore } from '../store/profileStore';
-import { renderHtmlContent } from '../utils/htmlUtils';
+import { useProfileStore } from "../store/profileStore";
+import { renderHtmlContent } from "../utils/htmlUtils";
 import { VerifiedSection } from "./VerifiedSection";
 import Gallery from "./Gallery";
 
@@ -184,13 +184,15 @@ export default function LocationPageClient() {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="text-center mb-12">
-            <h1 className="text-2xl md:text-4xl md:w-3/4 mx-auto font-bold text-gray-900 mb-4">
+            <h1 className="text-2xl md:text-4xl md:w-3/4 mx-auto font-bold text-gray-900 mb-4 location-content">
               {location?.heading}
             </h1>
             <div
-                className="text-lg text-gray-800 max-w-6xl mx-auto md:pt-4 location-content"
-                dangerouslySetInnerHTML={renderHtmlContent(location?.sub_heading || "")}
-              />
+              className="text-lg text-gray-800 max-w-6xl mx-auto md:pt-4 location-content"
+              dangerouslySetInnerHTML={renderHtmlContent(
+                location?.sub_heading || ""
+              )}
+            />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 mb-16">
@@ -218,13 +220,15 @@ export default function LocationPageClient() {
               />
             ))}
           </div>
-          <Gallery showHeading={false}/>
+          <Gallery showHeading={false} />
 
           <section className="mb-20">
             <div className="text-center mb-12">
               <div
                 className="bg-white p-8 rounded-2xl shadow-lg overflow-hidden text-gray-600 location-content"
-                dangerouslySetInnerHTML={renderHtmlContent(location?.content || "")}
+                dangerouslySetInnerHTML={renderHtmlContent(
+                  location?.content || ""
+                )}
               />
             </div>
           </section>
@@ -270,7 +274,7 @@ export default function LocationPageClient() {
               ))}
             </div>
           </section>
-          
+
           <VerifiedSection />
 
           <section className="mb-20">
@@ -285,7 +289,6 @@ export default function LocationPageClient() {
             </div>
             <CarCarousel images={galleryImages} />
           </section>
-
 
           <div className="max-w-6xl mx-auto">
             <Disclaimer />
@@ -303,4 +306,4 @@ export default function LocationPageClient() {
       <Footer />
     </>
   );
-} 
+}

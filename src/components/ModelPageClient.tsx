@@ -16,7 +16,6 @@ import { slugToText } from "../utils/slug";
 import { useProfileStore } from "../store/profileStore";
 import Tick from "../assets/svgs/Tick.svg";
 import { renderHtmlContent } from "../utils/htmlUtils";
-import { VerifiedSection } from "./VerifiedSection";
 import { LoadingSpinner } from "./LoadingSpinner";
 
 export default function ModelPageClient() {
@@ -214,8 +213,8 @@ export default function ModelPageClient() {
               <div className="w-full md:w-96 mb-6 md:mb-0 flex justify-center md:justify-start">
                 <div className="w-80 h-80 md:w-96 md:h-96">
                   <img
-                    src={profile?.profile_img as any || "/default-profile.jpg"}
-                    alt={profile?.name as any || "Profile"}
+                    src={profile?.profile_img as any ?? "/default-profile.jpg"}
+                    alt={profile?.name as any ?? "Profile"}
                     className="w-full h-full rounded-xl object-cover shadow-lg bg-white"
                   />
                 </div>
@@ -225,28 +224,28 @@ export default function ModelPageClient() {
               <div className="flex flex-col w-full md:w-auto md:py-8">
                 {/* Name and Verification */}
                 <div className="flex items-center justify-center md:justify-start mb-4 md:mb-4">
-                  <span className="text-2xl md:text-3xl lg:text-4xl text-gray-900 mr-2 font-serif text-center md:text-left">
+                  <div className="text-2xl md:text-3xl lg:text-4xl text-gray-900 mr-2 font-serif text-center md:text-left">
                     {profile?.name}
-                  </span>
+                  </div>
                   <div className="flex items-center justify-center md:justify-start">
                     <Tick
                       className="w-7 h-7 md:w-7 md:h-7"
                       alt="Verified"
-                    />
-                  </div>
+                      />
+                    </div>
                 </div>
                 
                 {/* Heading */}
-                <div className="w-full mb-4 md:mb-0">
-                  <h1 className="text-lg md:text-2xl text-gray-900 font-bold leading-relaxed font-sans mb-4 text-center md:text-left">
+                <div className="w-full mb-4 md:mb-0 location-content">
+                  <h1 className="text-gray-900 font-bold leading-relaxed mb-4 text-center md:text-left">
                     {profile?.heading}
                   </h1>
                 </div>
                 
                 {/* Description */}
-                <div className="w-full">
+                <div className="w-full location-content">
                   <div
-                    className="text-base md:text-xl text-gray-900 leading-relaxed font-sans font-light text-center md:text-left location-content px-2 md:px-0"
+                    className="text-gray-900 leading-relaxed text-center md:text-left px-2 md:px-0"
                     dangerouslySetInnerHTML={renderHtmlContent(
                       profile?.description || ""
                     )}

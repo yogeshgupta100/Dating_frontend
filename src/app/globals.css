@@ -149,6 +149,39 @@ label, input, textarea, select, button, th, td, caption, figcaption, legend, fie
   font-family: 'FuturaPT-Book', Arial, Helvetica, sans-serif !important;
 }
 
+/* Override Tailwind font size classes for location-content headings */
+.location-content h1.text-lg {
+  font-size: 1.125rem !important;
+}
+
+.location-content h1.text-xl {
+  font-size: 1.25rem !important;
+}
+
+.location-content h1.text-2xl {
+  font-size: 1.5rem !important;
+}
+
+.location-content h1.text-3xl {
+  font-size: 1.875rem !important;
+}
+
+.location-content h1.text-4xl {
+  font-size: 2.25rem !important;
+}
+
+.location-content h1.md\:text-2xl {
+  font-size: 1.5rem !important;
+}
+
+.location-content h1.md\:text-3xl {
+  font-size: 1.875rem !important;
+}
+
+.location-content h1.md\:text-4xl {
+  font-size: 2.25rem !important;
+}
+
 .location-content h2 {
   font-size: 1.5rem !important;
   font-weight: 600 !important;

@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -14,14 +14,13 @@ import { api } from "../services/api";
 import { generateUniqueSlug } from "../utils/slug";
 import Header from "./Header";
 import Footer from "./Footer";
-import { renderHtmlContent } from '../utils/htmlUtils';
+import { renderHtmlContent } from "../utils/htmlUtils";
 import { VerifiedSection } from "./VerifiedSection";
 import Gallery from "./Gallery";
 
 const carImages = [
   "http://res.cloudinary.com/dpmknwklm/image/upload/v1751050380/dating-app/banners/fefp5wju9louqsqy9j2d.jpg",
   "http://res.cloudinary.com/dpmknwklm/image/upload/v1751050513/dating-app/profiles/byl4mt7g46ewv6jzoe87.jpg",
-  // "http://res.cloudinary.com/dpmknwklm/image/upload/v1751050459/dating-app/banners/az09b062duh3bceedxzl.jpg",
   "http://res.cloudinary.com/dpmknwklm/image/upload/v1751050513/dating-app/banners/skse6swh4lklbzigazx9.jpg",
   "http://res.cloudinary.com/dpmknwklm/image/upload/v1751050458/dating-app/profiles/fgsym9bjyi9mxxumhpje.jpg",
   "http://res.cloudinary.com/dpmknwklm/image/upload/v1751050379/dating-app/profiles/sjinrqpbizy9qdri4kqz.jpg",
@@ -36,7 +35,12 @@ export default function HomePageClient() {
 
   const handleStateClick = (location: LocationResponse) => {
     // Use slug if available, otherwise generate one from name
-    const slug = location.slug || generateUniqueSlug(location.name, states.map(s => s.slug).filter(Boolean));
+    const slug =
+      location.slug ||
+      generateUniqueSlug(
+        location.name,
+        states.map((s) => s.slug).filter(Boolean)
+      );
     router.push(`/${slug}`);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -50,7 +54,7 @@ export default function HomePageClient() {
     const phoneNumber = async () => {
       const phoneNumber = await api.getPhoneNumber();
       setPhoneNumber(phoneNumber);
-    }
+    };
     phoneNumber();
   }, []);
 
@@ -64,12 +68,12 @@ export default function HomePageClient() {
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           {/* Introduction */}
           <section className="mb-20">
-            <div className="text-center mb-12">
-              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+            <div className="text-center mb-12 location-content flex flex-col items-center">
+              <h1 className="mb-6">
                 Delhi Escorts Service offers Cash Payment & Free Delivery
               </h1>
               <div
-                className="max-w-5xl mx-auto space-y-6 text-lg text-gray-600 leading-relaxed location-content"
+                className="max-w-5xl mx-auto space-y-6"
                 dangerouslySetInnerHTML={renderHtmlContent(paragraph || "")}
               />
             </div>
@@ -77,30 +81,26 @@ export default function HomePageClient() {
 
           {/* Car Carousel Section */}
           <section className="mb-20">
-            <div className="text-center mb-12">
-              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                100% Real Models
-              </h1>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <div className="text-center flex flex-col items-center mb-12 location-content">
+              <h1 className="mb-4">100% Real Models</h1>
+              <div className="max-w-2xl mx-auto location-content">
                 Experience the finer things in life with like-minded individuals
                 who share your passion for excellence.
-              </p>
+              </div>
             </div>
             <CarCarousel images={carImages} />
           </section>
 
           {/* About Us Section */}
           <section id="about" className="mb-20">
-            <div className="bg-white rounded-3xl shadow-lg p-8 md:p-12">
-              <div className="text-center mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                  About Us
-                </h2>
+            <div className="bg-white rounded-3xl shadow-lg p-8 md:p-6">
+              <div className="text-center location-content flex flex-col items-center">
+                <h2 className="mb-6">About Us</h2>
               </div>
-              <div className="space-y-6 text-lg text-gray-700 leading-relaxed">
-                <p>{paragraph}</p>
-                <p>{paragraph}</p>
-                <p>{paragraph}</p>
+              <div className="space-y-6 leading-relaxed location-content">
+                <div className="location-content">{paragraph}</div>
+                <div className="location-content">{paragraph}</div>
+                <div className="location-content">{paragraph}</div>
               </div>
             </div>
           </section>
@@ -113,21 +113,17 @@ export default function HomePageClient() {
           {/* States Coverage */}
           <section className="mb-20">
             <div className="bg-gradient-to-br from-blue-50 to-indigo-100 rounded-3xl p-8 md:p-12">
-              <div className="text-center mb-8">
-                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-                  States We Cover
-                </h2>
-                <p className="text-lg text-gray-600">
+              <div className="text-center mb-8 location-content flex flex-col items-center">
+                <h2 className="mb-4">States We Cover</h2>
+                <div className="location-content">
                   Find your perfect match across India's diverse regions
-                </p>
+                </div>
               </div>
               <div className="flex flex-wrap justify-center gap-3">
                 {states.map((state, idx) => (
                   <button
                     key={idx}
-                    onClick={() =>
-                      handleStateClick(state)
-                    }
+                    onClick={() => handleStateClick(state)}
                     className="bg-white px-6 py-3 rounded-full text-gray-800 font-medium shadow-sm hover:shadow-lg transition-all duration-200 cursor-pointer hover:bg-red-50 hover:text-red-600 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
                   >
                     {state.name}
@@ -154,4 +150,4 @@ export default function HomePageClient() {
       <Footer />
     </>
   );
-} 
+}
