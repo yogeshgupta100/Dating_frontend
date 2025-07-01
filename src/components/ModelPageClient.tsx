@@ -203,27 +203,26 @@ export default function ModelPageClient() {
 
         {!loading && !error && profile && (
           <>
-            <ProfileHero
-              banner_img={profile?.banner_img as any}
-            />
-            
+            <ProfileHero banner_img={profile?.banner_img as any} />
+
             {/* Profile Section - Mobile Optimized */}
             <div className="pt-6 md:pt-12 px-4 md:px-24 w-full mx-auto flex flex-col md:flex-row md:gap-20 items-start bg-gray-50 justify-between">
               {/* Profile Image - Mobile Responsive */}
               <div className="w-full md:w-96 mb-6 md:mb-0 flex justify-center md:justify-start">
                 <div className="w-80 h-80 md:w-96 md:h-96">
                   <img
-                    src={profile?.profile_img as any ?? "/default-profile.jpg"}
-                    alt={profile?.name as any ?? "Profile"}
+                    src={
+                      (profile?.profile_img as any) ?? "/default-profile.jpg"
+                    }
+                    alt={(profile?.name as any) ?? "Profile"}
                     className="w-full h-full rounded-xl object-cover shadow-lg bg-white"
                   />
                 </div>
               </div>
-              
+
               {/* Profile Info - Mobile Optimized */}
               <div className="flex flex-col w-full md:w-auto md:py-8">
-                {/* Name and Verification */}
-                <div className="flex items-center justify-center md:justify-start mb-4 md:mb-4">
+                {/* <div className="flex items-center justify-center md:justify-start mb-4 md:mb-4">
                   <div className="text-2xl md:text-3xl lg:text-4xl text-gray-900 mr-2 font-serif text-center md:text-left">
                     {profile?.name}
                   </div>
@@ -233,15 +232,15 @@ export default function ModelPageClient() {
                       alt="Verified"
                       />
                     </div>
-                </div>
-                
+                </div> */}
+
                 {/* Heading */}
                 <div className="w-full mb-4 md:mb-0 location-content">
                   <h1 className="text-gray-900 font-bold leading-relaxed mb-4 text-center md:text-left">
                     {profile?.heading}
                   </h1>
                 </div>
-                
+
                 {/* Description */}
                 <div className="w-full location-content">
                   <div
@@ -296,7 +295,9 @@ export default function ModelPageClient() {
                       <div className="flex items-center justify-center w-5 h-5 md:w-6 md:h-6 rounded-full bg-pink-100 text-pink-600 mr-3 group-hover:bg-pink-200 transition-colors duration-200 flex-shrink-0">
                         <CheckCircle className="w-3 h-3 md:w-3 md:h-3" />
                       </div>
-                      <span className="text-xs md:text-sm leading-tight">{service}</span>
+                      <span className="text-xs md:text-sm leading-tight">
+                        {service}
+                      </span>
                     </div>
                   ))}
                 </div>

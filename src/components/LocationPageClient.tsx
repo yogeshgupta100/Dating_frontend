@@ -143,36 +143,24 @@ export default function LocationPageClient() {
   // Dynamic FAQ content using location name from API
   const faqs = [
     {
-      question: `How does the matching process work in ${
-        location?.faq || locationName
-      }?`,
-      answer: `Our advanced algorithm considers your preferences, interests, values, and lifestyle to suggest compatible matches in ${
+      question: `How to find call girl in ${location?.faq || locationName}?`,
+      answer: `To get the top call girls in ${
         faqData || locationName
-      }. We also factor in location, education, and family background to ensure meaningful connections.`,
+      }, it is essential to do your research and select a service with a strong reputation and a tested track report of happy clients. Also, you can go through reviews and consult friends or internet forums for hints.`,
     },
     {
-      question: `Is my personal information secure with ${
+      question: `How do I book a call girl in ${
         location?.faq || locationName
       } escorts?`,
-      answer: `Absolutely! We use industry-standard encryption and security measures to protect your data in ${
-        faqData || locationName
-      }. Your privacy is our top priority, and we never share your information with third parties without your consent.`,
+      answer: `Book via WhatsApp, phone call, or online reservation; review profiles, choose your match, and quietly confirm the specifics.`,
     },
     {
-      question: `What makes your ${
-        location?.faq || locationName
-      } platform different?`,
-      answer: `We focus on quality over quantity in ${
-        location?.faq || locationName
-      }, with verified profiles and personalized matchmaking. Our team manually reviews each profile to ensure authenticity and provides ongoing support throughout your journey.`,
+      question: `Are the services safe and confidential?`,
+      answer: `Indeed, reliable companies guarantee confidentiality, privacy, and professional behavior to provide a hassle free service.`,
     },
     {
-      question: `How can I increase my chances of finding a match in ${
-        location?.faq || locationName
-      }?`,
-      answer: `Complete your profile with genuine information, upload recent photos, and be active on the ${
-        location?.faq || locationName
-      } platform. Be clear about your expectations and remain open to meaningful conversations with potential matches.`,
+      question: `What are the payment options?`,
+      answer: `Pay with cash, UPI, credit cards, or safe digital transfers for a seamless, stress free booking.`,
     },
   ];
 
