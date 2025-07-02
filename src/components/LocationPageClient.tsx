@@ -209,7 +209,7 @@ export default function LocationPageClient() {
           <Gallery showHeading={false} />
 
           <section className="mb-20">
-            <div className="text-center mb-12">
+            <div className="mb-12">
               <div
                 className="bg-white p-8 rounded-2xl shadow-lg overflow-hidden location-content text-left"
                 dangerouslySetInnerHTML={renderHtmlContent(
