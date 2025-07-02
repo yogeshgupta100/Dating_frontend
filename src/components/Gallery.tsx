@@ -4,7 +4,7 @@ const peopleImages = [
   "http://res.cloudinary.com/dpmknwklm/image/upload/v1751049989/dating-app/profiles/dojb5cqr52mk3ga3vpml.jpg",
   "http://res.cloudinary.com/dpmknwklm/image/upload/v1751049990/dating-app/banners/ykqumosukus28xrwxvwg.jpg",
   "http://res.cloudinary.com/dpmknwklm/image/upload/v1751050049/dating-app/profiles/iqqwqwwcxcr2r7bbzi0q.jpg",
-  "http://res.cloudinary.com/dpmknwklm/image/upload/v1751050049/dating-app/profiles/iqqwqwwcxcr2r7bbzi0q.jpg",
+  "http://res.cloudinary.com/dpmknwklm/image/upload/v1751465865/dating-app/banners/fc5p4mw16fk4e6mopvvt.jpg",
   "http://res.cloudinary.com/dpmknwklm/image/upload/v1751050111/dating-app/profiles/g3xrm1lrfh29ewmjmlpy.jpg",
   "http://res.cloudinary.com/dpmknwklm/image/upload/v1751050112/dating-app/banners/oyalqpnjkkujluuyijqw.jpg",
   "http://res.cloudinary.com/dpmknwklm/image/upload/v1751050173/dating-app/profiles/kxvsxbcpeff2feu6tzbu.jpg",
