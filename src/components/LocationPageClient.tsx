@@ -212,6 +212,7 @@ export default function LocationPageClient() {
             <div className="mb-12">
               <div
                 className="bg-white p-8 rounded-2xl shadow-lg overflow-hidden location-content text-left"
+                style={{ textAlign: "left" }}
                 dangerouslySetInnerHTML={renderHtmlContent(
                   location?.content || ""
                 )}
