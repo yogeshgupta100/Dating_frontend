@@ -211,7 +211,7 @@ export default function LocationPageClient() {
           <section className="mb-20">
             <div className="text-center mb-12">
               <div
-                className="bg-white p-8 rounded-2xl shadow-lg overflow-hidden text-gray-600 location-content"
+                className="bg-white p-8 rounded-2xl shadow-lg overflow-hidden location-content text-left"
                 dangerouslySetInnerHTML={renderHtmlContent(
                   location?.content || ""
                 )}
