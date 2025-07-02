@@ -1,17 +1,24 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import Header from '../../../components/admin/Header';
-import ModelForm from '../../../components/admin/ModelForm';
-import { Model, LocationResponse } from '../../../services/index';
-import { createModel, deleteModel, getModels, updateModel } from '../../../services/models';
-import { getLocations } from '../../../services/Locations';
+import React, { useState, useEffect } from "react";
+import Header from "../../../components/admin/Header";
+import ModelForm from "../../../components/admin/ModelForm";
+import { Model, LocationResponse } from "../../../services/index";
+import {
+  createModel,
+  deleteModel,
+  getModels,
+  updateModel,
+} from "../../../services/models";
+import { getLocations } from "../../../services/Locations";
 
 export default function AdminModelsPage() {
   const [models, setModels] = useState<Model[]>([]);
   const [locations, setLocations] = useState<LocationResponse[]>([]);
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const [selectedModel, setSelectedModel] = useState<Model | undefined>(undefined);
+  const [selectedModel, setSelectedModel] = useState<Model | undefined>(
+    undefined
+  );
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -22,18 +29,18 @@ export default function AdminModelsPage() {
     try {
       const [modelsData, locationsData] = await Promise.all([
         getModels(),
-        getLocations()
+        getLocations(),
       ]);
       setModels(modelsData);
       setLocations(locationsData);
       setIsLoading(false);
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error("Error fetching data:", error);
       setIsLoading(false);
     }
   };
 
-  const handleSubmit = async (formData: Omit<Model, 'id'>) => {
+  const handleSubmit = async (formData: Omit<Model, "id">) => {
     try {
       if (selectedModel) {
         await updateModel(selectedModel.id.toString(), formData);
@@ -44,17 +51,17 @@ export default function AdminModelsPage() {
       setIsFormOpen(false);
       setSelectedModel(undefined);
     } catch (error) {
-      console.error('Error saving model:', error);
+      console.error("Error saving model:", error);
     }
   };
 
   const handleDelete = async (id: string) => {
-    if (window.confirm('Are you sure you want to delete this model?')) {
+    if (window.confirm("Are you sure you want to delete this model?")) {
       try {
         await deleteModel(id);
         fetchData();
       } catch (error) {
-        console.error('Error deleting model:', error);
+        console.error("Error deleting model:", error);
       }
     }
   };
@@ -65,8 +72,8 @@ export default function AdminModelsPage() {
   };
 
   const getLocationName = (stateId: string) => {
-    const location = locations.find(loc => loc.id.toString() === stateId);
-    return location ? location.name : 'Unknown';
+    const location = locations.find((loc) => loc.id.toString() === stateId);
+    return location ? location.name : "Unknown";
   };
 
   if (isLoading) {
@@ -85,11 +92,11 @@ export default function AdminModelsPage() {
   return (
     <div className="min-h-screen bg-gray-100">
       <Header title="Models" />
-      
+
       <main className="pt-20 pl-64">
         <div className="p-6">
           <div className="flex justify-between items-center mb-6">
-            <h1 className="text-2xl font-semibold text-gray-900">Models</h1>
+            <div className="text-2xl font-semibold text-gray-900">Models</div>
             <button
               onClick={() => {
                 setSelectedModel(undefined);
@@ -142,7 +149,7 @@ export default function AdminModelsPage() {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="text-sm text-gray-500 font-mono">
-                          {model.slug || 'No slug'}
+                          {model.slug || "No slug"}
                         </div>
                         {model.slug && (
                           <div className="text-xs text-blue-600">
@@ -151,7 +158,9 @@ export default function AdminModelsPage() {
                         )}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-500">{model.phone_number}</div>
+                        <div className="text-sm text-gray-500">
+                          {model.phone_number}
+                        </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <button
@@ -177,4 +186,4 @@ export default function AdminModelsPage() {
       </main>
     </div>
   );
-} 
+}

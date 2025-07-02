@@ -68,12 +68,12 @@ export default function HomePageClient() {
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           {/* Introduction */}
           <section className="mb-20">
-            <div className="text-center mb-12 location-content flex flex-col items-center">
-              <h1 className="mb-6">
+            <div className="mb-12 location-content flex flex-col">
+              <h1 className="mb-6 w-full text-center md:text-center lg:text-center">
                 Delhi Escorts Service offers Cash Payment & Free Delivery
               </h1>
               <div
-                className="max-w-5xl mx-auto space-y-6"
+                className="max-w-5xl mx-auto space-y-6 location-content text-center"
                 dangerouslySetInnerHTML={renderHtmlContent(paragraph || "")}
               />
             </div>
@@ -93,10 +93,10 @@ export default function HomePageClient() {
 
           {/* About Us Section */}
           <section id="about" className="mb-20">
-            <div className="bg-white rounded-3xl shadow-lg p-8 md:p-6">
-              <div className="text-center location-content flex flex-col items-center">
-                <h2 className="mb-6">About Us</h2>
-              </div>
+            <div className="bg-white rounded-3xl shadow-lg p-8 md:p-6 location-content">
+              {/* <div className="text-center location-content flex flex-col items-center"> */}
+              <h2 className="mb-6">About Us</h2>
+              {/* </div> */}
               <div className="space-y-6 leading-relaxed location-content">
                 <div className="location-content">{paragraph}</div>
                 <div className="location-content">{paragraph}</div>

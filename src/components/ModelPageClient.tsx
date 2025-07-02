@@ -236,15 +236,13 @@ export default function ModelPageClient() {
 
                 {/* Heading */}
                 <div className="w-full mb-4 md:mb-0 location-content">
-                  <h1 className="text-gray-900 font-bold leading-relaxed mb-4 text-center md:text-left">
-                    {profile?.heading}
-                  </h1>
+                  <h1 className=" mb-4">{profile?.heading}</h1>
                 </div>
 
                 {/* Description */}
                 <div className="w-full location-content">
                   <div
-                    className="text-gray-900 leading-relaxed text-center md:text-left px-2 md:px-0"
+                    className="px-2 md:px-0 location-content"
                     dangerouslySetInnerHTML={renderHtmlContent(
                       profile?.description || ""
                     )}
@@ -259,7 +257,7 @@ export default function ModelPageClient() {
                 {/* Section Header */}
                 <div className="flex items-center justify-center md:justify-start mb-6 md:mb-4">
                   <Sparkles className="w-5 h-5 text-pink-500 mr-2" />
-                  <span className="text-xl md:text-2xl font-bold text-gray-900 text-center md:text-left">
+                  <span className="text-xl md:text-2xl font-bold text-gray-900 text-center md:text-center">
                     Premium Services
                   </span>
                 </div>
@@ -303,7 +301,7 @@ export default function ModelPageClient() {
                 </div>
 
                 {/* Service Count */}
-                <div className="mt-4 text-center md:text-left">
+                <div className="mt-4 text-center md:text-center">
                   <span className="text-xs md:text-sm text-gray-600">
                     {getFilteredServices().length} premium services available
                   </span>

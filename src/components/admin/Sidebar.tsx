@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { api } from '../../services/api'; // Assuming your api object is in this path
-import { toast } from 'react-toastify';
+import React, { useState, useEffect } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { api } from "../../services/api"; // Assuming your api object is in this path
+import { toast } from "react-toastify";
 
 const Sidebar: React.FC = () => {
   const pathname = usePathname();
-  const [whatsAppNumber, setWhatsAppNumber] = useState('');
+  const [whatsAppNumber, setWhatsAppNumber] = useState("");
 
   const menuItems = [
-    { path: '/admin/locations', label: 'Locations', icon: '📍' },
-    { path: '/admin/models', label: 'Models', icon: '👥' },
+    { path: "/admin/locations", label: "Locations", icon: "📍" },
+    { path: "/admin/models", label: "Models", icon: "👥" },
   ];
 
   useEffect(() => {
@@ -18,11 +18,11 @@ const Sidebar: React.FC = () => {
       try {
         const data = await api.getPhoneNumber();
         const phoneNumber = (data as any)?.phone_number;
-        if (typeof phoneNumber === 'string') {
+        if (typeof phoneNumber === "string") {
           setWhatsAppNumber(phoneNumber);
         }
       } catch (error) {
-        console.error('Error fetching phone number:', error);
+        console.error("Error fetching phone number:", error);
       }
     };
     fetchNumber();
@@ -31,17 +31,17 @@ const Sidebar: React.FC = () => {
   const handleSave = async () => {
     try {
       await api.createPhoneNumber(whatsAppNumber);
-      toast.success('WhatsApp number saved successfully!');
+      toast.success("WhatsApp number saved successfully!");
     } catch (error) {
-      console.error('Error saving WhatsApp number:', error);
-      toast.error('Failed to save WhatsApp number.');
+      console.error("Error saving WhatsApp number:", error);
+      toast.error("Failed to save WhatsApp number.");
     }
   };
 
   return (
     <div className="w-64 h-screen bg-gray-800 text-white fixed left-0 top-0">
       <div className="p-4">
-        <h1 className="text-2xl font-bold mb-8">Admin Panel</h1>
+        <div className="text-2xl font-bold mb-8 text-white">Admin Panel</div>
         <nav>
           <ul>
             {menuItems.map((item) => (
@@ -49,7 +49,7 @@ const Sidebar: React.FC = () => {
                 <Link
                   href={item.path}
                   className={`flex items-center p-2 rounded-lg hover:bg-gray-700 ${
-                    pathname === item.path ? 'bg-gray-700' : ''
+                    pathname === item.path ? "bg-gray-700" : ""
                   }`}
                 >
                   <span className="mr-2">{item.icon}</span>
@@ -62,10 +62,15 @@ const Sidebar: React.FC = () => {
       </div>
       {/* WhatsApp Section */}
       <div className="p-4 border-t border-gray-700 mt-4">
-        <h2 className="text-lg font-semibold mb-2 flex items-center">
+        <div className="text-lg font-semibold mb-2 flex items-center">
           <span className="mr-2">🟢</span> WhatsApp
-        </h2>
-        <label htmlFor="whatsapp-number" className="block text-sm mb-1 text-gray-300">Number</label>
+        </div>
+        <label
+          htmlFor="whatsapp-number"
+          className="block text-sm mb-1 text-gray-300"
+        >
+          Number
+        </label>
         <input
           id="whatsapp-number"
           type="tel"
@@ -85,4 +90,4 @@ const Sidebar: React.FC = () => {
   );
 };
 
-export default Sidebar; 
+export default Sidebar;

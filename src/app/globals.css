@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Jost Font Import */
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 /* FuturaPT-Book Font */
 @font-face {
   font-family: 'FuturaPT-Book';
@@ -32,88 +35,242 @@
   }
 }
 
-body {
+body:not([class*="admin"]):not([class*="sidebar"]) {
   background: var(--background);
   color: var(--foreground);
-  font-family: 'FuturaPT-Book', Arial, Helvetica, sans-serif;
+  /* font-family: 'FuturaPT-Book', Arial, Helvetica, sans-serif; */
+  font-family: 'Jost', sans-serif;
 }
 
-/* Global heading styles with FuturaPT-Book font and #000 color */
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'FuturaPT-Book', Arial, Helvetica, sans-serif !important;
+/* Global heading styles with Jost font - excluding admin panel and sidebar */
+body:not([class*="admin"]):not([class*="sidebar"]) h1, 
+body:not([class*="admin"]):not([class*="sidebar"]) h2, 
+body:not([class*="admin"]):not([class*="sidebar"]) h3, 
+body:not([class*="admin"]):not([class*="sidebar"]) h4, 
+body:not([class*="admin"]):not([class*="sidebar"]) h5, 
+body:not([class*="admin"]):not([class*="sidebar"]) h6 {
+  font-family: 'Jost', sans-serif !important;
   color: #000 !important;
 }
 
-/* Mobile-specific line height for headings */
+/* Specific font sizes for headings - excluding admin panel and sidebar */
+body:not([class*="admin"]):not([class*="sidebar"]) h1 {
+  font-size: 48px !important;
+}
+
+/* Mobile-specific line height for headings - excluding admin panel and sidebar */
 @media (max-width: 768px) {
-  h1, h2, h3, h4, h5, h6 {
+  body:not([class*="admin"]):not([class*="sidebar"]) h1, 
+  body:not([class*="admin"]):not([class*="sidebar"]) h2, 
+  body:not([class*="admin"]):not([class*="sidebar"]) h3, 
+  body:not([class*="admin"]):not([class*="sidebar"]) h4, 
+  body:not([class*="admin"]):not([class*="sidebar"]) h5, 
+  body:not([class*="admin"]):not([class*="sidebar"]) h6 {
     line-height: 1.2 !important;
+  }
+  
+  /* Mobile font sizes */
+  body:not([class*="admin"]):not([class*="sidebar"]) h1 {
+    font-size: 32px !important;
+  }
+  
+  body:not([class*="admin"]):not([class*="sidebar"]) p {
+    font-size: 16px !important;
   }
 }
 
-/* Global text styles with FuturaPT-Book font and #000 color */
-p, li, blockquote, span, div, a, strong, em, b, i, u, small, sub, sup, mark, del, ins, code, pre, kbd, samp, var, cite, abbr, acronym, dfn, address, q, time, data, ruby, rt, rp, bdi, bdo, wbr {
-  font-family: 'FuturaPT-Book', Arial, Helvetica, sans-serif !important;
-  color: #000 !important;
+/* Global text styles with FuturaPT-Book font and #000 color - excluding admin panel and sidebar */
+body:not([class*="admin"]):not([class*="sidebar"]) p, 
+body:not([class*="admin"]):not([class*="sidebar"]) li, 
+body:not([class*="admin"]):not([class*="sidebar"]) blockquote, 
+body:not([class*="admin"]):not([class*="sidebar"]) span, 
+body:not([class*="admin"]):not([class*="sidebar"]) div, 
+body:not([class*="admin"]):not([class*="sidebar"]) a, 
+body:not([class*="admin"]):not([class*="sidebar"]) strong, 
+body:not([class*="admin"]):not([class*="sidebar"]) em, 
+body:not([class*="admin"]):not([class*="sidebar"]) b, 
+body:not([class*="admin"]):not([class*="sidebar"]) i, 
+body:not([class*="admin"]):not([class*="sidebar"]) u, 
+body:not([class*="admin"]):not([class*="sidebar"]) small, 
+body:not([class*="admin"]):not([class*="sidebar"]) sub, 
+body:not([class*="admin"]):not([class*="sidebar"]) sup, 
+body:not([class*="admin"]):not([class*="sidebar"]) mark, 
+body:not([class*="admin"]):not([class*="sidebar"]) del, 
+body:not([class*="admin"]):not([class*="sidebar"]) ins, 
+body:not([class*="admin"]):not([class*="sidebar"]) code, 
+body:not([class*="admin"]):not([class*="sidebar"]) pre, 
+body:not([class*="admin"]):not([class*="sidebar"]) kbd, 
+body:not([class*="admin"]):not([class*="sidebar"]) samp, 
+body:not([class*="admin"]):not([class*="sidebar"]) var, 
+body:not([class*="admin"]):not([class*="sidebar"]) cite, 
+body:not([class*="admin"]):not([class*="sidebar"]) abbr, 
+body:not([class*="admin"]):not([class*="sidebar"]) acronym, 
+body:not([class*="admin"]):not([class*="sidebar"]) dfn, 
+body:not([class*="admin"]):not([class*="sidebar"]) address, 
+body:not([class*="admin"]):not([class*="sidebar"]) q, 
+body:not([class*="admin"]):not([class*="sidebar"]) time, 
+body:not([class*="admin"]):not([class*="sidebar"]) data, 
+body:not([class*="admin"]):not([class*="sidebar"]) ruby, 
+body:not([class*="admin"]):not([class*="sidebar"]) rt, 
+body:not([class*="admin"]):not([class*="sidebar"]) rp, 
+body:not([class*="admin"]):not([class*="sidebar"]) bdi, 
+body:not([class*="admin"]):not([class*="sidebar"]) bdo, 
+body:not([class*="admin"]):not([class*="sidebar"]) wbr {
+  /* font-family: 'FuturaPT-Book', Arial, Helvetica, sans-serif !important; */
+  font-family: 'Jost', sans-serif !important;
 }
 
-/* Mobile-specific line height for text content */
+/* Specific font size for paragraphs - excluding admin panel and sidebar */
+body:not([class*="admin"]):not([class*="sidebar"]) p {
+  font-size: 18px !important;
+}
+
+/* Mobile-specific line height for text content - excluding admin panel and sidebar */
 @media (max-width: 768px) {
-  p, li, blockquote, span, div {
+  body:not([class*="admin"]):not([class*="sidebar"]) p, 
+  body:not([class*="admin"]):not([class*="sidebar"]) li, 
+  body:not([class*="admin"]):not([class*="sidebar"]) blockquote, 
+  body:not([class*="admin"]):not([class*="sidebar"]) span, 
+  body:not([class*="admin"]):not([class*="sidebar"]) div {
     line-height: 1.3 !important;
   }
 }
 
-/* Override any Tailwind text color classes for headings */
-h1.text-gray-900, h2.text-gray-900, h3.text-gray-900, h4.text-gray-900, h5.text-gray-900, h6.text-gray-900,
-h1.text-black, h2.text-black, h3.text-black, h4.text-black, h5.text-black, h6.text-black,
-h1.text-white, h2.text-white, h3.text-white, h4.text-white, h5.text-white, h6.text-white {
+/* Override any Tailwind text color classes for headings - excluding admin panel and sidebar */
+body:not([class*="admin"]):not([class*="sidebar"]) h1.text-gray-900, 
+body:not([class*="admin"]):not([class*="sidebar"]) h2.text-gray-900, 
+body:not([class*="admin"]):not([class*="sidebar"]) h3.text-gray-900, 
+body:not([class*="admin"]):not([class*="sidebar"]) h4.text-gray-900, 
+body:not([class*="admin"]):not([class*="sidebar"]) h5.text-gray-900, 
+body:not([class*="admin"]):not([class*="sidebar"]) h6.text-gray-900,
+body:not([class*="admin"]):not([class*="sidebar"]) h1.text-black, 
+body:not([class*="admin"]):not([class*="sidebar"]) h2.text-black, 
+body:not([class*="admin"]):not([class*="sidebar"]) h3.text-black, 
+body:not([class*="admin"]):not([class*="sidebar"]) h4.text-black, 
+body:not([class*="admin"]):not([class*="sidebar"]) h5.text-black, 
+body:not([class*="admin"]):not([class*="sidebar"]) h6.text-black {
   color: #000 !important;
 }
 
-/* Override any Tailwind text color classes for text elements */
-p.text-gray-900, li.text-gray-900, blockquote.text-gray-900, span.text-gray-900, div.text-gray-900,
-p.text-black, li.text-black, blockquote.text-black, span.text-black, div.text-black,
-p.text-white, li.text-white, blockquote.text-white, span.text-white, div.text-white,
-p.text-gray-600, li.text-gray-600, blockquote.text-gray-600, span.text-gray-600, div.text-gray-600,
-p.text-gray-700, li.text-gray-700, blockquote.text-gray-700, span.text-gray-700, div.text-gray-700 {
+/* Override any Tailwind text color classes for text elements - excluding admin panel and sidebar */
+body:not([class*="admin"]):not([class*="sidebar"]) p.text-gray-900, 
+body:not([class*="admin"]):not([class*="sidebar"]) li.text-gray-900, 
+body:not([class*="admin"]):not([class*="sidebar"]) blockquote.text-gray-900, 
+body:not([class*="admin"]):not([class*="sidebar"]) span.text-gray-900, 
+body:not([class*="admin"]):not([class*="sidebar"]) div.text-gray-900,
+body:not([class*="admin"]):not([class*="sidebar"]) p.text-black, 
+body:not([class*="admin"]):not([class*="sidebar"]) li.text-black, 
+body:not([class*="admin"]):not([class*="sidebar"]) blockquote.text-black, 
+body:not([class*="admin"]):not([class*="sidebar"]) span.text-black, 
+body:not([class*="admin"]):not([class*="sidebar"]) div.text-black,
+body:not([class*="admin"]):not([class*="sidebar"]) p.text-gray-600, 
+body:not([class*="admin"]):not([class*="sidebar"]) li.text-gray-600, 
+body:not([class*="admin"]):not([class*="sidebar"]) blockquote.text-gray-600, 
+body:not([class*="admin"]):not([class*="sidebar"]) span.text-gray-600, 
+body:not([class*="admin"]):not([class*="sidebar"]) div.text-gray-600,
+body:not([class*="admin"]):not([class*="sidebar"]) p.text-gray-700, 
+body:not([class*="admin"]):not([class*="sidebar"]) li.text-gray-700, 
+body:not([class*="admin"]):not([class*="sidebar"]) blockquote.text-gray-700, 
+body:not([class*="admin"]):not([class*="sidebar"]) span.text-gray-700, 
+body:not([class*="admin"]):not([class*="sidebar"]) div.text-gray-700 {
   color: #000 !important;
 }
 
-/* Ensure font family is applied even with Tailwind font classes */
-h1.font-bold, h2.font-bold, h3.font-bold, h4.font-bold, h5.font-bold, h6.font-bold,
-h1.font-semibold, h2.font-semibold, h3.font-semibold, h4.font-semibold, h5.font-semibold, h6.font-semibold,
-h1.font-medium, h2.font-medium, h3.font-medium, h4.font-medium, h5.font-medium, h6.font-medium {
-  font-family: 'FuturaPT-Book', Arial, Helvetica, sans-serif !important;
+/* Ensure font family is applied even with Tailwind font classes - excluding admin panel and sidebar */
+body:not([class*="admin"]):not([class*="sidebar"]) h1.font-bold, 
+body:not([class*="admin"]):not([class*="sidebar"]) h2.font-bold, 
+body:not([class*="admin"]):not([class*="sidebar"]) h3.font-bold, 
+body:not([class*="admin"]):not([class*="sidebar"]) h4.font-bold, 
+body:not([class*="admin"]):not([class*="sidebar"]) h5.font-bold, 
+body:not([class*="admin"]):not([class*="sidebar"]) h6.font-bold,
+body:not([class*="admin"]):not([class*="sidebar"]) h1.font-semibold, 
+body:not([class*="admin"]):not([class*="sidebar"]) h2.font-semibold, 
+body:not([class*="admin"]):not([class*="sidebar"]) h3.font-semibold, 
+body:not([class*="admin"]):not([class*="sidebar"]) h4.font-semibold, 
+body:not([class*="admin"]):not([class*="sidebar"]) h5.font-semibold, 
+body:not([class*="admin"]):not([class*="sidebar"]) h6.font-semibold,
+body:not([class*="admin"]):not([class*="sidebar"]) h1.font-medium, 
+body:not([class*="admin"]):not([class*="sidebar"]) h2.font-medium, 
+body:not([class*="admin"]):not([class*="sidebar"]) h3.font-medium, 
+body:not([class*="admin"]):not([class*="sidebar"]) h4.font-medium, 
+body:not([class*="admin"]):not([class*="sidebar"]) h5.font-medium, 
+body:not([class*="admin"]):not([class*="sidebar"]) h6.font-medium {
+  font-family: 'Jost', sans-serif !important;
 }
 
-/* Ensure font family is applied to text elements with Tailwind font classes */
-p.font-bold, li.font-bold, blockquote.font-bold, span.font-bold, div.font-bold,
-p.font-semibold, li.font-semibold, blockquote.font-semibold, span.font-semibold, div.font-semibold,
-p.font-medium, li.font-medium, blockquote.font-medium, span.font-medium, div.font-medium,
-p.font-normal, li.font-normal, blockquote.font-normal, span.font-normal, div.font-normal {
-  font-family: 'FuturaPT-Book', Arial, Helvetica, sans-serif !important;
+/* Ensure font family is applied to text elements with Tailwind font classes - excluding admin panel and sidebar */
+body:not([class*="admin"]):not([class*="sidebar"]) p.font-bold, 
+body:not([class*="admin"]):not([class*="sidebar"]) li.font-bold, 
+body:not([class*="admin"]):not([class*="sidebar"]) blockquote.font-bold, 
+body:not([class*="admin"]):not([class*="sidebar"]) span.font-bold, 
+body:not([class*="admin"]):not([class*="sidebar"]) div.font-bold,
+body:not([class*="admin"]):not([class*="sidebar"]) p.font-semibold, 
+body:not([class*="admin"]):not([class*="sidebar"]) li.font-semibold, 
+body:not([class*="admin"]):not([class*="sidebar"]) blockquote.font-semibold, 
+body:not([class*="admin"]):not([class*="sidebar"]) span.font-semibold, 
+body:not([class*="admin"]):not([class*="sidebar"]) div.font-semibold,
+body:not([class*="admin"]):not([class*="sidebar"]) p.font-medium, 
+body:not([class*="admin"]):not([class*="sidebar"]) li.font-medium, 
+body:not([class*="admin"]):not([class*="sidebar"]) blockquote.font-medium, 
+body:not([class*="admin"]):not([class*="sidebar"]) span.font-medium, 
+body:not([class*="admin"]):not([class*="sidebar"]) div.font-medium,
+body:not([class*="admin"]):not([class*="sidebar"]) p.font-normal, 
+body:not([class*="admin"]):not([class*="sidebar"]) li.font-normal, 
+body:not([class*="admin"]):not([class*="sidebar"]) blockquote.font-normal, 
+body:not([class*="admin"]):not([class*="sidebar"]) span.font-normal, 
+body:not([class*="admin"]):not([class*="sidebar"]) div.font-normal {
+  /* font-family: 'FuturaPT-Book', Arial, Helvetica, sans-serif !important; */
+  font-family: 'Jost', sans-serif !important;
 }
 
-/* Additional text elements and their variations */
-label, input, textarea, select, button, th, td, caption, figcaption, legend, fieldset {
-  font-family: 'FuturaPT-Book', Arial, Helvetica, sans-serif !important;
+/* Additional text elements and their variations - excluding admin panel and sidebar */
+body:not([class*="admin"]):not([class*="sidebar"]) label, 
+body:not([class*="admin"]):not([class*="sidebar"]) input, 
+body:not([class*="admin"]):not([class*="sidebar"]) textarea, 
+body:not([class*="admin"]):not([class*="sidebar"]) select, 
+body:not([class*="admin"]):not([class*="sidebar"]) button, 
+body:not([class*="admin"]):not([class*="sidebar"]) th, 
+body:not([class*="admin"]):not([class*="sidebar"]) td, 
+body:not([class*="admin"]):not([class*="sidebar"]) caption, 
+body:not([class*="admin"]):not([class*="sidebar"]) figcaption, 
+body:not([class*="admin"]):not([class*="sidebar"]) legend, 
+body:not([class*="admin"]):not([class*="sidebar"]) fieldset {
+  /* font-family: 'FuturaPT-Book', Arial, Helvetica, sans-serif !important; */
+  font-family: 'Jost', sans-serif !important;
+}
+
+/* Override any remaining Tailwind text color classes - excluding admin panel and sidebar */
+body:not([class*="admin"]):not([class*="sidebar"]) .text-gray-900, 
+body:not([class*="admin"]):not([class*="sidebar"]) .text-black, 
+body:not([class*="admin"]):not([class*="sidebar"]) .text-gray-600, 
+body:not([class*="admin"]):not([class*="sidebar"]) .text-gray-700, 
+body:not([class*="admin"]):not([class*="sidebar"]) .text-gray-500, 
+body:not([class*="admin"]):not([class*="sidebar"]) .text-gray-400 {
   color: #000 !important;
 }
 
-/* Override any remaining Tailwind text color classes */
-.text-gray-900, .text-black, .text-white, .text-gray-600, .text-gray-700, .text-gray-500, .text-gray-400 {
-  color: #000 !important;
-}
-
-/* Ensure all font weights use FuturaPT-Book */
-.font-thin, .font-extralight, .font-light, .font-normal, .font-medium, .font-semibold, .font-bold, .font-extrabold, .font-black {
-  font-family: 'FuturaPT-Book', Arial, Helvetica, sans-serif !important;
+/* Ensure all font weights use FuturaPT-Book - excluding admin panel and sidebar */
+body:not([class*="admin"]):not([class*="sidebar"]) .font-thin, 
+body:not([class*="admin"]):not([class*="sidebar"]) .font-extralight, 
+body:not([class*="admin"]):not([class*="sidebar"]) .font-light, 
+body:not([class*="admin"]):not([class*="sidebar"]) .font-normal, 
+body:not([class*="admin"]):not([class*="sidebar"]) .font-medium, 
+body:not([class*="admin"]):not([class*="sidebar"]) .font-semibold, 
+body:not([class*="admin"]):not([class*="sidebar"]) .font-bold, 
+body:not([class*="admin"]):not([class*="sidebar"]) .font-extrabold, 
+body:not([class*="admin"]):not([class*="sidebar"]) .font-black {
+  /* font-family: 'FuturaPT-Book', Arial, Helvetica, sans-serif !important; */
+  font-family: 'Jost', sans-serif !important;
 }
 
 /* Utility class for FuturaPT-Book font */
 .font-futura {
   font-family: 'FuturaPT-Book', Arial, Helvetica, sans-serif !important;
+}
+
+/* Utility class for Jost font */
+.font-jost {
+  font-family: 'Jost', sans-serif !important;
 }
 
 /* Utility class for black color */
@@ -137,127 +294,183 @@ label, input, textarea, select, button, th, td, caption, figcaption, legend, fie
   color: #ff6b35 !important;
 }
 
-/* Ensure proper heading styles in location-content with FuturaPT-Book */
+/* Ensure proper heading styles in location-content with Jost */
 .location-content h1 {
-  font-size: 2rem !important;
+  font-size: 48px !important;
   font-weight: 700 !important;
   line-height: 1.2 !important;
   margin-bottom: 1rem !important;
   margin-top: 1.5rem !important;
   color: #000 !important;
-  text-align: left !important;
-  font-family: 'FuturaPT-Book', Arial, Helvetica, sans-serif !important;
+  text-align: center !important;
+  font-family: 'Jost', sans-serif !important;
 }
 
 /* Override Tailwind font size classes for location-content headings */
 .location-content h1.text-lg {
-  font-size: 1.125rem !important;
+  font-size: 48px !important;
 }
 
 .location-content h1.text-xl {
-  font-size: 1.25rem !important;
+  font-size: 48px !important;
 }
 
 .location-content h1.text-2xl {
-  font-size: 1.5rem !important;
+  font-size: 48px !important;
 }
 
 .location-content h1.text-3xl {
-  font-size: 1.875rem !important;
+  font-size: 48px !important;
 }
 
 .location-content h1.text-4xl {
-  font-size: 2.25rem !important;
+  font-size: 48px !important;
 }
 
 .location-content h1.md\:text-2xl {
-  font-size: 1.5rem !important;
+  font-size: 48px !important;
 }
 
 .location-content h1.md\:text-3xl {
-  font-size: 1.875rem !important;
+  font-size: 48px !important;
 }
 
 .location-content h1.md\:text-4xl {
-  font-size: 2.25rem !important;
+  font-size: 48px !important;
 }
 
 .location-content h2 {
-  font-size: 1.5rem !important;
+  font-size: 2.5rem !important;
   font-weight: 600 !important;
   line-height: 1.3 !important;
   margin-bottom: 0.75rem !important;
   margin-top: 1.25rem !important;
   color: #000 !important;
-  text-align: left !important;
-  font-family: 'FuturaPT-Book', Arial, Helvetica, sans-serif !important;
+  text-align: center !important;
+  font-family: 'Jost', sans-serif !important;
 }
 
 .location-content h3 {
-  font-size: 1.25rem !important;
+  font-size: 2rem !important;
   font-weight: 600 !important;
   line-height: 1.4 !important;
   margin-bottom: 0.5rem !important;
   margin-top: 1rem !important;
   color: #000 !important;
-  text-align: left !important;
-  font-family: 'FuturaPT-Book', Arial, Helvetica, sans-serif !important;
+  text-align: center !important;
+  font-family: 'Jost', sans-serif !important;
 }
 
 .location-content h4 {
-  font-size: 1.125rem !important;
+  font-size: 1.5rem !important;
   font-weight: 600 !important;
   line-height: 1.4 !important;
   margin-bottom: 0.5rem !important;
   margin-top: 0.75rem !important;
   color: #000 !important;
-  text-align: left !important;
-  font-family: 'FuturaPT-Book', Arial, Helvetica, sans-serif !important;
+  text-align: center !important;
+  font-family: 'Jost', sans-serif !important;
 }
 
 .location-content h5 {
+  font-size: 1.25rem !important;
+  font-weight: 600 !important;
+  line-height: 1.4 !important;
+  margin-bottom: 0.5rem !important;
+  margin-top: 0.75rem !important;
+  color: #000 !important;
+  text-align: center !important;
+  font-family: 'Jost', sans-serif !important;
+}
+
+.location-content h6 {
   font-size: 1rem !important;
   font-weight: 600 !important;
   line-height: 1.4 !important;
   margin-bottom: 0.5rem !important;
   margin-top: 0.75rem !important;
   color: #000 !important;
-  text-align: left !important;
-  font-family: 'FuturaPT-Book', Arial, Helvetica, sans-serif !important;
-}
-
-.location-content h6 {
-  font-size: 0.875rem !important;
-  font-weight: 600 !important;
-  line-height: 1.4 !important;
-  margin-bottom: 0.5rem !important;
-  margin-top: 0.75rem !important;
-  color: #000 !important;
-  text-align: left !important;
-  font-family: 'FuturaPT-Book', Arial, Helvetica, sans-serif !important;
+  text-align: center !important;
+  font-family: 'Jost', sans-serif !important;
 }
 
 .location-content p {
   margin-bottom: 1rem !important;
   line-height: 1.6 !important;
-  text-align: left !important;
-  font-family: 'FuturaPT-Book', Arial, Helvetica, sans-serif !important;
+  text-align: center !important;
+  font-family: 'Jost', sans-serif !important;
+  color: #000 !important;
+  font-size: 18px !important;
+}
+
+/* Target the div itself and all text content within location-content */
+.location-content {
+  font-size: 18px !important;
+  font-family: 'Jost', sans-serif !important;
+  color: #000 !important;
+}
+
+/* Ensure all text elements within location-content have the right font size */
+.location-content * {
+  font-size: inherit !important;
+}
+
+/* Specific targeting for text content within location-content */
+.location-content div,
+.location-content span,
+.location-content p,
+.location-content li,
+.location-content blockquote,
+.location-content strong,
+.location-content em,
+.location-content b,
+.location-content i,
+.location-content u,
+.location-content small,
+.location-content sub,
+.location-content sup,
+.location-content mark,
+.location-content del,
+.location-content ins,
+.location-content code,
+.location-content pre,
+.location-content kbd,
+.location-content samp,
+.location-content var,
+.location-content cite,
+.location-content abbr,
+.location-content acronym,
+.location-content dfn,
+.location-content address,
+.location-content q,
+.location-content time,
+.location-content data,
+.location-content ruby,
+.location-content rt,
+.location-content rp,
+.location-content bdi,
+.location-content bdo,
+.location-content wbr {
+  font-size: 18px !important;
+  font-family: 'Jost', sans-serif !important;
   color: #000 !important;
 }
 
 .location-content ul, .location-content ol {
   margin-bottom: 1rem !important;
   padding-left: 1.5rem !important;
-  text-align: left !important;
-  font-family: 'FuturaPT-Book', Arial, Helvetica, sans-serif !important;
+  text-align: center !important;
+  /* font-family: 'FuturaPT-Book', Arial, Helvetica, sans-serif !important; */
+  font-family: 'Jost', sans-serif !important;
   color: #000 !important;
 }
 
 .location-content li {
   margin-bottom: 0.25rem !important;
   line-height: 1.6 !important;
-  text-align: left !important;
-  font-family: 'FuturaPT-Book', Arial, Helvetica, sans-serif !important;
+  text-align: center !important;
+  /* font-family: 'FuturaPT-Book', Arial, Helvetica, sans-serif !important; */
+  font-family: 'Jost', sans-serif !important;
   color: #000 !important;
 }
 
@@ -267,21 +480,24 @@ label, input, textarea, select, button, th, td, caption, figcaption, legend, fie
   margin: 1rem 0 !important;
   font-style: italic !important;
   color: #000 !important;
-  text-align: left !important;
-  font-family: 'FuturaPT-Book', Arial, Helvetica, sans-serif !important;
+  text-align: center !important;
+  /* font-family: 'FuturaPT-Book', Arial, Helvetica, sans-serif !important; */
+  font-family: 'Jost', sans-serif !important;
 }
 
 .location-content strong {
   font-weight: 700 !important;
-  text-align: left !important;
-  font-family: 'FuturaPT-Book', Arial, Helvetica, sans-serif !important;
+  text-align: center !important;
+  /* font-family: 'FuturaPT-Book', Arial, Helvetica, sans-serif !important; */
+  font-family: 'Jost', sans-serif !important;
   color: #000 !important;
 }
 
 .location-content em {
   font-style: italic !important;
-  text-align: left !important;
-  font-family: 'FuturaPT-Book', Arial, Helvetica, sans-serif !important;
+  text-align: center !important;
+  /* font-family: 'FuturaPT-Book', Arial, Helvetica, sans-serif !important; */
+  font-family: 'Jost', sans-serif !important;
   color: #000 !important;
 }
 
@@ -289,6 +505,7 @@ label, input, textarea, select, button, th, td, caption, figcaption, legend, fie
 @media (max-width: 768px) {
   .location-content h1 {
     line-height: 1.1 !important;
+    font-size: 32px !important;
   }
   
   .location-content h2 {
@@ -313,6 +530,7 @@ label, input, textarea, select, button, th, td, caption, figcaption, legend, fie
   
   .location-content p {
     line-height: 1.3 !important;
+    font-size: 16px !important;
   }
   
   .location-content li {
@@ -321,5 +539,48 @@ label, input, textarea, select, button, th, td, caption, figcaption, legend, fie
   
   .location-content blockquote {
     line-height: 1.3 !important;
+  }
+  
+  /* Mobile font sizes for location-content */
+  .location-content {
+    font-size: 16px !important;
+  }
+  
+  .location-content div,
+  .location-content span,
+  .location-content p,
+  .location-content li,
+  .location-content blockquote,
+  .location-content strong,
+  .location-content em,
+  .location-content b,
+  .location-content i,
+  .location-content u,
+  .location-content small,
+  .location-content sub,
+  .location-content sup,
+  .location-content mark,
+  .location-content del,
+  .location-content ins,
+  .location-content code,
+  .location-content pre,
+  .location-content kbd,
+  .location-content samp,
+  .location-content var,
+  .location-content cite,
+  .location-content abbr,
+  .location-content acronym,
+  .location-content dfn,
+  .location-content address,
+  .location-content q,
+  .location-content time,
+  .location-content data,
+  .location-content ruby,
+  .location-content rt,
+  .location-content rp,
+  .location-content bdi,
+  .location-content bdo,
+  .location-content wbr {
+    font-size: 16px !important;
   }
 }

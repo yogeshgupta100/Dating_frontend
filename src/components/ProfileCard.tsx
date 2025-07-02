@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { renderHtmlContent } from '../utils/htmlUtils';
+import React, { useEffect, useState } from "react";
+import { renderHtmlContent } from "../utils/htmlUtils";
 
 interface ProfileCardProps {
   img: File | string;
@@ -11,24 +11,24 @@ interface ProfileCardProps {
   services?: string[];
 }
 
-const ProfileCard: React.FC<ProfileCardProps> = ({ 
-  img, 
-  heading, 
-  desc, 
+const ProfileCard: React.FC<ProfileCardProps> = ({
+  img,
+  heading,
+  desc,
   onClick,
   location,
   age,
-  services = []
+  services = [],
 }) => {
-  const [imageSrc, setImageSrc] = useState<string>('');
+  const [imageSrc, setImageSrc] = useState<string>("");
 
   useEffect(() => {
     let objectUrl: string | undefined;
-    
+
     if (img instanceof File) {
       objectUrl = URL.createObjectURL(img);
       setImageSrc(objectUrl);
-    } else if (typeof img === 'string') {
+    } else if (typeof img === "string") {
       // Cloudinary URLs are short and safe to use directly
       setImageSrc(img);
     }
@@ -42,7 +42,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
   }, [img]);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' || e.key === ' ') {
+    if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
       onClick?.();
     }
@@ -52,7 +52,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
     const parts = [heading];
     if (location) parts.push(location);
     if (age) parts.push(`${age} years old`);
-    return `${parts.join(', ')} - Escort Profile`;
+    return `${parts.join(", ")} - Escort Profile`;
   };
 
   const CardContent = () => (
@@ -68,13 +68,17 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
           />
         ) : (
           <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-            <span className="text-gray-500" aria-hidden="true">👤</span>
+            <span className="text-gray-500" aria-hidden="true">
+              👤
+            </span>
           </div>
         )}
       </div>
       <div className="flex flex-col justify-start px-6 w-full h-32 md:h-full overflow-hidden">
         <header>
-          <h2 className="text-lg md:text-2xl font-semibold text-black mb-2">{heading}</h2>
+          <h2 className="text-lg md:text-2xl font-semibold text-black mb-2">
+            {heading}
+          </h2>
           {(location || age) && (
             <div className="hidden md:flex items-center gap-4 mb-2 text-sm text-gray-600">
               {location && (
@@ -93,7 +97,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
           )}
         </header>
         <div
-          className="text-gray-800 text-base leading-snug line-clamp-3 md:line-clamp-4 location-content"
+          className="text-gray-800 text-base leading-snug line-clamp-2 md:line-clamp-3 location-content"
           dangerouslySetInnerHTML={renderHtmlContent(desc)}
         />
         {services.length > 0 && (

@@ -171,12 +171,10 @@ export default function LocationPageClient() {
         <Banner />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="text-center mb-12">
-            <h1 className="text-2xl md:text-4xl md:w-3/4 mx-auto font-bold text-gray-900 mb-4 location-content">
-              {location?.heading}
-            </h1>
+          <div className="text-center mb-12 location-content">
+            <h1 className=" mx-auto font-bold mb-4">{location?.heading}</h1>
             <div
-              className="text-lg text-gray-800 max-w-6xl mx-auto md:pt-4 location-content"
+              className="text-lg text-gray-800 max-w-6xl text-center mx-auto md:pt-4 location-content"
               dangerouslySetInnerHTML={renderHtmlContent(
                 location?.sub_heading || ""
               )}
@@ -240,7 +238,7 @@ export default function LocationPageClient() {
                 >
                   <button
                     onClick={() => toggleFaq(index)}
-                    className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-50 transition-colors"
+                    className="w-full px-6 py-4 text-center flex items-center justify-between hover:bg-gray-50 transition-colors"
                   >
                     <h3 className="text-lg font-semibold text-gray-900">
                       {faq.question}

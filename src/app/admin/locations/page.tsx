@@ -1,15 +1,22 @@
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import Header from '../../../components/admin/Header';
-import LocationForm from '../../../components/admin/LocationForm';
-import { LocationResponse } from '../../../services/index';
-import { createLocation, deleteLocation, getLocations, updateLocation } from '../../../services/Locations';
+import React, { useState, useEffect } from "react";
+import Header from "../../../components/admin/Header";
+import LocationForm from "../../../components/admin/LocationForm";
+import { LocationResponse } from "../../../services/index";
+import {
+  createLocation,
+  deleteLocation,
+  getLocations,
+  updateLocation,
+} from "../../../services/Locations";
 
 export default function AdminLocationsPage() {
   const [locations, setLocations] = useState<LocationResponse[]>([]);
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const [selectedLocation, setSelectedLocation] = useState<LocationResponse | undefined>(undefined);
+  const [selectedLocation, setSelectedLocation] = useState<
+    LocationResponse | undefined
+  >(undefined);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -22,33 +29,67 @@ export default function AdminLocationsPage() {
       setLocations(data);
       setIsLoading(false);
     } catch (error) {
-      console.error('Error fetching locations:', error);
+      console.error("Error fetching locations:", error);
       setIsLoading(false);
     }
   };
 
-  const handleSubmit = async (formData: {name: string, phone_number: string, heading: string, sub_heading: string, content: string, slug: string, seo_title: string, seo_desc: string, seo_keyword: string[], faq: string}) => {
+  const handleSubmit = async (formData: {
+    name: string;
+    phone_number: string;
+    heading: string;
+    sub_heading: string;
+    content: string;
+    slug: string;
+    seo_title: string;
+    seo_desc: string;
+    seo_keyword: string[];
+    faq: string;
+  }) => {
     try {
       if (selectedLocation) {
-        await updateLocation(selectedLocation.id.toString(), formData.name, formData.phone_number, formData.heading, formData.sub_heading, formData.content, formData.slug, formData.seo_title, formData.seo_desc, formData.seo_keyword, formData.faq);
+        await updateLocation(
+          selectedLocation.id.toString(),
+          formData.name,
+          formData.phone_number,
+          formData.heading,
+          formData.sub_heading,
+          formData.content,
+          formData.slug,
+          formData.seo_title,
+          formData.seo_desc,
+          formData.seo_keyword,
+          formData.faq
+        );
       } else {
-        await createLocation(formData.name, formData.phone_number, formData.heading, formData.sub_heading, formData.content, formData.slug, formData.seo_title, formData.seo_desc, formData.seo_keyword, formData.faq);
+        await createLocation(
+          formData.name,
+          formData.phone_number,
+          formData.heading,
+          formData.sub_heading,
+          formData.content,
+          formData.slug,
+          formData.seo_title,
+          formData.seo_desc,
+          formData.seo_keyword,
+          formData.faq
+        );
       }
       fetchLocations();
       setIsFormOpen(false);
       setSelectedLocation(undefined);
     } catch (error) {
-      console.error('Error saving location:', error);
+      console.error("Error saving location:", error);
     }
   };
 
   const handleDelete = async (id: string) => {
-    if (window.confirm('Are you sure you want to delete this location?')) {
+    if (window.confirm("Are you sure you want to delete this location?")) {
       try {
         await deleteLocation(id);
         fetchLocations();
       } catch (error) {
-        console.error('Error deleting location:', error);
+        console.error("Error deleting location:", error);
       }
     }
   };
@@ -74,11 +115,13 @@ export default function AdminLocationsPage() {
   return (
     <div className="min-h-screen bg-gray-100">
       <Header title="Locations" />
-      
+
       <main className="pt-20 pl-64">
         <div className="p-6">
           <div className="flex justify-between items-center mb-6">
-            <h1 className="text-2xl font-semibold text-gray-900">Locations</h1>
+            <div className="text-2xl font-semibold text-gray-900">
+              Locations
+            </div>
             <button
               onClick={() => {
                 setSelectedLocation(undefined);
@@ -99,7 +142,7 @@ export default function AdminLocationsPage() {
                   setIsFormOpen(false);
                   setSelectedLocation(undefined);
                 }}
-                existingSlugs={locations.map(loc => loc.slug).filter(Boolean)}
+                existingSlugs={locations.map((loc) => loc.slug).filter(Boolean)}
               />
             </div>
           ) : (
@@ -131,7 +174,7 @@ export default function AdminLocationsPage() {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="text-sm text-gray-500 font-mono">
-                          {location.slug || 'No slug'}
+                          {location.slug || "No slug"}
                         </div>
                         {location.slug && (
                           <div className="text-xs text-blue-600">
@@ -140,7 +183,9 @@ export default function AdminLocationsPage() {
                         )}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-500">{location.phone_number}</div>
+                        <div className="text-sm text-gray-500">
+                          {location.phone_number}
+                        </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <button
@@ -166,4 +211,4 @@ export default function AdminLocationsPage() {
       </main>
     </div>
   );
-} 
+}
