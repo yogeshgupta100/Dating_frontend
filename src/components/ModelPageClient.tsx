@@ -17,6 +17,7 @@ import { useProfileStore } from "../store/profileStore";
 import Tick from "../assets/svgs/Tick.svg";
 import { renderHtmlContent } from "../utils/htmlUtils";
 import { LoadingSpinner } from "./LoadingSpinner";
+import banner_img from "../../public/banner_img.jpeg";
 
 export default function ModelPageClient() {
   const params = useParams();
@@ -203,7 +204,7 @@ export default function ModelPageClient() {
 
         {!loading && !error && profile && (
           <>
-            <ProfileHero banner_img={profile?.banner_img as any} />
+            <ProfileHero banner_img={banner_img?.src} />
 
             {/* Profile Section - Mobile Optimized */}
             <div className="pt-6 md:pt-12 px-4 md:px-24 w-full mx-auto flex flex-col md:flex-row md:gap-20 items-start bg-gray-50 justify-between">
