@@ -70,7 +70,7 @@ export default function HomePageClient() {
           <section className="mb-20">
             <div className="mb-12 location-content flex flex-col">
               <h1 className="mb-6 w-full text-center md:text-center lg:text-center">
-                Delhi Escorts Service offers Cash Payment & Free Delivery
+                Mumbai Escorts Service offers Cash Payment & Free Delivery
               </h1>
               <div
                 className="max-w-5xl mx-auto space-y-6 location-content text-center"
