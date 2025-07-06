@@ -27,9 +27,9 @@ jobs:
       - name: Deploy to VPS
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USERNAME }}
-          password: ${{ secrets.VPS_PASSWORD }}
+          host: ${{ secrets.31.97.63.240 }}
+          username: ${{ secrets.root }}
+          password: ${{ secrets.ABpass@word32 }}
           port: 22
           script: |
             cd Dating_frontend/
