@@ -32,8 +32,33 @@ jobs:
           password: ${{ secrets.VPS_PASSWORD }}
           port: 22
           script: |
+            # Load environment and find correct paths
+            export PATH="/usr/local/bin:/usr/bin:/bin:$PATH"
+            source ~/.bashrc 2>/dev/null || true
+            source ~/.profile 2>/dev/null || true
+            source ~/.nvm/nvm.sh 2>/dev/null || true
+
+            # Find npm and pm2 paths
+            NPM_PATH=$(which npm 2>/dev/null || echo "/usr/bin/npm")
+            PM2_PATH=$(which pm2 2>/dev/null || echo "/usr/bin/pm2")
+
+            echo "📁 Using npm at: $NPM_PATH"
+            echo "📁 Using pm2 at: $PM2_PATH"
+
+            echo "📁 Changing to project directory..."
             cd Dating_frontend/
-            git pull
-            npm run build
+
+            echo "📥 Pulling latest changes..."
+            git pull origin main
+
+            echo "📦 Installing dependencies..."
+            $NPM_PATH ci
+
+            echo "🔨 Building application..."
+            $NPM_PATH run build
+
+            echo "🔄 Restarting services..."
             sudo systemctl restart nginx
-            pm2 restart next-frontend
+            $PM2_PATH restart next-frontend
+
+            echo "✅ Deployment completed successfully!"
