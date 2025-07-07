@@ -10,7 +10,7 @@ const BASE_URL = "https://pokkoo.in";
 
 // Common cities/states for your service with SEO-friendly slugs
 const LOCATIONS = [
-  { name: "Jaipur", slug: "jaipur" },
+  { name: "Pokkoo", slug: "Pokkoo" },
   { name: "Delhi", slug: "delhi" },
   { name: "Mumbai", slug: "mumbai" },
   { name: "Bangalore", slug: "bangalore" },

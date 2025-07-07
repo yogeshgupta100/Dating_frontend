@@ -112,15 +112,15 @@ npm run dev
 
 ```html
 <title>
-  Jaipur Escorts Service - Premium Call Girls with Cash Payment & Free Delivery
+  Pokkoo Escorts Service - Premium Call Girls with Cash Payment & Free Delivery
 </title>
 <meta
   name="description"
-  content="Premium Jaipur escorts service offering verified call girls with cash payment and free door delivery 24/7. Safe, discreet, and professional escort services in Jaipur."
+  content="Premium Pokkoo escorts service offering verified call girls with cash payment and free door delivery 24/7. Safe, discreet, and professional escort services in Pokkoo."
 />
 <meta
   name="keywords"
-  content="Jaipur escorts, call girls Jaipur, escort service Jaipur, Jaipur call girls, premium escorts Jaipur, verified escorts Jaipur"
+  content="Pokkoo escorts, call girls Pokkoo, escort service Pokkoo, Pokkoo call girls, premium escorts Pokkoo, verified escorts Pokkoo"
 />
 <link rel="canonical" href="https://pokkoo.in/" />
 ```

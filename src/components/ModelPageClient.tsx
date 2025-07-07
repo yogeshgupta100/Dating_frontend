@@ -98,7 +98,7 @@ export default function ModelPageClient() {
     profile?.heading ||
     slugToText(modelSlug || "") ||
     "Escort Profile";
-  const locationName = slugToText(locationSlug || "") || "Jaipur";
+  const locationName = slugToText(locationSlug || "") || "Pokkoo";
   const pageTitle = `${profileName} - Premium Escort Service in ${locationName}`;
   const pageDescription =
     profile?.description ||

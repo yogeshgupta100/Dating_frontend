@@ -32,7 +32,7 @@ export async function generateStaticParams() {
     console.error("Error generating static params for models:", error);
     // Return some default combinations as fallback
     return [
-      { locationSlug: "jaipur", modelSlug: "model-1" },
+      { locationSlug: "Pokkoo", modelSlug: "model-1" },
       { locationSlug: "mumbai", modelSlug: "model-2" },
       { locationSlug: "delhi", modelSlug: "model-3" },
     ];
@@ -48,7 +48,7 @@ export async function generateMetadata({
   try {
     // Note: We can't access Zustand store on server side, so we'll generate basic metadata
     // The actual profile data will be loaded client-side
-    const locationName = slugToText(params.locationSlug) || "Jaipur";
+    const locationName = slugToText(params.locationSlug) || "Pokkoo";
     const profileName = slugToText(params.modelSlug) || "Escort Profile";
 
     const pageTitle = `${profileName} - Premium Escort Service in ${locationName}`;
@@ -63,7 +63,7 @@ export async function generateMetadata({
         title: pageTitle,
         description: pageDescription,
         url: `https://pokkoo.in/${params.locationSlug}/${params.modelSlug}`,
-        siteName: "Jaipur Escorts Service",
+        siteName: "Pokkoo Escorts Service",
         images: [
           {
             url: "https://pokkoo.in/og-image.jpg",

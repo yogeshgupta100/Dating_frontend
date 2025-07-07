@@ -51,7 +51,7 @@ export async function generateMetadata({
         title: pageTitle,
         description: pageDescription,
         url: `https://pokkoo.in/${params.locationSlug}`,
-        siteName: "Jaipur Escorts Service",
+        siteName: "Pokkoo Escorts Service",
         images: [
           {
             url: "https://pokkoo.in/og-image.jpg",
