@@ -17,15 +17,15 @@ const SEO: React.FC<SEOProps> = ({
   title = "Jaipur Escorts Service - Premium Call Girls with Cash Payment & Free Delivery",
   description = "Premium Jaipur escorts service offering verified call girls with cash payment and free door delivery 24/7. Safe, discreet, and professional escort services in Jaipur.",
   keywords = "Jaipur escorts, call girls Jaipur, escort service Jaipur, Jaipur call girls, premium escorts Jaipur, verified escorts Jaipur",
-  image = "https://pro.abellarora.com/og-image.jpg",
-  url = "https://pro.abellarora.com",
+  image = "https://pokkoo.in/og-image.jpg",
+  url = "https://pokkoo.in",
   type = "website",
   structuredData,
   canonical,
   breadcrumbs = [],
   pathname = "",
 }) => {
-  const currentUrl = canonical || `https://pro.abellarora.com${pathname}`;
+  const currentUrl = canonical || `https://pokkoo.in${pathname}`;
 
   console.log(
     title,
@@ -45,9 +45,7 @@ const SEO: React.FC<SEOProps> = ({
     if (breadcrumbs.length === 0) {
       // Auto-generate breadcrumbs from URL
       const pathSegments = pathname.split("/").filter(Boolean);
-      const autoBreadcrumbs = [
-        { name: "Home", url: "https://pro.abellarora.com/" },
-      ];
+      const autoBreadcrumbs = [{ name: "Home", url: "https://pokkoo.in/" }];
 
       let currentPath = "";
       pathSegments.forEach((segment, index) => {
@@ -55,7 +53,7 @@ const SEO: React.FC<SEOProps> = ({
         const name = segment.charAt(0).toUpperCase() + segment.slice(1);
         autoBreadcrumbs.push({
           name: name,
-          url: `https://pro.abellarora.com${currentPath}`,
+          url: `https://pokkoo.in${currentPath}`,
         });
       });
 
@@ -138,7 +136,7 @@ const SEO: React.FC<SEOProps> = ({
 
       {/* Additional SEO Meta Tags */}
       <meta name="robots" content="index, follow" />
-      <meta name="author" content="Jaipur Escorts Service" />
+      <meta name="author" content={title} />
       <meta name="language" content="English" />
       <meta name="revisit-after" content="7 days" />
       <meta name="distribution" content="global" />

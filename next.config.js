@@ -2,7 +2,7 @@
 const nextConfig = {
   trailingSlash: true,
   images: {
-    domains: ['pro.abellarora.com'],
+    domains: ['pokkoo.in'],
     formats: ['image/webp', 'image/avif'],
   },
   experimental: {

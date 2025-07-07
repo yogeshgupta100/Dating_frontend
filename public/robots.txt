@@ -32,4 +32,4 @@ Allow: /robots.txt
 Crawl-delay: 1
 
 # Sitemap location
-Sitemap: https://pro.abellarora.com/sitemap.xml 
+Sitemap: https://pokkoo.in/sitemap.xml 

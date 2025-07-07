@@ -96,7 +96,7 @@ export default function LocationPageClient() {
       locationSlug || "",
       location?.content || ""
     ),
-    url: `https://pro.abellarora.com/${locationSlug}`,
+    url: `https://pokkoo.in/${locationSlug}`,
     mainEntity: {
       "@type": "ItemList",
       name: `${locationName} Escort Profiles`,
@@ -110,7 +110,7 @@ export default function LocationPageClient() {
           name: profile.name || profile.heading,
           description: profile.description,
           image: profile.profile_img,
-          url: `https://pro.abellarora.com/${locationSlug}/${
+          url: `https://pokkoo.in/${locationSlug}/${
             profile.slug ||
             generateProfileSlug(
               profile.name || profile.heading || "profile",
@@ -128,13 +128,13 @@ export default function LocationPageClient() {
           "@type": "ListItem",
           position: 1,
           name: "Home",
-          item: "https://pro.abellarora.com",
+          item: "https://pokkoo.in",
         },
         {
           "@type": "ListItem",
           position: 2,
           name: locationName,
-          item: `https://pro.abellarora.com/${locationSlug}`,
+          item: `https://pokkoo.in/${locationSlug}`,
         },
       ],
     },
