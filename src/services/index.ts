@@ -6,7 +6,7 @@ export interface LocationResponse {
   sub_heading: string;
   description: string;
   content: string;
-  phone_number: string;
+  phone_number?: string;
   created_at: string;
   updated_at: string;
   seo_title?: string;
@@ -46,7 +46,7 @@ export interface LocationFormProps {
 export interface ModelFormProps {
   model?: Model;
   locations: LocationResponse[];
-  onSubmit: (data: Omit<Model, 'id'>) => void;
+  onSubmit: (data: Omit<Model, "id">) => void;
   onCancel: () => void;
 }
 
@@ -54,4 +54,4 @@ export interface FaqFormProps {
   faq?: Faq;
   onSubmit: (data: Faq) => void;
   onCancel: () => void;
-} 
+}

@@ -36,7 +36,7 @@ export default function AdminLocationsPage() {
 
   const handleSubmit = async (formData: {
     name: string;
-    phone_number: string;
+    phone_number?: string;
     heading: string;
     sub_heading: string;
     content: string;
@@ -51,7 +51,6 @@ export default function AdminLocationsPage() {
         await updateLocation(
           selectedLocation.id.toString(),
           formData.name,
-          formData.phone_number,
           formData.heading,
           formData.sub_heading,
           formData.content,
@@ -59,12 +58,12 @@ export default function AdminLocationsPage() {
           formData.seo_title,
           formData.seo_desc,
           formData.seo_keyword,
-          formData.faq
+          formData.faq,
+          formData.phone_number
         );
       } else {
         await createLocation(
           formData.name,
-          formData.phone_number,
           formData.heading,
           formData.sub_heading,
           formData.content,
@@ -72,7 +71,8 @@ export default function AdminLocationsPage() {
           formData.seo_title,
           formData.seo_desc,
           formData.seo_keyword,
-          formData.faq
+          formData.faq,
+          formData.phone_number
         );
       }
       fetchLocations();
@@ -184,7 +184,7 @@ export default function AdminLocationsPage() {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="text-sm text-gray-500">
-                          {location.phone_number}
+                          {location.phone_number || "No phone"}
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">

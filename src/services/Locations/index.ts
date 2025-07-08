@@ -4,7 +4,10 @@ import { LocationResponse } from "..";
 import { url } from "../api";
 
 // Cache for locations
-const locationCache = new Map<string, { data: any; timestamp: number; ttl: number }>();
+const locationCache = new Map<
+  string,
+  { data: any; timestamp: number; ttl: number }
+>();
 const LOCATION_CACHE_TTL = 10 * 60 * 1000; // 10 minutes
 
 // Helper functions for caching
@@ -20,16 +23,26 @@ const getCachedLocation = (key: string): any => {
 };
 
 const setCachedLocation = (key: string, data: any): void => {
-  locationCache.set(key, { data, timestamp: Date.now(), ttl: LOCATION_CACHE_TTL });
+  locationCache.set(key, {
+    data,
+    timestamp: Date.now(),
+    ttl: LOCATION_CACHE_TTL,
+  });
 };
 
 // Enhanced fetch with timeout
-const fetchWithTimeout = async (url: string, options: RequestInit = {}): Promise<Response> => {
+const fetchWithTimeout = async (
+  url: string,
+  options: RequestInit = {}
+): Promise<Response> => {
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
-  
+
   try {
-    const response = await fetch(url, { ...options, signal: controller.signal });
+    const response = await fetch(url, {
+      ...options,
+      signal: controller.signal,
+    });
     clearTimeout(timeoutId);
     return response;
   } catch (error) {
@@ -39,14 +52,14 @@ const fetchWithTimeout = async (url: string, options: RequestInit = {}): Promise
 };
 
 export const getLocations = async (): Promise<LocationResponse[]> => {
-  const cacheKey = 'all-locations';
-  
+  const cacheKey = "all-locations";
+
   // Check cache first
   if (isLocationCacheValid(cacheKey)) {
     console.log("Returning cached locations");
     return getCachedLocation(cacheKey);
   }
-  
+
   try {
     console.log("Fetching from URL:", `${url}/states`);
     const response = await fetchWithTimeout(`${url}/states`, {
@@ -59,26 +72,28 @@ export const getLocations = async (): Promise<LocationResponse[]> => {
     return data;
   } catch (error) {
     console.error("Error in getLocations:", error);
-    
+
     // Return cached data if available, even if expired
     const cached = getCachedLocation(cacheKey);
     if (cached) {
       console.log("Returning expired cached locations due to error");
       return cached;
     }
-    
+
     throw error;
   }
 };
 
-export const getLocationBySlug = async (slug: string): Promise<LocationResponse | null> => {
+export const getLocationBySlug = async (
+  slug: string
+): Promise<LocationResponse | null> => {
   const cacheKey = `location-slug-${slug}`;
-  
+
   // Check cache first
   if (isLocationCacheValid(cacheKey)) {
     return getCachedLocation(cacheKey);
   }
-  
+
   try {
     const response = await fetchWithTimeout(`${url}/states/slug/${slug}`, {
       method: "GET",
@@ -95,20 +110,19 @@ export const getLocationBySlug = async (slug: string): Promise<LocationResponse 
     return data;
   } catch (error) {
     console.error("Error in getLocationBySlug:", error);
-    
+
     // Return cached data if available
     const cached = getCachedLocation(cacheKey);
     if (cached !== undefined) {
       return cached;
     }
-    
+
     throw error;
   }
 };
 
 export const createLocation = async (
   name: string,
-  phone_number: string,
   heading: string,
   sub_heading: string,
   content: string,
@@ -117,18 +131,30 @@ export const createLocation = async (
   seo_desc?: string,
   seo_keywords?: string[],
   faq?: string,
+  phone_number?: string
 ): Promise<LocationResponse> => {
   const response = await fetchWithTimeout(`${url}/states`, {
     method: "POST",
     headers: defaultHeaders,
-    body: JSON.stringify({ name, phone_number, heading, sub_heading, content, slug , seo_title, seo_desc, seo_keyword: seo_keywords ,faq}),
+    body: JSON.stringify({
+      name,
+      phone_number: phone_number || "",
+      heading,
+      sub_heading,
+      content,
+      slug,
+      seo_title,
+      seo_desc,
+      seo_keyword: seo_keywords,
+      faq,
+    }),
   });
-  
+
   const result = await handleResponse(response);
-  
+
   // Clear location cache after creation
   locationCache.clear();
-  
+
   return result;
 };
 
@@ -136,31 +162,31 @@ export const getLocationById = async (
   id: string
 ): Promise<LocationResponse> => {
   const cacheKey = `location-id-${id}`;
-  
+
   // Check cache first
   if (isLocationCacheValid(cacheKey)) {
     return getCachedLocation(cacheKey);
   }
-  
+
   try {
     const response = await fetchWithTimeout(`${url}/states/${id}`, {
       method: "GET",
       headers: defaultHeaders,
       mode: "cors",
     });
-    
+
     const data = await handleResponse(response);
     setCachedLocation(cacheKey, data);
     return data;
   } catch (error) {
     console.error("Error in getLocationById:", error);
-    
+
     // Return cached data if available
     const cached = getCachedLocation(cacheKey);
     if (cached) {
       return cached;
     }
-    
+
     throw error;
   }
 };
@@ -168,7 +194,6 @@ export const getLocationById = async (
 export const updateLocation = async (
   id: string,
   name: string,
-  phone_number: string,
   heading: string,
   sub_heading: string,
   content: string,
@@ -177,18 +202,30 @@ export const updateLocation = async (
   seo_desc?: string,
   seo_keywords?: string[],
   faq?: string,
+  phone_number?: string
 ): Promise<LocationResponse> => {
   const response = await fetchWithTimeout(`${url}/states/${id}`, {
     method: "PUT",
     headers: defaultHeaders,
-    body: JSON.stringify({ name, phone_number, heading, sub_heading, content, slug , seo_title, seo_desc, seo_keyword: seo_keywords, faq}),
+    body: JSON.stringify({
+      name,
+      phone_number: phone_number || "",
+      heading,
+      sub_heading,
+      content,
+      slug,
+      seo_title,
+      seo_desc,
+      seo_keyword: seo_keywords,
+      faq,
+    }),
   });
-  
+
   const result = await handleResponse(response);
-  
+
   // Clear location cache after update
   locationCache.clear();
-  
+
   return result;
 };
 
@@ -197,9 +234,9 @@ export const deleteLocation = async (id: string): Promise<void> => {
     method: "DELETE",
     headers: defaultHeaders,
   });
-  
+
   await handleResponse(response);
-  
+
   // Clear location cache after deletion
   locationCache.clear();
 };
@@ -213,6 +250,6 @@ export const clearLocationCache = (): void => {
 export const getLocationCacheStats = (): { size: number; keys: string[] } => {
   return {
     size: locationCache.size,
-    keys: Array.from(locationCache.keys())
+    keys: Array.from(locationCache.keys()),
   };
 };

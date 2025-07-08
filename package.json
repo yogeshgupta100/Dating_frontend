@@ -8,8 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "seo:validate": "node scripts/seo-validator.cjs",
-    "sitemap:generate": "node scripts/generate-sitemap.js",
-    "build:seo": "npm run sitemap:generate && npm run build"
+    "test:sitemap": "node scripts/test-sitemap.js"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.19",
