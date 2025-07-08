@@ -5,26 +5,56 @@ const PhoneIcon: React.FC<{ number?: string }> = ({ number }) => {
   const [displayNumber, setDisplayNumber] = useState<string>("");
 
   useEffect(() => {
-    // If a number is passed via props (even if empty), use it and don't fetch from API
-    if (number) {
+    console.log(
+      "🔍 PhoneIcon: Received number prop:",
+      number,
+      "Type:",
+      typeof number
+    );
+
+    // If a valid number is passed via props, use it
+    if (number && number.trim()) {
+      console.log("📞 PhoneIcon: Using provided number:", number);
       setDisplayNumber(number);
     } else {
-      // Only fetch from API if no number prop is provided at all
+      console.log(
+        "🌐 PhoneIcon: No valid number provided, fetching from global API..."
+      );
+      // Fetch from API if no valid number prop is provided
       const fetchGlobalNumber = async () => {
         try {
+          console.log("📡 PhoneIcon: Calling global phone API...");
           const data = await api.getPhoneNumber();
+          console.log("📡 PhoneIcon: Global API response:", data);
+
           const globalPhoneNumber = (data as any)?.phone_number;
+          console.log(
+            "📡 PhoneIcon: Extracted phone number:",
+            globalPhoneNumber
+          );
+
           if (
             typeof globalPhoneNumber === "string" &&
             globalPhoneNumber.trim()
           ) {
+            console.log(
+              "✅ PhoneIcon: Setting global phone number:",
+              globalPhoneNumber
+            );
             setDisplayNumber(globalPhoneNumber);
           } else {
+            console.log(
+              "❌ PhoneIcon: Global phone number is invalid:",
+              globalPhoneNumber
+            );
             // Fallback to empty string if API fails
             setDisplayNumber("");
           }
         } catch (error) {
-          console.error("Failed to fetch global phone number:", error);
+          console.error(
+            "❌ PhoneIcon: Failed to fetch global phone number:",
+            error
+          );
           // Fallback on error
           setDisplayNumber("");
         }
@@ -34,22 +64,29 @@ const PhoneIcon: React.FC<{ number?: string }> = ({ number }) => {
     }
   }, [number]); // Rerun effect if the number prop changes.
 
+  console.log("🎯 PhoneIcon: Current displayNumber:", displayNumber);
+
   // Do not render the component if there is no valid number to use.
   if (
     !displayNumber ||
     typeof displayNumber !== "string" ||
     !displayNumber.trim()
   ) {
+    console.log("🚫 PhoneIcon: Not rendering - no valid number");
     return null;
   }
 
   // Ensure we have a valid string before calling replace
   const cleanNumber = displayNumber.replace(/\D/g, "");
+  console.log("🧹 PhoneIcon: Cleaned number:", cleanNumber);
 
   // Don't render if we don't have any digits after cleaning
   if (!cleanNumber) {
+    console.log("🚫 PhoneIcon: Not rendering - no digits after cleaning");
     return null;
   }
+
+  console.log("✅ PhoneIcon: Rendering with number:", cleanNumber);
 
   return (
     <a

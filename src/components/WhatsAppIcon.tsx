@@ -5,26 +5,56 @@ const WhatsAppIcon: React.FC<{ number?: string }> = ({ number }) => {
   const [displayNumber, setDisplayNumber] = useState<string>("");
 
   useEffect(() => {
-    // If a number is passed via props (even if empty), use it and don't fetch from API
-    if (number) {
+    console.log(
+      "🔍 WhatsAppIcon: Received number prop:",
+      number,
+      "Type:",
+      typeof number
+    );
+
+    // If a valid number is passed via props, use it
+    if (number && number.trim()) {
+      console.log("📞 WhatsAppIcon: Using provided number:", number);
       setDisplayNumber(number);
     } else {
-      // Only fetch from API if no number prop is provided at all
+      console.log(
+        "🌐 WhatsAppIcon: No valid number provided, fetching from global API..."
+      );
+      // Fetch from API if no valid number prop is provided
       const fetchGlobalNumber = async () => {
         try {
+          console.log("📡 WhatsAppIcon: Calling global phone API...");
           const data = await api.getPhoneNumber();
+          console.log("📡 WhatsAppIcon: Global API response:", data);
+
           const globalPhoneNumber = (data as any)?.phone_number;
+          console.log(
+            "📡 WhatsAppIcon: Extracted phone number:",
+            globalPhoneNumber
+          );
+
           if (
             typeof globalPhoneNumber === "string" &&
             globalPhoneNumber.trim()
           ) {
+            console.log(
+              "✅ WhatsAppIcon: Setting global phone number:",
+              globalPhoneNumber
+            );
             setDisplayNumber(globalPhoneNumber);
           } else {
+            console.log(
+              "❌ WhatsAppIcon: Global phone number is invalid:",
+              globalPhoneNumber
+            );
             // Fallback to empty string if API fails
             setDisplayNumber("");
           }
         } catch (error) {
-          console.error("Failed to fetch global phone number:", error);
+          console.error(
+            "❌ WhatsAppIcon: Failed to fetch global phone number:",
+            error
+          );
           // Fallback on error
           setDisplayNumber("");
         }
@@ -34,22 +64,29 @@ const WhatsAppIcon: React.FC<{ number?: string }> = ({ number }) => {
     }
   }, [number]); // Rerun effect if the number prop changes.
 
+  console.log("🎯 WhatsAppIcon: Current displayNumber:", displayNumber);
+
   // Do not render the component if there is no valid number to use.
   if (
     !displayNumber ||
     typeof displayNumber !== "string" ||
     !displayNumber.trim()
   ) {
+    console.log("🚫 WhatsAppIcon: Not rendering - no valid number");
     return null;
   }
 
   // Ensure we have a valid string before calling replace
   const cleanNumber = displayNumber.replace(/\D/g, "");
+  console.log("🧹 WhatsAppIcon: Cleaned number:", cleanNumber);
 
   // Don't render if we don't have any digits after cleaning
   if (!cleanNumber) {
+    console.log("🚫 WhatsAppIcon: Not rendering - no digits after cleaning");
     return null;
   }
+
+  console.log("✅ WhatsAppIcon: Rendering with number:", cleanNumber);
 
   return (
     <a
