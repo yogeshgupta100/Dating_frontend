@@ -39,7 +39,9 @@ const Footer = () => {
 
         {/* Copyright */}
         <div className="border-t border-gray-700 mt-6 sm:mt-8 pt-6 sm:pt-8 text-center">
-          <p className="text-black-400 text-sm sm:text-base">© 2025 Logo. All rights reserved.</p>
+          <p className="text-black-400 text-sm sm:text-base">
+            © 2025 Pokkoo. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>
