@@ -50,10 +50,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const { getLocations } = await import("../services/Locations");
     const { getModels } = await import("../services/models");
 
-    // Fetch all locations from API with timeout
+    // Fetch all locations from API with longer timeout for production
     const locationsPromise = getLocations();
-    const timeoutPromise = new Promise((_, reject) =>
-      setTimeout(() => reject(new Error("API timeout")), 10000)
+    const timeoutPromise = new Promise(
+      (_, reject) => setTimeout(() => reject(new Error("API timeout")), 30000) // 30 seconds timeout
     );
 
     const locations = (await Promise.race([
@@ -64,6 +64,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     console.log(`✅ Found ${locations?.length || 0} locations from API`);
 
     if (locations && locations.length > 0) {
+      // Process ALL locations (not just first 5)
       locationPages = locations.map((location) => {
         const locationUrl = `${baseUrl}/${location.slug || location.id}`;
         console.log(`📍 Adding location: ${locationUrl}`);
@@ -75,9 +76,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         };
       });
 
-      // Fetch models for each location (limit to first 5 locations to avoid timeouts)
+      // Fetch models for each location (but limit to avoid huge sitemaps)
       console.log("👥 Fetching models for each location...");
-      const locationsToProcess = locations.slice(0, 5);
+
+      // Process only first 20 locations to avoid timeouts and huge sitemaps
+      const locationsToProcess = locations.slice(0, 20);
 
       for (const location of locationsToProcess) {
         try {
@@ -86,8 +89,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
           );
 
           const modelsPromise = getModels(location.id.toString());
-          const modelTimeoutPromise = new Promise((_, reject) =>
-            setTimeout(() => reject(new Error("Model API timeout")), 5000)
+          const modelTimeoutPromise = new Promise(
+            (_, reject) =>
+              setTimeout(() => reject(new Error("Model API timeout")), 10000) // 10 seconds timeout
           );
 
           const models = (await Promise.race([
@@ -100,7 +104,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
           if (models && models.length > 0) {
             // Limit models per location to avoid huge sitemaps
-            const limitedModels = models.slice(0, 20);
+            const limitedModels = models.slice(0, 10); // Only first 10 models per location
             const locationModelPages: MetadataRoute.Sitemap = limitedModels.map(
               (model) => {
                 const modelUrl = `${baseUrl}/${location.slug || location.id}/${
