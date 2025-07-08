@@ -9,7 +9,8 @@
     "lint": "next lint",
     "seo:validate": "node scripts/seo-validator.cjs",
     "test:sitemap": "node scripts/test-sitemap.js",
-    "test:phone-icons": "node scripts/test-phone-icons.js"
+    "test:phone-icons": "node scripts/test-phone-icons.js",
+    "test:production-sitemap": "node scripts/test-production-sitemap.js"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.19",
