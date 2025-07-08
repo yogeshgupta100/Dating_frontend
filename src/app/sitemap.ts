@@ -4,7 +4,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://pokkoo.in";
   const currentDate = new Date().toISOString();
 
-  console.log("🔍 Generating dynamic sitemap...");
+  console.log("🔍 Generating dynamic sitemap for production...");
 
   // Start with static pages
   const staticPages: MetadataRoute.Sitemap = [
@@ -44,30 +44,38 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   let modelPages: MetadataRoute.Sitemap = [];
 
   try {
-    console.log("📡 Fetching locations from API...");
+    console.log("📡 Fetching ALL locations from API...");
 
-    // Import dynamically to avoid SSR issues
-    const { getLocations } = await import("../services/Locations");
-    const { getModels } = await import("../services/models");
+    // Direct API call to ensure we get all locations
+    const apiUrl = "https://api.pokkoo.in/states";
+    console.log("🌐 API URL:", apiUrl);
 
-    // Fetch all locations from API with longer timeout for production
-    const locationsPromise = getLocations();
-    const timeoutPromise = new Promise(
-      (_, reject) => setTimeout(() => reject(new Error("API timeout")), 30000) // 30 seconds timeout
+    const response = await fetch(apiUrl, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "ngrok-skip-browser-warning": "true",
+      },
+      // Add timeout
+      signal: AbortSignal.timeout(45000), // 45 seconds
+    });
+
+    if (!response.ok) {
+      throw new Error(`API responded with status: ${response.status}`);
+    }
+
+    const locations = await response.json();
+    console.log(
+      `✅ Successfully fetched ${locations?.length || 0} locations from API`
     );
 
-    const locations = (await Promise.race([
-      locationsPromise,
-      timeoutPromise,
-    ])) as any[];
+    if (locations && Array.isArray(locations) && locations.length > 0) {
+      console.log("📍 Processing all locations for sitemap...");
 
-    console.log(`✅ Found ${locations?.length || 0} locations from API`);
-
-    if (locations && locations.length > 0) {
-      // Process ALL locations (not just first 5)
+      // Process ALL locations
       locationPages = locations.map((location) => {
         const locationUrl = `${baseUrl}/${location.slug || location.id}`;
-        console.log(`📍 Adding location: ${locationUrl}`);
         return {
           url: locationUrl,
           lastModified: currentDate,
@@ -76,54 +84,56 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         };
       });
 
-      // Fetch models for each location (but limit to avoid huge sitemaps)
-      console.log("👥 Fetching models for each location...");
+      console.log(`✅ Added ${locationPages.length} location pages to sitemap`);
 
-      // Process only first 20 locations to avoid timeouts and huge sitemaps
-      const locationsToProcess = locations.slice(0, 20);
+      // Fetch models for first 10 locations to avoid huge sitemaps
+      console.log("👥 Fetching models for first 10 locations...");
+      const locationsToProcess = locations.slice(0, 10);
 
       for (const location of locationsToProcess) {
         try {
-          console.log(
-            `🔍 Fetching models for location: ${location.name} (ID: ${location.id})`
+          console.log(`🔍 Fetching models for: ${location.name}`);
+
+          const modelsResponse = await fetch(
+            `https://api.pokkoo.in/models/${location.id}`,
+            {
+              method: "GET",
+              headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                "ngrok-skip-browser-warning": "true",
+              },
+              signal: AbortSignal.timeout(15000), // 15 seconds
+            }
           );
 
-          const modelsPromise = getModels(location.id.toString());
-          const modelTimeoutPromise = new Promise(
-            (_, reject) =>
-              setTimeout(() => reject(new Error("Model API timeout")), 10000) // 10 seconds timeout
-          );
-
-          const models = (await Promise.race([
-            modelsPromise,
-            modelTimeoutPromise,
-          ])) as any[];
-          console.log(
-            `✅ Found ${models?.length || 0} models for ${location.name}`
-          );
-
-          if (models && models.length > 0) {
-            // Limit models per location to avoid huge sitemaps
-            const limitedModels = models.slice(0, 10); // Only first 10 models per location
-            const locationModelPages: MetadataRoute.Sitemap = limitedModels.map(
-              (model) => {
-                const modelUrl = `${baseUrl}/${location.slug || location.id}/${
-                  model.slug || model.id
-                }`;
-                console.log(`👤 Adding model: ${modelUrl}`);
-                return {
-                  url: modelUrl,
-                  lastModified: currentDate,
-                  changeFrequency: "weekly" as const,
-                  priority: 0.6,
-                };
-              }
+          if (modelsResponse.ok) {
+            const models = await modelsResponse.json();
+            console.log(
+              `✅ Found ${models?.length || 0} models for ${location.name}`
             );
-            modelPages.push(...locationModelPages);
+
+            if (models && Array.isArray(models) && models.length > 0) {
+              // Limit to 5 models per location
+              const limitedModels = models.slice(0, 5);
+              const locationModelPages: MetadataRoute.Sitemap =
+                limitedModels.map((model) => {
+                  const modelUrl = `${baseUrl}/${
+                    location.slug || location.id
+                  }/${model.slug || model.id}`;
+                  return {
+                    url: modelUrl,
+                    lastModified: currentDate,
+                    changeFrequency: "weekly" as const,
+                    priority: 0.6,
+                  };
+                });
+              modelPages.push(...locationModelPages);
+            }
           }
         } catch (error) {
           console.error(
-            `❌ Error fetching models for location ${location.name}:`,
+            `❌ Error fetching models for ${location.name}:`,
             error
           );
           // Continue with other locations
@@ -173,7 +183,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     // Add sample model pages for each location
     fallbackLocations.forEach((location) => {
-      for (let i = 1; i <= 10; i++) {
+      for (let i = 1; i <= 5; i++) {
         modelPages.push({
           url: `${baseUrl}/${location.slug}/profile-${i}`,
           lastModified: currentDate,
