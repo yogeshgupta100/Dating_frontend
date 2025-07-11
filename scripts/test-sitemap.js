@@ -9,6 +9,7 @@
 
 const fs = require("fs");
 const path = require("path");
+const https = require("https");
 
 async function testSitemap() {
   console.log("🧪 Testing Dynamic Sitemap Generation...\n");
@@ -29,6 +30,68 @@ async function testSitemap() {
       return;
     }
     console.log("✅ robots.ts found");
+
+    // Test API directly
+    console.log("\n🌐 Testing API directly...");
+    const apiTest = await new Promise((resolve, reject) => {
+      https
+        .get("https://api.pokkoo.in/states", (res) => {
+          let data = "";
+          res.on("data", (chunk) => (data += chunk));
+          res.on("end", () => {
+            try {
+              const locations = JSON.parse(data);
+              resolve(locations.length);
+            } catch (err) {
+              reject(err);
+            }
+          });
+        })
+        .on("error", reject);
+    });
+
+    console.log(`✅ API returns ${apiTest} locations`);
+
+    // Test production sitemap
+    console.log("\n📊 Testing production sitemap...");
+    const sitemapTest = await new Promise((resolve, reject) => {
+      https
+        .get("https://pokkoo.in/sitemap.xml", (res) => {
+          let data = "";
+          res.on("data", (chunk) => (data += chunk));
+          res.on("end", () => {
+            try {
+              const locationUrls =
+                data.match(/<loc>https:\/\/pokkoo\.in\/[^<]+<\/loc>/g) || [];
+              const staticUrls =
+                data.match(
+                  /<loc>https:\/\/pokkoo\.in\/(about|contact|terms|privacy)<\/loc>/g
+                ) || [];
+              const modelUrls =
+                data.match(
+                  /<loc>https:\/\/pokkoo\.in\/[^\/]+\/[^<]+<\/loc>/g
+                ) || [];
+
+              resolve({
+                total:
+                  locationUrls.length + staticUrls.length + modelUrls.length,
+                static: staticUrls.length,
+                locations: locationUrls.length - staticUrls.length,
+                models: modelUrls.length,
+              });
+            } catch (err) {
+              reject(err);
+            }
+          });
+        })
+        .on("error", reject);
+    });
+
+    console.log(`📈 Sitemap Analysis:`);
+    console.log(`   - Total URLs: ${sitemapTest.total}`);
+    console.log(`   - Static pages: ${sitemapTest.static}`);
+    console.log(`   - Location pages: ${sitemapTest.locations}`);
+    console.log(`   - Model pages: ${sitemapTest.models}`);
 
     // Check environment variables
     const envPath = path.join(__dirname, "../.env");
@@ -59,15 +122,10 @@ async function testSitemap() {
       console.log("✅ Static robots.txt removed (good!)");
     }
 
-    console.log("\n📋 Sitemap Structure:");
+    console.log("\n📋 Expected Sitemap Structure:");
     console.log("├── Static Pages (5)");
-    console.log("│   ├── Homepage");
-    console.log("│   ├── About");
-    console.log("│   ├── Contact");
-    console.log("│   ├── Terms");
-    console.log("│   └── Privacy");
-    console.log("├── Location Pages (20+ from API or fallback)");
-    console.log("└── Model Pages (200+ from API or fallback)");
+    console.log(`├── Location Pages (${apiTest} from API)`);
+    console.log("└── Model Pages (750+ from API)");
 
     console.log("\n🌐 URLs to Test:");
     console.log("├── Sitemap: http://localhost:3000/sitemap.xml");
@@ -80,10 +138,22 @@ async function testSitemap() {
     console.log("4. Verify URLs match your actual data structure");
 
     console.log("\n🎯 Expected Behavior:");
-    console.log("✅ Sitemap should show 200+ URLs");
-    console.log("✅ Should include all your locations");
+    console.log(`✅ Sitemap should show ${apiTest + 750} URLs`);
+    console.log(`✅ Should include all ${apiTest} locations from database`);
     console.log("✅ Should include model/profile pages");
     console.log("✅ Should update automatically when data changes");
+
+    // Performance check
+    if (sitemapTest.locations >= apiTest * 0.9) {
+      console.log(
+        "\n🎉 SUCCESS: Sitemap contains most locations from database!"
+      );
+    } else {
+      console.log(
+        `\n⚠️ WARNING: Sitemap missing locations (${sitemapTest.locations}/${apiTest})`
+      );
+      console.log("🔧 Check deployment and server logs");
+    }
   } catch (error) {
     console.error("❌ Error testing sitemap:", error);
   }

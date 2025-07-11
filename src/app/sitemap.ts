@@ -57,8 +57,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         "Content-Type": "application/json",
         "ngrok-skip-browser-warning": "true",
       },
-      // Add timeout
-      signal: AbortSignal.timeout(45000), // 45 seconds
+      // Add timeout for large datasets
+      signal: AbortSignal.timeout(120000), // 2 minutes for very large datasets
     });
 
     if (!response.ok) {
@@ -73,7 +73,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     if (locations && Array.isArray(locations) && locations.length > 0) {
       console.log("📍 Processing all locations for sitemap...");
 
-      // Process ALL locations
+      // Process ALL locations from database - no limits
       locationPages = locations.map((location) => {
         const locationUrl = `${baseUrl}/${location.slug || location.id}`;
         return {
@@ -86,58 +86,66 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
       console.log(`✅ Added ${locationPages.length} location pages to sitemap`);
 
-      // Fetch models for first 10 locations to avoid huge sitemaps
-      console.log("👥 Fetching models for first 10 locations...");
-      const locationsToProcess = locations.slice(0, 10);
+      // Fetch models for first 50 locations to get good coverage without overwhelming the sitemap
+      console.log("👥 Fetching models for first 50 locations...");
+      const locationsToProcess = locations.slice(0, 50);
 
-      for (const location of locationsToProcess) {
-        try {
-          console.log(`🔍 Fetching models for: ${location.name}`);
+      // Process models in batches to avoid timeout
+      const batchSize = 10;
+      for (let i = 0; i < locationsToProcess.length; i += batchSize) {
+        const batch = locationsToProcess.slice(i, i + batchSize);
 
-          const modelsResponse = await fetch(
-            `https://api.pokkoo.in/models/${location.id}`,
-            {
-              method: "GET",
-              headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-                "ngrok-skip-browser-warning": "true",
-              },
-              signal: AbortSignal.timeout(15000), // 15 seconds
+        await Promise.all(
+          batch.map(async (location) => {
+            try {
+              console.log(`🔍 Fetching models for: ${location.name}`);
+
+              const modelsResponse = await fetch(
+                `https://api.pokkoo.in/models/${location.id}`,
+                {
+                  method: "GET",
+                  headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                    "ngrok-skip-browser-warning": "true",
+                  },
+                  signal: AbortSignal.timeout(15000), // 15 seconds
+                }
+              );
+
+              if (modelsResponse.ok) {
+                const models = await modelsResponse.json();
+                console.log(
+                  `✅ Found ${models?.length || 0} models for ${location.name}`
+                );
+
+                if (models && Array.isArray(models) && models.length > 0) {
+                  // Limit to 15 models per location for better coverage
+                  const limitedModels = models.slice(0, 15);
+                  const locationModelPages: MetadataRoute.Sitemap =
+                    limitedModels.map((model) => {
+                      const modelUrl = `${baseUrl}/${
+                        location.slug || location.id
+                      }/${model.slug || model.id}`;
+                      return {
+                        url: modelUrl,
+                        lastModified: currentDate,
+                        changeFrequency: "weekly" as const,
+                        priority: 0.6,
+                      };
+                    });
+                  modelPages.push(...locationModelPages);
+                }
+              }
+            } catch (error) {
+              console.error(
+                `❌ Error fetching models for ${location.name}:`,
+                error
+              );
+              // Continue with other locations
             }
-          );
-
-          if (modelsResponse.ok) {
-            const models = await modelsResponse.json();
-            console.log(
-              `✅ Found ${models?.length || 0} models for ${location.name}`
-            );
-
-            if (models && Array.isArray(models) && models.length > 0) {
-              // Limit to 5 models per location
-              const limitedModels = models.slice(0, 5);
-              const locationModelPages: MetadataRoute.Sitemap =
-                limitedModels.map((model) => {
-                  const modelUrl = `${baseUrl}/${
-                    location.slug || location.id
-                  }/${model.slug || model.id}`;
-                  return {
-                    url: modelUrl,
-                    lastModified: currentDate,
-                    changeFrequency: "weekly" as const,
-                    priority: 0.6,
-                  };
-                });
-              modelPages.push(...locationModelPages);
-            }
-          }
-        } catch (error) {
-          console.error(
-            `❌ Error fetching models for ${location.name}:`,
-            error
-          );
-          // Continue with other locations
-        }
+          })
+        );
       }
     } else {
       console.log("⚠️ No locations found from API, using fallback data");
