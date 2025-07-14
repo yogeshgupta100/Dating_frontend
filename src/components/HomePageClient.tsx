@@ -26,7 +26,24 @@ const carImages = [
   "http://res.cloudinary.com/dpmknwklm/image/upload/v1751050379/dating-app/profiles/sjinrqpbizy9qdri4kqz.jpg",
 ];
 
-const paragraph = `Building meaningful connections has never been more important in today's digital age. Our platform brings together like-minded individuals who are serious about finding genuine relationships. Through our advanced matching algorithm and personalized approach, we help create lasting bonds that go beyond surface-level attraction. Whether you're looking for companionship, friendship, or a life partner, we provide a safe and welcoming environment for authentic connections to flourish.`;
+const paragraph = `Thank you for taking time to learn a bit better. Contact Pokkoo call girls services only for real parson, We have Girls for B2B Enjoy Naked Sex And Whatspects; Spa Shower Bath Sexy Gals Only by Aromatherapy, Spa, Happy Ending Massage, Nude B2B Massage Rain Bath Tantric Massage BDSM Candle Massage Bubb sucking, licking, blowing work, call and out call feature 3 by beautiful and sexy girls with 5-star Hotel and Home Services are also available. Economical Rate, 100% Satisfaction. Visit Here for Pokkoo Call Girls 24x7 Services! Quick Contact Us`;
+
+const aboutUsContent = `
+<h3>Most Fulfilling Premium Escort Service in Your City - Free Adult Website Ads in India</h3>
+<p>Find your dream date or intimacy partner from Pokkoo- the leading high-class call girls and escorts free website ads in India. Enjoy premium VIP escort services in your city with elite and experienced call girls of your choice. Satiate your lust and erotic fantasies with hot girls.</p>
+<h3>A Trusted Brand Offering Massage Services Of Sexy Female Escorts</h3>
+<p>Enjoy excellent whole-body massage from experienced masseuses and sizzling massage girls. Locate the hottest girls of your choice from the adult website ads to book a massage session. Gain maximum sensual benefits from excellent erotic massages.</p>
+<h3>Young Virgin Call Girls Post Ads On Pokkoo Escorts & Call Girls Website</h3>
+<p>Best website portal for young virgin call girls who post ads offering services of massage and dating. Experience mind-blowing pleasure from virgin escort girls with the hottest intimate sessions. Release stress and escape boredom. Book your favourite unmarried sexy hottie seamlessly from the trusted brand.</p>
+<h3>Live Sex Cam Model Girls - Trusted Website Ads</h3>
+<p>Enjoy sex chat and video calling with the hot naked girls for a blast of fun. Your search for sexy models for private chat and live shows ends here. Skip boredom and experience sensual fulfilment with glamorous model girls providing VIP escort services to pleasure seekers.</p>
+<h3>Adult Meetings Websites in All Location Nearby</h3>
+<p>Meet your dream date for a romantic evening or an unforgettable nightout. Enjoy the company of hot models, women, call girls and elite celebrities in your city on one platform.</p>
+<p>Experience the fun of sharing and emotional fulfilment in any category of escorts and call girls you may be looking for. Browse various free website ads to find your sexy partner for the Girlfriend experience, bar hopping and casual hookup with the best adult meetings ads.</p>
+<p>Welcome to Pokkoo- your most reliable entertainment partner for escort service Free Website ads in India. If you want to savour excellent and fulfilling escort services from hot and lustful girls, rely on our website.</p>
+<p>Herein, you will find adult ads for massages, high-class call girls, Russian models, young virgin call girls, live sex cam model girls and adult meetings. Check out all categories to book your choicest sexy partner in your preferred category. Experience the ultimate adult entertainment.</p>
+<p>Looking for sex chat and video calling to release stress and sexual frustration? Pokkoo has ads for model girls in Delhi, Mumbai, Bangalore, Kolkata or any city in India for live sex cam. Interested adult entertainers and professional pleasure givers can post their website ads absolutely FREE!</p>
+`;
 
 export default function HomePageClient() {
   const router = useRouter();
@@ -70,7 +87,7 @@ export default function HomePageClient() {
           <section className="mb-20">
             <div className="mb-12 location-content flex flex-col">
               <h1 className="mb-6 w-full text-center md:text-center lg:text-center">
-                Mumbai Escorts Service offers Cash Payment & Free Delivery
+                Call Girls Service and Adult meetings in India - Pokkoo
               </h1>
               <div
                 className="max-w-5xl mx-auto space-y-6 location-content text-center"
@@ -95,13 +112,12 @@ export default function HomePageClient() {
           <section id="about" className="mb-20">
             <div className="bg-white rounded-3xl shadow-lg p-8 md:p-6 location-content">
               {/* <div className="text-center location-content flex flex-col items-center"> */}
-              <h2 className="mb-6">About Us</h2>
+              {/* <h2 className="mb-6">About Us</h2> */}
               {/* </div> */}
-              <div className="space-y-6 leading-relaxed location-content">
-                <div className="location-content">{paragraph}</div>
-                <div className="location-content">{paragraph}</div>
-                <div className="location-content">{paragraph}</div>
-              </div>
+              <div
+                className="space-y-6 leading-relaxed location-content"
+                dangerouslySetInnerHTML={renderHtmlContent(aboutUsContent)}
+              />
             </div>
           </section>
 

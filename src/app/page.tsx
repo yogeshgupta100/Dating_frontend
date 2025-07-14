@@ -5,17 +5,15 @@ import SEO from "../components/SEO";
 // Server-side metadata generation
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title:
-      "Pokkoo Escorts Service - Premium Call Girls with Cash Payment & Free Delivery",
+    title: "Call Girls and Escort Service Adult meetings in India - Pokkoo",
     description:
-      "Premium Pokkoo escorts service offering verified call girls with cash payment and free door delivery 24/7. Safe, discreet, and professional escort services in Pokkoo.",
+      "Pokkoo.in is India & No.1 ads posting site for Independent call girl and escort services in India. Browse our categories to book an call girl available 24/7 and get sex dating in India Post your ads.",
     keywords:
-      "Pokkoo escorts, call girls Pokkoo, escort service Pokkoo, Pokkoo call girls, premium escorts Pokkoo, verified escorts Pokkoo, cash payment escorts, free delivery escorts",
+      "call girl, call girls, call girl service, call girls service, escort service, escorts service, pokkoo, cash payment, call girl near me, call girl whatsapp number, call girl contact number",
     openGraph: {
-      title:
-        "Pokkoo Escorts Service - Premium Call Girls with Cash Payment & Free Delivery",
+      title: "Call Girls and Escort Service Adult meetings in India - Pokkoo",
       description:
-        "Premium Pokkoo escorts service offering verified call girls with cash payment and free door delivery 24/7. Safe, discreet, and professional escort services in Pokkoo.",
+        "Pokkoo.in is India & No.1 ads posting site for Independent call girl and escort services in India. Browse our categories to book an call girl available 24/7 and get sex dating in India Post your ads.",
       url: "https://pokkoo.in",
       siteName: "Pokkoo Escorts Service",
       images: [
@@ -46,20 +44,20 @@ export default function HomePage() {
   const homePageStructuredData = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    name: "Pokkoo Escorts Service - Premium Call Girls with Cash Payment & Free Delivery",
+    name: "Call Girls and Escort Service Adult meetings in India - Pokkoo",
     description:
-      "Premium Pokkoo escorts service offering verified call girls with cash payment and free door delivery 24/7. Safe, discreet, and professional escort services in Pokkoo.",
+      "Pokkoo.in is India & No.1 ads posting site for Independent call girl and escort services in India. Browse our categories to book an call girl available 24/7 and get sex dating in India Post your ads.",
     url: "https://pokkoo.in",
     mainEntity: {
       "@type": "LocalBusiness",
-      name: "Pokkoo Escorts Service",
+      name: "Call Girls and Escort Service Adult meetings in India - Pokkoo",
       description:
-        "Premium Pokkoo escorts service offering verified call girls with cash payment and free door delivery 24/7.",
+        "Pokkoo.in is India & No.1 ads posting site for Independent call girl and escort services in India. Browse our categories to book an call girl available 24/7 and get sex dating in India Post your ads.",
       url: "https://pokkoo.in",
       address: {
         "@type": "PostalAddress",
-        addressLocality: "Pokkoo",
-        addressRegion: "Rajasthan",
+        addressLocality: "India",
+        addressRegion: "India",
         addressCountry: "IN",
       },
       geo: {
@@ -70,7 +68,7 @@ export default function HomePage() {
       openingHours: "Mo-Su 00:00-23:59",
       priceRange: "₹₹",
       serviceType: "Escort Service",
-      areaServed: "Pokkoo",
+      areaServed: "India",
       hasOfferCatalog: {
         "@type": "OfferCatalog",
         name: "Escort Services",
@@ -103,9 +101,9 @@ export default function HomePage() {
   return (
     <>
       <SEO
-        title="Pokkoo Escorts Service - Premium Call Girls with Cash Payment & Free Delivery"
-        description="Premium Pokkoo escorts service offering verified call girls with cash payment and free door delivery 24/7. Safe, discreet, and professional escort services in Pokkoo."
-        keywords="Pokkoo escorts, call girls Pokkoo, escort service Pokkoo, Pokkoo call girls, premium escorts Pokkoo, verified escorts Pokkoo, cash payment escorts, free delivery escorts"
+        title="Call Girls and Escort Service Adult meetings in India - Pokkoo"
+        description="Pokkoo.in is India & No.1 ads posting site for Independent call girl and escort services in India. Browse our categories to book an call girl available 24/7 and get sex dating in India Post your ads."
+        keywords="call girl, call girls, call girl service, call girls service, escort service, escorts service, pokkoo, cash payment, call girl near me, call girl whatsapp number, call girl contact number"
         url="https://pokkoo.in"
         structuredData={homePageStructuredData}
         pathname="/"
