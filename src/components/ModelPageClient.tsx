@@ -14,7 +14,6 @@ import { Model } from "../services";
 import { STATIC_SERVICES, SERVICE_CATEGORIES } from "../constants/services";
 import { slugToText } from "../utils/slug";
 import { useProfileStore } from "../store/profileStore";
-import Tick from "../assets/svgs/Tick.svg";
 import { renderHtmlContent } from "../utils/htmlUtils";
 import { LoadingSpinner } from "./LoadingSpinner";
 import banner_img from "../../public/banner_img.jpeg";
@@ -66,8 +65,6 @@ export default function ModelPageClient() {
           }
         }
 
-        console.log("Profile data received:", profileData);
-
         if (profileData) {
           setProfiles(profileData);
         } else {
@@ -99,7 +96,7 @@ export default function ModelPageClient() {
     slugToText(modelSlug || "") ||
     "Escort Profile";
   const locationName = slugToText(locationSlug || "") || "Pokkoo";
-  const pageTitle = `${profileName} - Premium Escort Service in ${locationName}`;
+  const pageTitle = `${profileName}`;
   const pageDescription =
     profile?.description ||
     `Premium escort service featuring ${profileName} in ${locationName}. Safe, discreet, and professional escort services with verified profiles.`;
@@ -120,7 +117,7 @@ export default function ModelPageClient() {
       jobTitle: "Escort",
       worksFor: {
         "@type": "Organization",
-        name: `${locationName} Escorts Service`,
+        name: `${locationName}`,
       },
       knowsAbout: STATIC_SERVICES,
       address: {
