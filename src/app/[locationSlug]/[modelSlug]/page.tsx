@@ -2,7 +2,8 @@ import { Metadata } from "next";
 import ModelPageClient from "../../../components/ModelPageClient";
 import { slugToText } from "../../../utils/slug";
 import { getLocations } from "../../../services/Locations";
-import { getModels } from "../../../services/models";
+import { getModels, getProfileBySlug } from "../../../services/models";
+import { getLocationBySlug } from "../../../services/Locations";
 
 // Generate static params for all location-model combinations
 export async function generateStaticParams() {
@@ -46,14 +47,34 @@ export async function generateMetadata({
   params: { locationSlug: string; modelSlug: string };
 }): Promise<Metadata> {
   try {
-    // Note: We can't access Zustand store on server side, so we'll generate basic metadata
-    // The actual profile data will be loaded client-side
-    const locationName = slugToText(params.locationSlug) || "Pokkoo";
-    const profileName = slugToText(params.modelSlug) || "Escort Profile";
+    // Fetch location data
+    const location = await getLocationBySlug(params.locationSlug);
 
-    const pageTitle = `${profileName} - Premium Escort Service in ${locationName}`;
-    const pageDescription = `Premium escort service featuring ${profileName} in ${locationName}. Safe, discreet, and professional escort services with verified profiles.`;
-    const pageKeywords = `${profileName}, ${locationName} escorts, call girls ${locationName}, escort service ${locationName}, verified escorts, premium call girls`;
+    // Fetch model data by slug
+    const model = await getProfileBySlug(params.modelSlug);
+
+    if (!model) {
+      return {
+        title: "Profile Not Found",
+        description: "The requested profile could not be found.",
+      };
+    }
+
+    const locationName =
+      location?.name || slugToText(params.locationSlug) || "Pokkoo";
+    const profileName =
+      model.name || slugToText(params.modelSlug) || "Escort Profile";
+
+    // Use dynamic SEO data from API if available, otherwise fallback to generated content
+    const pageTitle =
+      model.seo_title ||
+      `${profileName} - Premium Escort Service in ${locationName}`;
+    const pageDescription =
+      model.seo_desc ||
+      `Premium escort service featuring ${profileName} in ${locationName}. Safe, discreet, and professional escort services with verified profiles.`;
+    const pageKeywords =
+      model.seo_keywords ||
+      `${profileName}, ${locationName} escorts, call girls ${locationName}, escort service ${locationName}, verified escorts, premium call girls`;
 
     return {
       title: pageTitle,
@@ -66,7 +87,10 @@ export async function generateMetadata({
         siteName: "Pokkoo Escorts Service",
         images: [
           {
-            url: "https://pokkoo.in/og-image.jpg",
+            url:
+              model.profile_img && typeof model.profile_img === "string"
+                ? model.profile_img
+                : "https://pokkoo.in/og-image.jpg",
             width: 1200,
             height: 630,
           },
@@ -78,7 +102,11 @@ export async function generateMetadata({
         card: "summary_large_image",
         title: pageTitle,
         description: pageDescription,
-        images: ["https://pokkoo.in/og-image.jpg"],
+        images: [
+          model.profile_img && typeof model.profile_img === "string"
+            ? model.profile_img
+            : "https://pokkoo.in/og-image.jpg",
+        ],
       },
       alternates: {
         canonical: `https://pokkoo.in/${params.locationSlug}/${params.modelSlug}`,
