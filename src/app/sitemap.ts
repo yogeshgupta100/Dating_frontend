@@ -75,7 +75,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
       // Process ALL locations from database - no limits
       locationPages = locations.map((location) => {
-        const locationUrl = `${baseUrl}/${location.slug || location.id}`;
+        const locationUrl = `${baseUrl}/${location.slug || location.id}/`;
         return {
           url: locationUrl,
           lastModified: currentDate,
@@ -126,7 +126,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
                     limitedModels.map((model) => {
                       const modelUrl = `${baseUrl}/${
                         location.slug || location.id
-                      }/${model.slug || model.id}`;
+                      }/${model.slug || model.id}/`;
                       return {
                         url: modelUrl,
                         lastModified: currentDate,
