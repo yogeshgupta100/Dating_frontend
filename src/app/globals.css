@@ -55,7 +55,7 @@ body:not([class*="admin"]):not([class*="sidebar"]) h6 {
 
 /* Specific font sizes for headings - excluding admin panel and sidebar */
 body:not([class*="admin"]):not([class*="sidebar"]) h1 {
-  font-size: 2.5rem !important;
+  font-size: 2.2rem !important;
 }
 
 /* Mobile-specific line height for headings - excluding admin panel and sidebar */
@@ -71,7 +71,7 @@ body:not([class*="admin"]):not([class*="sidebar"]) h1 {
   
   /* Mobile font sizes */
   body:not([class*="admin"]):not([class*="sidebar"]) h1 {
-    font-size: 32px !important;
+    font-size: 28px !important;
   }
   
   body:not([class*="admin"]):not([class*="sidebar"]) p {
@@ -296,7 +296,7 @@ body:not([class*="admin"]):not([class*="sidebar"]) .font-black {
 
 /* Ensure proper heading styles in location-content with Jost */
 .location-content h1 {
-  font-size: 2.5rem !important;
+  font-size: 2.2rem !important;
   font-weight: 700 !important;
   line-height: 1.2 !important;
   margin-bottom: 1rem !important;
@@ -308,39 +308,39 @@ body:not([class*="admin"]):not([class*="sidebar"]) .font-black {
 
 /* Override Tailwind font size classes for location-content headings */
 .location-content h1.text-lg {
-  font-size: 2.5rem !important;
+  font-size: 2.2rem !important;
 }
 
 .location-content h1.text-xl {
-  font-size: 2.5rem !important;
+  font-size: 2.2rem !important;
 }
 
 .location-content h1.text-2xl {
-  font-size: 2.5rem !important;
+  font-size: 2.2rem !important;
 }
 
 .location-content h1.text-3xl {
-  font-size: 2.5rem !important;
+  font-size: 2.2rem !important;
 }
 
 .location-content h1.text-4xl {
-  font-size: 2.5rem !important;
+  font-size: 2.2rem !important;
 }
 
 .location-content h1.md\:text-2xl {
-  font-size: 2.5rem !important;
+  font-size: 2.2rem !important;
 }
 
 .location-content h1.md\:text-3xl {
-  font-size: 2.5rem !important;
+  font-size: 2.2rem !important;
 }
 
 .location-content h1.md\:text-4xl {
-  font-size: 2.5rem !important;
+  font-size: 2.2rem !important;
 }
 
 .location-content h2 {
-  font-size: 2rem !important;
+  font-size: 1.8rem !important;
   font-weight: 600 !important;
   line-height: 1.3 !important;
   margin-bottom: 0.75rem !important;
@@ -351,7 +351,7 @@ body:not([class*="admin"]):not([class*="sidebar"]) .font-black {
 }
 
 .location-content h3 {
-  font-size: 1.75rem !important;
+  font-size: 1.5rem !important;
   font-weight: 600 !important;
   line-height: 1.4 !important;
   margin-bottom: 0.5rem !important;
@@ -362,7 +362,7 @@ body:not([class*="admin"]):not([class*="sidebar"]) .font-black {
 }
 
 .location-content h4 {
-  font-size: 1.5rem !important;
+  font-size: 1.3rem !important;
   font-weight: 600 !important;
   line-height: 1.4 !important;
   margin-bottom: 0.5rem !important;
@@ -373,7 +373,7 @@ body:not([class*="admin"]):not([class*="sidebar"]) .font-black {
 }
 
 .location-content h5 {
-  font-size: 1.25rem !important;
+  font-size: 1.1rem !important;
   font-weight: 600 !important;
   line-height: 1.4 !important;
   margin-bottom: 0.5rem !important;
@@ -499,7 +499,7 @@ body:not([class*="admin"]):not([class*="sidebar"]) .font-black {
 @media (max-width: 768px) {
   .location-content h1 {
     line-height: 1.1 !important;
-    font-size: 1.5rem !important;
+    font-size: 1.3rem !important;
   }
   
   .location-content h2 {

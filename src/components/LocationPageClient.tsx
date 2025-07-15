@@ -206,7 +206,7 @@ export default function LocationPageClient() {
               />
             ))}
           </div>
-          <Gallery showHeading={false} />
+          {profiles.length === 0 && <Gallery showHeading={false} />}
 
           <section className="mb-20">
             <div className="mb-12">

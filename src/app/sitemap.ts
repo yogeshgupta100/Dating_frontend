@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = "https://pokkoo.in";
+  const baseUrl = "https://pokkoo.in/";
   const currentDate = new Date().toISOString();
 
   console.log("🔍 Generating dynamic sitemap for production...");
@@ -14,30 +14,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "daily" as const,
       priority: 1.0,
     },
-    {
-      url: `${baseUrl}/about`,
-      lastModified: currentDate,
-      changeFrequency: "monthly" as const,
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/contact`,
-      lastModified: currentDate,
-      changeFrequency: "monthly" as const,
-      priority: 0.7,
-    },
-    {
-      url: `${baseUrl}/terms`,
-      lastModified: currentDate,
-      changeFrequency: "yearly" as const,
-      priority: 0.3,
-    },
-    {
-      url: `${baseUrl}/privacy`,
-      lastModified: currentDate,
-      changeFrequency: "yearly" as const,
-      priority: 0.3,
-    },
   ];
 
   let locationPages: MetadataRoute.Sitemap = [];
@@ -47,7 +23,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     console.log("📡 Fetching ALL locations from API...");
 
     // Direct API call to ensure we get all locations
-    const apiUrl = "https://api.pokkoo.in/states";
+    const apiUrl = "https://api.pokkoo.in/states/";
     console.log("🌐 API URL:", apiUrl);
 
     const response = await fetch(apiUrl, {
