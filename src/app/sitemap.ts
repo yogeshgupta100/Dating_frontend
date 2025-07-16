@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = "https://pokkoo.in/";
+  const baseUrl = "https://pokkoo.in";
   const currentDate = new Date().toISOString();
 
   console.log("🔍 Generating dynamic sitemap for production...");
@@ -9,7 +9,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Start with static pages
   const staticPages: MetadataRoute.Sitemap = [
     {
-      url: baseUrl,
+      url: `${baseUrl}/`,
       lastModified: currentDate,
       changeFrequency: "daily" as const,
       priority: 1.0,
