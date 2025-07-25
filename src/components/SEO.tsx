@@ -124,7 +124,7 @@ const SEO: React.FC<SEOProps> = ({
       <meta property="og:image" content={image} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
-      <meta property="og:site_name" content="https://www.pokkoo.in" />
+      <meta property="og:site_name" content="https://pokkoo.in" />
       <meta property="og:locale" content="en_US" />
 
       {/* Twitter */}
