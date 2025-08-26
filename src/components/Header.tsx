@@ -18,11 +18,15 @@ const Header = () => {
   const router = useRouter();
 
   const handleNav = (id: string) => {
-    if (typeof window !== "undefined" && window.location.pathname === "/") {
-      scrollToSection(id);
-    } else {
-      router.push("/");
-      setTimeout(() => scrollToSection(id), 100);
+    if (typeof window !== "undefined" && typeof document !== "undefined") {
+      // Check if the target section exists on the current page
+      const targetElement = document.getElementById(id);
+
+      if (targetElement) {
+        // Section exists on current page, scroll to it
+        scrollToSection(id);
+      }
+      // If section doesn't exist, do nothing (no redirect)
     }
     setIsMenuOpen(false);
   };

@@ -170,7 +170,7 @@ export default function LocationPageClient() {
       <div className="min-h-screen bg-gray-50">
         <Banner />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div id="home" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="text-center mb-12 location-content">
             <h1 className=" mx-auto font-bold mb-4">{location?.heading}</h1>
             <div
@@ -190,19 +190,6 @@ export default function LocationPageClient() {
                 desc={profile.description}
                 location={location?.name}
                 services={profile.services}
-                onClick={() => {
-                  setSelectedProfileId(profile.id.toString());
-                  router.push(
-                    `/${locationSlug}/${
-                      profile.slug ||
-                      generateProfileSlug(
-                        profile.heading || profile.name,
-                        locationSlug || "location",
-                        profiles.map((p) => p.slug).filter(Boolean)
-                      )
-                    }`
-                  );
-                }}
               />
             ))}
           </div>

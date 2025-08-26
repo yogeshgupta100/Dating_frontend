@@ -8,7 +8,7 @@ const locationCache = new Map<
   string,
   { data: any; timestamp: number; ttl: number }
 >();
-const LOCATION_CACHE_TTL = 10 * 60 * 1000; // 10 minutes
+const LOCATION_CACHE_TTL = 1 * 60 * 1000; // 1 minute
 
 // Helper functions for caching
 const isLocationCacheValid = (key: string): boolean => {
@@ -28,6 +28,17 @@ const setCachedLocation = (key: string, data: any): void => {
     timestamp: Date.now(),
     ttl: LOCATION_CACHE_TTL,
   });
+};
+
+// Function to clear cache for a specific location or all locations
+export const clearLocationCache = (slug?: string): void => {
+  if (slug) {
+    locationCache.delete(`location-slug-${slug}`);
+    console.log(`Cleared cache for location: ${slug}`);
+  } else {
+    locationCache.clear();
+    console.log("Cleared all location cache");
+  }
 };
 
 // Enhanced fetch with timeout
@@ -85,12 +96,13 @@ export const getLocations = async (): Promise<LocationResponse[]> => {
 };
 
 export const getLocationBySlug = async (
-  slug: string
+  slug: string,
+  forceRefresh: boolean = false
 ): Promise<LocationResponse | null> => {
   const cacheKey = `location-slug-${slug}`;
 
-  // Check cache first
-  if (isLocationCacheValid(cacheKey)) {
+  // Check cache first (unless force refresh is requested)
+  if (!forceRefresh && isLocationCacheValid(cacheKey)) {
     return getCachedLocation(cacheKey);
   }
 
@@ -238,11 +250,6 @@ export const deleteLocation = async (id: string): Promise<void> => {
   await handleResponse(response);
 
   // Clear location cache after deletion
-  locationCache.clear();
-};
-
-// Clear location cache
-export const clearLocationCache = (): void => {
   locationCache.clear();
 };
 

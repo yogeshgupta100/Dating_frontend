@@ -5,7 +5,6 @@ interface ProfileCardProps {
   img: File | string;
   heading: string;
   desc: string;
-  onClick?: () => void;
   location?: string;
   age?: number;
   services?: string[];
@@ -15,7 +14,6 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
   img,
   heading,
   desc,
-  onClick,
   location,
   age,
   services = [],
@@ -40,13 +38,6 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
       }
     };
   }, [img]);
-
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      onClick?.();
-    }
-  };
 
   const getAltText = () => {
     const parts = [heading];
@@ -124,23 +115,8 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
     </>
   );
 
-  if (onClick) {
-    return (
-      <article
-        className="w-full bg-white rounded-2xl shadow-md flex flex-row items-stretch p-4 md:px-4 mb-6 mx-auto cursor-pointer hover:shadow-lg transition-shadow focus-within:ring-2 focus-within:ring-red-500 focus-within:ring-opacity-50"
-        onClick={onClick}
-        onKeyDown={handleKeyDown}
-        tabIndex={0}
-        role="button"
-        aria-label={`View profile of ${heading}`}
-      >
-        <CardContent />
-      </article>
-    );
-  }
-
   return (
-    <article className="w-full bg-white rounded-2xl shadow-md flex flex-row items-stretch p-4 md:px-4 mb-6 mx-auto">
+    <article className="w-full bg-white rounded-2xl shadow-md flex flex-row items-stretch p-4 md:px-4 mb-6 mx-auto cursor-pointer hover:shadow-lg transition-shadow">
       <CardContent />
     </article>
   );

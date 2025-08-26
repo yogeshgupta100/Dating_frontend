@@ -82,7 +82,10 @@ export default function HomePageClient() {
         <Banner />
 
         {/* Main Content */}
-        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <main
+          id="home"
+          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16"
+        >
           {/* Introduction */}
           <section className="mb-20">
             <div className="mb-12 location-content flex flex-col">
