@@ -115,8 +115,8 @@ export default async function LocationPage({
     // Clear cache to ensure fresh data
     clearLocationCache(params.locationSlug);
 
-    // First try to get location by slug
-    location = await getLocationBySlug(params.locationSlug);
+    // First try to get location by slug with force refresh
+    location = await getLocationBySlug(params.locationSlug, true);
 
     // If not found by slug, try to get by ID (fallback)
     if (!location) {
@@ -132,6 +132,10 @@ export default async function LocationPage({
         "for location:",
         location.name
       );
+
+      // Debug phone number
+      console.log("Location phone number:", location.phone_number);
+      console.log("Location data:", location);
     }
   } catch (error) {
     console.error("Error fetching location data:", error);

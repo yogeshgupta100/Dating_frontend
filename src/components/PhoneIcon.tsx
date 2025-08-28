@@ -8,20 +8,26 @@ const PhoneIcon: React.FC<{ number?: string }> = ({ number }) => {
   const { globalPhoneNumber, isLoading } = usePhone();
 
   useEffect(() => {
+    console.log("PhoneIcon - Received number prop:", number);
+    console.log("PhoneIcon - Global phone number:", globalPhoneNumber);
+
     // If a valid number is passed via props, use it immediately
     if (number && number.trim()) {
+      console.log("PhoneIcon - Using provided number:", number);
       setDisplayNumber(number);
       return;
     }
 
     // If no valid number, use the global phone number from context
     if (globalPhoneNumber) {
+      console.log("PhoneIcon - Using global phone number:", globalPhoneNumber);
       setDisplayNumber(globalPhoneNumber);
     }
   }, [number, globalPhoneNumber]);
 
   // Don't render while loading global phone number
   if (isLoading && !displayNumber) {
+    console.log("PhoneIcon - Not rendering due to loading state");
     return null;
   }
 
@@ -31,6 +37,10 @@ const PhoneIcon: React.FC<{ number?: string }> = ({ number }) => {
     typeof displayNumber !== "string" ||
     !displayNumber.trim()
   ) {
+    console.log(
+      "PhoneIcon - Not rendering due to invalid display number:",
+      displayNumber
+    );
     return null;
   }
 
@@ -39,8 +49,11 @@ const PhoneIcon: React.FC<{ number?: string }> = ({ number }) => {
 
   // Don't render if we don't have any digits after cleaning
   if (!cleanNumber) {
+    console.log("PhoneIcon - Not rendering due to no digits after cleaning");
     return null;
   }
+
+  console.log("PhoneIcon - Rendering with clean number:", cleanNumber);
 
   return (
     <a
