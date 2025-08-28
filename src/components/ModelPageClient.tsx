@@ -259,14 +259,30 @@ const ModelPageClient: React.FC<ModelPageClientProps> = ({
             <section className="flex-1 md:flex-none">
               <PhoneIcon
                 number={
-                  profile?.phone_number || location?.phone_number || undefined
+                  (profile?.phone_number &&
+                    profile.phone_number !== "00000000") ||
+                  (location?.phone_number &&
+                    location.phone_number !== "00000000")
+                    ? profile?.phone_number &&
+                      profile.phone_number !== "00000000"
+                      ? profile.phone_number
+                      : location.phone_number
+                    : undefined
                 }
               />
             </section>
             <section className="flex-1 md:flex-none">
               <WhatsAppIcon
                 number={
-                  profile?.phone_number || location?.phone_number || undefined
+                  (profile?.phone_number &&
+                    profile.phone_number !== "00000000") ||
+                  (location?.phone_number &&
+                    location.phone_number !== "00000000")
+                    ? profile?.phone_number &&
+                      profile.phone_number !== "00000000"
+                      ? profile.phone_number
+                      : location.phone_number
+                    : undefined
                 }
               />
             </section>

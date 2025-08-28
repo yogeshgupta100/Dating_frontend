@@ -57,13 +57,6 @@ export async function generateMetadata({
       location.seo_keyword ||
       `${locationName} escorts, call girls ${locationName}, escort service ${locationName}, ${locationName} call girls, premium escorts ${locationName}, verified escorts ${locationName}`;
 
-    console.log("Generated metadata for:", locationName, {
-      title: pageTitle,
-      description: pageDescription,
-      seo_title: location.seo_title,
-      seo_desc: location.seo_desc,
-    });
-
     return {
       title: pageTitle,
       description: pageDescription,
@@ -126,19 +119,10 @@ export default async function LocationPage({
     if (location) {
       // Fetch profiles for this location
       profiles = await getModels(location.id.toString());
-      console.log(
-        "Fetched profiles:",
-        profiles.length,
-        "for location:",
-        location.name
-      );
-
-      // Debug phone number
-      console.log("Location phone number:", location.phone_number);
-      console.log("Location data:", location);
     }
   } catch (error) {
     console.error("Error fetching location data:", error);
+    // Continue with empty data instead of throwing
   }
 
   const formatLocationName = (locationName: string | undefined) => {
@@ -251,11 +235,23 @@ export default async function LocationPage({
         </div>
 
         <section>
-          <PhoneIcon number={location?.phone_number || undefined} />
+          <PhoneIcon
+            number={
+              location?.phone_number && location.phone_number !== "00000000"
+                ? location.phone_number
+                : undefined
+            }
+          />
         </section>
 
         <section>
-          <WhatsAppIcon number={location?.phone_number || undefined} />
+          <WhatsAppIcon
+            number={
+              location?.phone_number && location.phone_number !== "00000000"
+                ? location.phone_number
+                : undefined
+            }
+          />
         </section>
       </div>
       <Footer />

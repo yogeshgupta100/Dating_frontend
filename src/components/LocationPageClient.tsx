@@ -270,11 +270,23 @@ export default function LocationPageClient() {
         </div>
 
         <section>
-          <PhoneIcon number={location?.phone_number || undefined} />
+          <PhoneIcon
+            number={
+              location?.phone_number && location.phone_number !== "00000000"
+                ? location.phone_number
+                : undefined
+            }
+          />
         </section>
 
         <section>
-          <WhatsAppIcon number={location?.phone_number || undefined} />
+          <WhatsAppIcon
+            number={
+              location?.phone_number && location.phone_number !== "00000000"
+                ? location.phone_number
+                : undefined
+            }
+          />
         </section>
       </div>
       <Footer />

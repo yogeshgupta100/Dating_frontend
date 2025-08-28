@@ -103,26 +103,21 @@ export const getLocationBySlug = async (
 
   // Check cache first (unless force refresh is requested)
   if (!forceRefresh && isLocationCacheValid(cacheKey)) {
-    const cached = getCachedLocation(cacheKey);
-    console.log("Returning cached location for slug:", slug, cached);
-    return cached;
+    return getCachedLocation(cacheKey);
   }
 
   try {
-    console.log("Fetching location by slug:", slug);
     const response = await fetchWithTimeout(`${url}/states/slug/${slug}`, {
       method: "GET",
       headers: defaultHeaders,
     });
 
     if (response.status === 404) {
-      console.log("Location not found for slug:", slug);
       setCachedLocation(cacheKey, null);
       return null;
     }
 
     const data = await handleResponse(response);
-    console.log("Location API response for slug:", slug, data);
     setCachedLocation(cacheKey, data);
     return data;
   } catch (error) {
@@ -131,11 +126,6 @@ export const getLocationBySlug = async (
     // Return cached data if available
     const cached = getCachedLocation(cacheKey);
     if (cached !== undefined) {
-      console.log(
-        "Returning cached location due to error for slug:",
-        slug,
-        cached
-      );
       return cached;
     }
 

@@ -8,29 +8,20 @@ const WhatsAppIcon: React.FC<{ number?: string }> = ({ number }) => {
   const { globalPhoneNumber, isLoading } = usePhone();
 
   useEffect(() => {
-    console.log("WhatsAppIcon - Received number prop:", number);
-    console.log("WhatsAppIcon - Global phone number:", globalPhoneNumber);
-
     // If a valid number is passed via props, use it immediately
     if (number && number.trim()) {
-      console.log("WhatsAppIcon - Using provided number:", number);
       setDisplayNumber(number);
       return;
     }
 
     // If no valid number, use the global phone number from context
     if (globalPhoneNumber) {
-      console.log(
-        "WhatsAppIcon - Using global phone number:",
-        globalPhoneNumber
-      );
       setDisplayNumber(globalPhoneNumber);
     }
   }, [number, globalPhoneNumber]);
 
   // Don't render while loading global phone number
   if (isLoading && !displayNumber) {
-    console.log("WhatsAppIcon - Not rendering due to loading state");
     return null;
   }
 
@@ -40,10 +31,6 @@ const WhatsAppIcon: React.FC<{ number?: string }> = ({ number }) => {
     typeof displayNumber !== "string" ||
     !displayNumber.trim()
   ) {
-    console.log(
-      "WhatsAppIcon - Not rendering due to invalid display number:",
-      displayNumber
-    );
     return null;
   }
 
@@ -52,11 +39,8 @@ const WhatsAppIcon: React.FC<{ number?: string }> = ({ number }) => {
 
   // Don't render if we don't have any digits after cleaning
   if (!cleanNumber) {
-    console.log("WhatsAppIcon - Not rendering due to no digits after cleaning");
     return null;
   }
-
-  console.log("WhatsAppIcon - Rendering with clean number:", cleanNumber);
 
   return (
     <a
@@ -76,7 +60,7 @@ const WhatsAppIcon: React.FC<{ number?: string }> = ({ number }) => {
       >
         <circle cx="16" cy="16" r="16" fill="#25D366" />
         <path
-          d="M23.5 19.5C22.8333 19.5 22.1667 19.5 21.5 19.5C21.1667 19.5 20.8333 19.5 20.5 19.5C20.1667 19.5 19.8333 19.5 19.5 19.5C19.1667 19.5 18.8333 19.5 18.5 19.5C18.1667 19.5 17.8333 19.5 17.5 19.5C17.1667 19.5 16.8333 19.5 16.5 19.5C16.1667 19.5 15.8333 19.5 15.5 19.5C15.1667 19.5 14.8333 19.5 14.5 19.5C14.1667 19.5 13.8333 19.5 13.5 19.5C13.1667 19.5 12.8333 19.5 12.5 19.5C12.1667 19.5 11.8333 19.5 11.5 19.5C11.1667 19.5 10.8333 19.5 10.5 19.5C10.1667 19.5 9.83333 19.5 9.5 19.5C9.16667 19.5 8.83333 19.5 8.5 19.5C8.16667 19.5 7.83333 19.5 7.5 19.5C7.16667 19.5 6.83333 19.5 6.5 19.5C6.16667 19.5 5.83333 19.5 5.5 19.5C5.16667 19.5 4.83333 19.5 4.5 19.5C4.16667 19.5 3.83333 19.5 3.5 19.5C3.16667 19.5 2.83333 19.5 2.5 19.5C2.16667 19.5 1.83333 19.5 1.5 19.5C1.16667 19.5 0.833333 19.5 0.5 19.5C0.166667 19.5 -0.166667 19.5 -0.5 19.5"
+          d="M23.5 19.5C22.8333 19.5 22.1667 19.5 21.5 19.5C21.1667 19.5 20.8333 19.5 20.5 19.5C20.1667 19.5 19.8333 19.5 19.5 19.5C19.1667 19.5 18.8333 19.5 18.5 19.5C18.1667 19.5 18.8333 19.5 17.5 19.5C17.1667 19.5 16.8333 19.5 16.5 19.5C16.1667 19.5 15.8333 19.5 15.5 19.5C15.1667 19.5 14.8333 19.5 14.5 19.5C14.1667 19.5 13.8333 19.5 13.5 19.5C13.1667 19.5 12.8333 19.5 12.5 19.5C12.1667 19.5 11.8333 19.5 11.5 19.5C11.1667 19.5 10.8333 19.5 10.5 19.5C10.1667 19.5 9.83333 19.5 9.5 19.5C9.16667 19.5 8.83333 19.5 8.5 19.5C8.16667 19.5 7.83333 19.5 7.5 19.5C7.16667 19.5 6.83333 19.5 6.5 19.5C6.16667 19.5 5.83333 19.5 5.5 19.5C5.16667 19.5 4.83333 19.5 4.5 19.5C4.16667 19.5 3.83333 19.5 3.5 19.5C3.16667 19.5 2.83333 19.5 2.5 19.5C2.16667 19.5 1.83333 19.5 1.5 19.5C1.16667 19.5 0.833333 19.5 0.5 19.5C0.166667 19.5 -0.166667 19.5 -0.5 19.5"
           fill="#fff"
         />
         <path

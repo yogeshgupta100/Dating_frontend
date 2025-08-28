@@ -41,8 +41,6 @@ export const PhoneProvider: React.FC<{ children: React.ReactNode }> = ({
         const apiPromise = api.getPhoneNumber();
         const data = await Promise.race([apiPromise, timeoutPromise]);
 
-        console.log("Phone API response:", data);
-
         // Handle different response structures
         let phoneNumber: string | null = null;
 
@@ -55,31 +53,21 @@ export const PhoneProvider: React.FC<{ children: React.ReactNode }> = ({
             (data as any)?.phone;
         }
 
-        console.log("Extracted phone number:", phoneNumber);
-
         if (
           typeof phoneNumber === "string" &&
           phoneNumber.trim() &&
           phoneNumber !== "00000000"
         ) {
           setGlobalPhoneNumber(phoneNumber.trim());
-          console.log("Setting global phone number to:", phoneNumber.trim());
         } else {
           // Use fallback if API returns invalid data or "00000000"
           const fallbackNumber = "1234567890";
           setGlobalPhoneNumber(fallbackNumber);
-          console.log("Using fallback phone number:", fallbackNumber);
         }
       } catch (err) {
-        console.error("Failed to fetch global phone number:", err);
-        setError(err instanceof Error ? err.message : "Unknown error");
         // Use fallback on error
         const fallbackNumber = "1234567890";
         setGlobalPhoneNumber(fallbackNumber);
-        console.log(
-          "Using fallback phone number due to error:",
-          fallbackNumber
-        );
       } finally {
         setIsLoading(false);
       }
