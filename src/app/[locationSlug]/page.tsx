@@ -129,6 +129,10 @@ export default async function LocationPage({
     try {
       clearLocationCache(params.locationSlug);
       console.log("Cache cleared for slug:", params.locationSlug);
+
+      // Also clear all location cache to be safe
+      clearLocationCache();
+      console.log("All location cache cleared");
     } catch (cacheError) {
       console.error("Error clearing cache:", cacheError);
     }
@@ -164,6 +168,8 @@ export default async function LocationPage({
         id: location.id,
         name: location.name,
         phone_number: location.phone_number,
+        phone_number_type: typeof location.phone_number,
+        phone_number_length: location.phone_number?.length,
         hasHeading: !!location.heading,
         hasContent: !!location.content,
       });
@@ -231,6 +237,14 @@ export default async function LocationPage({
     profilesCount: profiles.length,
     locationName,
     phoneNumber: location?.phone_number,
+    phoneNumberType: typeof location?.phone_number,
+    phoneNumberLength: location?.phone_number?.length,
+    willUseLocationPhone:
+      location?.phone_number && location.phone_number !== "00000000",
+    finalPhoneNumber:
+      location?.phone_number && location.phone_number !== "00000000"
+        ? location.phone_number
+        : "undefined (will use global)",
   });
 
   // Fallback content if no location data is available

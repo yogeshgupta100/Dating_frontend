@@ -130,6 +130,18 @@ export const getLocationBySlug = async (
       throw new Error("Invalid response data");
     }
 
+    // Debug the location data structure
+    console.log("Location API Response Debug:", {
+      hasData: !!data,
+      dataType: typeof data,
+      dataKeys: Object.keys(data),
+      phoneNumber: data.phone_number,
+      phoneNumberType: typeof data.phone_number,
+      phoneNumberLength: data.phone_number?.length,
+      name: data.name,
+      id: data.id,
+    });
+
     setCachedLocation(cacheKey, data);
     return data;
   } catch (error) {
