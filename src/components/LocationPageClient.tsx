@@ -272,7 +272,9 @@ export default function LocationPageClient() {
         <section>
           <PhoneIcon
             number={
-              location?.phone_number && location.phone_number !== "00000000"
+              location?.phone_number &&
+              location.phone_number !== "" &&
+              location.phone_number !== "00000000"
                 ? location.phone_number
                 : undefined
             }
@@ -282,7 +284,9 @@ export default function LocationPageClient() {
         <section>
           <WhatsAppIcon
             number={
-              location?.phone_number && location.phone_number !== "00000000"
+              location?.phone_number &&
+              location.phone_number !== "" &&
+              location.phone_number !== "00000000"
                 ? location.phone_number
                 : undefined
             }
