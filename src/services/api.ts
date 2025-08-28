@@ -10,8 +10,8 @@ const cache = new Map<string, { data: any; timestamp: number; ttl: number }>();
 // Cache TTL in milliseconds (5 minutes)
 const CACHE_TTL = 5 * 60 * 1000;
 
-// Request timeout in milliseconds (10 seconds)
-const REQUEST_TIMEOUT = 10000;
+// Request timeout in milliseconds (3 seconds)
+const REQUEST_TIMEOUT = 3000;
 
 // Retry configuration
 const MAX_RETRIES = 3;

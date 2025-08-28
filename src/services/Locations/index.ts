@@ -41,13 +41,13 @@ export const clearLocationCache = (slug?: string): void => {
   }
 };
 
-// Enhanced fetch with timeout
+// Enhanced fetch with timeout - reduced to 3 seconds for faster response
 const fetchWithTimeout = async (
   url: string,
   options: RequestInit = {}
 ): Promise<Response> => {
   const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+  const timeoutId = setTimeout(() => controller.abort(), 3000); // 3 second timeout (reduced from 5 seconds)
 
   try {
     const response = await fetch(url, {

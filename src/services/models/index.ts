@@ -1,10 +1,17 @@
 import { Model } from "../index";
 import { url, defaultHeaders, handleResponse } from "../api";
-import { uploadImageToCloudinary, deleteImageFromCloudinary, extractPublicIdFromUrl } from "../cloudinary";
+import {
+  uploadImageToCloudinary,
+  deleteImageFromCloudinary,
+  extractPublicIdFromUrl,
+} from "../cloudinary";
 
 // Cache for models
-const modelCache = new Map<string, { data: any; timestamp: number; ttl: number }>();
-const MODEL_CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+const modelCache = new Map<
+  string,
+  { data: any; timestamp: number; ttl: number }
+>();
+const MODEL_CACHE_TTL = 10 * 60 * 1000; // 10 minutes (increased from 5 minutes)
 
 // Helper functions for caching
 const isModelCacheValid = (key: string): boolean => {
@@ -22,13 +29,19 @@ const setCachedModel = (key: string, data: any): void => {
   modelCache.set(key, { data, timestamp: Date.now(), ttl: MODEL_CACHE_TTL });
 };
 
-// Enhanced fetch with timeout
-const fetchWithTimeout = async (url: string, options: RequestInit = {}): Promise<Response> => {
+// Enhanced fetch with timeout - reduced to 3 seconds for faster response
+const fetchWithTimeout = async (
+  url: string,
+  options: RequestInit = {}
+): Promise<Response> => {
   const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
-  
+  const timeoutId = setTimeout(() => controller.abort(), 3000); // 3 second timeout (reduced from 5 seconds)
+
   try {
-    const response = await fetch(url, { ...options, signal: controller.signal });
+    const response = await fetch(url, {
+      ...options,
+      signal: controller.signal,
+    });
     clearTimeout(timeoutId);
     return response;
   } catch (error) {
@@ -38,146 +51,144 @@ const fetchWithTimeout = async (url: string, options: RequestInit = {}): Promise
 };
 
 export const getModels = async (locationId?: string): Promise<Model[]> => {
-  const cacheKey = locationId ? `models-location-${locationId}` : 'models-all';
-  
+  const cacheKey = locationId ? `models-location-${locationId}` : "models-all";
+
   // Check cache first
   if (isModelCacheValid(cacheKey)) {
     console.log("Returning cached models");
     return getCachedModel(cacheKey);
   }
-  
+
   try {
     const urlWithParams = locationId
       ? `${url}/states/${locationId}/models`
       : `${url}/models`;
-      
+
     const response = await fetchWithTimeout(urlWithParams, {
       method: "GET",
       headers: defaultHeaders,
     });
-    
+
     const data = await handleResponse(response);
     setCachedModel(cacheKey, data);
     return data;
   } catch (error) {
-    console.error('Error fetching models:', error);
-    
+    console.error("Error fetching models:", error);
+
     // Return cached data if available, even if expired
     const cached = getCachedModel(cacheKey);
     if (cached) {
       console.log("Returning expired cached models due to error");
       return cached;
     }
-    
+
     throw error;
   }
 };
 
 export const getProfile = async (id: string): Promise<Model> => {
   const cacheKey = `profile-${id}`;
-  
+
   // Check cache first
   if (isModelCacheValid(cacheKey)) {
     return getCachedModel(cacheKey);
   }
-  
+
   try {
     const response = await fetchWithTimeout(`${url}/models/${id}`, {
       method: "GET",
       headers: defaultHeaders,
     });
-    
+
     const data = await handleResponse(response);
-    
+
     // Handle case where API returns an array instead of single object
     let result: Model;
     if (Array.isArray(data) && data.length > 0) {
       result = data[0]; // Return the first item in the array
-    } else if (data && typeof data === 'object' && data.id) {
+    } else if (data && typeof data === "object" && data.id) {
       result = data; // Return the single object
     } else {
-      throw new Error('Profile not found');
+      throw new Error("Profile not found");
     }
-    
+
     setCachedModel(cacheKey, result);
     return result;
   } catch (error) {
-    console.error('Error fetching profile:', error);
-    
+    console.error("Error fetching profile:", error);
+
     // Return cached data if available
     const cached = getCachedModel(cacheKey);
     if (cached) {
       return cached;
     }
-    
+
     throw error;
   }
 };
 
 export const getProfileBySlug = async (slug: string): Promise<Model | null> => {
   const cacheKey = `profile-slug-${slug}`;
-  
+
   // Check cache first
   if (isModelCacheValid(cacheKey)) {
     return getCachedModel(cacheKey);
   }
-  
+
   try {
     const response = await fetchWithTimeout(`${url}/models/slug/${slug}`, {
       method: "GET",
       headers: defaultHeaders,
     });
-    
+
     if (response.status === 404) {
       setCachedModel(cacheKey, null);
       return null;
     }
-    
+
     const data = await handleResponse(response);
-    
+
     // Handle case where API returns an array instead of single object
     let result: Model | null;
     if (Array.isArray(data) && data.length > 0) {
       result = data[0]; // Return the first item in the array
-    } else if (data && typeof data === 'object' && data.id) {
+    } else if (data && typeof data === "object" && data.id) {
       result = data; // Return the single object
     } else {
       result = null;
     }
-    
+
     setCachedModel(cacheKey, result);
     return result;
   } catch (error) {
     console.error("Error in getProfileBySlug:", error);
-    
+
     // Return cached data if available
     const cached = getCachedModel(cacheKey);
     if (cached !== undefined) {
       return cached;
     }
-    
+
     return null;
   }
 };
 
-export const createModel = async (
-  model: Omit<Model, "id">
-): Promise<Model> => {
+export const createModel = async (model: Omit<Model, "id">): Promise<Model> => {
   try {
     // Upload images to Cloudinary first
-    let profileImgUrl = '';
-    let bannerImgUrl = '';
+    let profileImgUrl = "";
+    let bannerImgUrl = "";
 
     if (model.profile_img instanceof File && model.profile_img.size > 0) {
       const profileResult = await uploadImageToCloudinary(model.profile_img, {
-        folder: 'dating-app/profiles'
+        folder: "dating-app/profiles",
       });
       profileImgUrl = profileResult.secure_url;
     }
 
     if (model.banner_img instanceof File && model.banner_img.size > 0) {
       const bannerResult = await uploadImageToCloudinary(model.banner_img, {
-        folder: 'dating-app/banners'
+        folder: "dating-app/banners",
       });
       bannerImgUrl = bannerResult.secure_url;
     }
@@ -203,15 +214,15 @@ export const createModel = async (
       method: "POST",
       body: formData,
     });
-    
+
     const result = await handleResponse(response);
-    
+
     // Clear model cache after creation
     modelCache.clear();
-    
+
     return result;
   } catch (error) {
-    console.error('Error creating model:', error);
+    console.error("Error creating model:", error);
     throw error;
   }
 };
@@ -222,19 +233,19 @@ export const updateModel = async (
 ): Promise<Model> => {
   try {
     // Upload new images to Cloudinary if they are File objects
-    let profileImgUrl = '';
-    let bannerImgUrl = '';
+    let profileImgUrl = "";
+    let bannerImgUrl = "";
 
     if (model.profile_img instanceof File && model.profile_img.size > 0) {
       const profileResult = await uploadImageToCloudinary(model.profile_img, {
-        folder: 'dating-app/profiles'
+        folder: "dating-app/profiles",
       });
       profileImgUrl = profileResult.secure_url;
     }
 
     if (model.banner_img instanceof File && model.banner_img.size > 0) {
       const bannerResult = await uploadImageToCloudinary(model.banner_img, {
-        folder: 'dating-app/banners'
+        folder: "dating-app/banners",
       });
       bannerImgUrl = bannerResult.secure_url;
     }
@@ -259,15 +270,15 @@ export const updateModel = async (
       method: "PUT",
       body: formData,
     });
-    
+
     const result = await handleResponse(response);
-    
+
     // Clear model cache after update
     modelCache.clear();
-    
+
     return result;
   } catch (error) {
-    console.error('Error updating model:', error);
+    console.error("Error updating model:", error);
     throw error;
   }
 };
@@ -280,7 +291,7 @@ export const deleteModel = async (id: string): Promise<void> => {
     });
     return handleResponse(response);
   } catch (error) {
-    console.error('Error deleting model:', error);
+    console.error("Error deleting model:", error);
     throw error;
   }
 };
@@ -294,6 +305,6 @@ export const clearModelCache = (): void => {
 export const getModelCacheStats = (): { size: number; keys: string[] } => {
   return {
     size: modelCache.size,
-    keys: Array.from(modelCache.keys())
+    keys: Array.from(modelCache.keys()),
   };
 };

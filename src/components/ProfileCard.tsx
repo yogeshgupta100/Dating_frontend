@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from "react";
+"use client";
+
+import React from "react";
 import { renderHtmlContent } from "../utils/htmlUtils";
 
 interface ProfileCardProps {
@@ -10,6 +12,51 @@ interface ProfileCardProps {
   services?: string[];
 }
 
+// Client component for handling File objects
+const ClientImageHandler: React.FC<{ img: File | string; alt: string }> = ({
+  img,
+  alt,
+}) => {
+  const [imageSrc, setImageSrc] = React.useState<string>("");
+  const [isClient, setIsClient] = React.useState(false);
+
+  React.useEffect(() => {
+    setIsClient(true);
+
+    if (img instanceof File) {
+      const objectUrl = URL.createObjectURL(img);
+      setImageSrc(objectUrl);
+
+      return () => {
+        URL.revokeObjectURL(objectUrl);
+      };
+    } else if (typeof img === "string") {
+      setImageSrc(img);
+    }
+  }, [img]);
+
+  // Show placeholder during SSR or while loading
+  if (!isClient || !imageSrc) {
+    return (
+      <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+        <span className="text-gray-500" aria-hidden="true">
+          👤
+        </span>
+      </div>
+    );
+  }
+
+  return (
+    <img
+      src={imageSrc}
+      alt={alt}
+      className="w-full h-full object-cover"
+      loading="lazy"
+      decoding="async"
+    />
+  );
+};
+
 const ProfileCard: React.FC<ProfileCardProps> = ({
   img,
   heading,
@@ -18,27 +65,6 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
   age,
   services = [],
 }) => {
-  const [imageSrc, setImageSrc] = useState<string>("");
-
-  useEffect(() => {
-    let objectUrl: string | undefined;
-
-    if (img instanceof File) {
-      objectUrl = URL.createObjectURL(img);
-      setImageSrc(objectUrl);
-    } else if (typeof img === "string") {
-      // Cloudinary URLs are short and safe to use directly
-      setImageSrc(img);
-    }
-
-    // Cleanup function
-    return () => {
-      if (objectUrl) {
-        URL.revokeObjectURL(objectUrl);
-      }
-    };
-  }, [img]);
-
   const getAltText = () => {
     const parts = [heading];
     if (location) parts.push(location);
@@ -49,9 +75,11 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
   const CardContent = () => (
     <>
       <div className="flex-shrink-0 w-32 h-32 md:w-48 md:h-48 overflow-hidden rounded-2xl">
-        {imageSrc ? (
+        {img instanceof File ? (
+          <ClientImageHandler img={img} alt={getAltText()} />
+        ) : typeof img === "string" && img ? (
           <img
-            src={imageSrc}
+            src={img}
             alt={getAltText()}
             className="w-full h-full object-cover"
             loading="lazy"
