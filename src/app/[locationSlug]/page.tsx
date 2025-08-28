@@ -247,11 +247,11 @@ export default async function LocationPage({
         </div>
 
         <section>
-          <PhoneIcon number={location?.phone_number || ""} />
+          <PhoneIcon number={location?.phone_number || undefined} />
         </section>
 
         <section>
-          <WhatsAppIcon number={location?.phone_number || ""} />
+          <WhatsAppIcon number={location?.phone_number || undefined} />
         </section>
       </div>
       <Footer />

@@ -258,12 +258,16 @@ const ModelPageClient: React.FC<ModelPageClientProps> = ({
           <div className="flex gap-3 md:flex-col md:gap-4">
             <section className="flex-1 md:flex-none">
               <PhoneIcon
-                number={profile?.phone_number || location?.phone_number || ""}
+                number={
+                  profile?.phone_number || location?.phone_number || undefined
+                }
               />
             </section>
             <section className="flex-1 md:flex-none">
               <WhatsAppIcon
-                number={profile?.phone_number || location?.phone_number || ""}
+                number={
+                  profile?.phone_number || location?.phone_number || undefined
+                }
               />
             </section>
           </div>
