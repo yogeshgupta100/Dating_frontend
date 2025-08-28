@@ -117,7 +117,19 @@ export const getLocationBySlug = async (
       return null;
     }
 
+    if (!response.ok) {
+      console.error(`API error: ${response.status} ${response.statusText}`);
+      throw new Error(`API error: ${response.status}`);
+    }
+
     const data = await handleResponse(response);
+
+    // Validate the response data
+    if (!data || typeof data !== "object") {
+      console.error("Invalid response data:", data);
+      throw new Error("Invalid response data");
+    }
+
     setCachedLocation(cacheKey, data);
     return data;
   } catch (error) {
@@ -129,7 +141,8 @@ export const getLocationBySlug = async (
       return cached;
     }
 
-    throw error;
+    // Don't throw the error, return null instead
+    return null;
   }
 };
 

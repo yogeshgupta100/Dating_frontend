@@ -36,17 +36,28 @@ export async function generateMetadata({
   params: { locationSlug: string };
 }): Promise<Metadata> {
   try {
-    // Force fresh data for metadata by bypassing cache
-    const location = await getLocationBySlug(params.locationSlug, true);
+    console.log("Generating metadata for slug:", params.locationSlug);
+
+    // Fetch location data
+    let location: any = null;
+    try {
+      location = await getLocationBySlug(params.locationSlug);
+      console.log("Location for metadata:", location ? "found" : "not found");
+    } catch (error) {
+      console.error("Error fetching location for metadata:", error);
+      location = null;
+    }
 
     if (!location) {
+      console.log("No location found, using fallback metadata");
       return {
         title: "Location Not Found",
         description: "The requested location could not be found.",
       };
     }
 
-    const locationName = location.name;
+    const locationName =
+      location.name || slugToText(params.locationSlug) || "Pokkoo";
     const pageTitle =
       location.seo_title ||
       `${locationName} Escorts - Premium Call Girls Service`;
@@ -56,6 +67,13 @@ export async function generateMetadata({
     const pageKeywords =
       location.seo_keyword ||
       `${locationName} escorts, call girls ${locationName}, escort service ${locationName}, ${locationName} call girls, premium escorts ${locationName}, verified escorts ${locationName}`;
+
+    console.log("Generated metadata for:", locationName, {
+      title: pageTitle,
+      description: pageDescription,
+      seo_title: location.seo_title,
+      seo_desc: location.seo_desc,
+    });
 
     return {
       title: pageTitle,
@@ -100,28 +118,69 @@ export default async function LocationPage({
 }: {
   params: { locationSlug: string };
 }) {
-  // Fetch data server-side
+  // Fetch data server-side with comprehensive error handling
   let location: any = null;
   let profiles: any[] = [];
 
   try {
+    console.log("Starting location page for slug:", params.locationSlug);
+
     // Clear cache to ensure fresh data
-    clearLocationCache(params.locationSlug);
+    try {
+      clearLocationCache(params.locationSlug);
+      console.log("Cache cleared for slug:", params.locationSlug);
+    } catch (cacheError) {
+      console.error("Error clearing cache:", cacheError);
+    }
 
     // First try to get location by slug with force refresh
-    location = await getLocationBySlug(params.locationSlug, true);
+    try {
+      location = await getLocationBySlug(params.locationSlug, true);
+      console.log(
+        "Location fetched by slug:",
+        location ? "success" : "not found"
+      );
+    } catch (slugError) {
+      console.error("Error fetching location by slug:", slugError);
+      location = null;
+    }
 
     // If not found by slug, try to get by ID (fallback)
     if (!location) {
-      location = await getLocationById(params.locationSlug);
+      try {
+        location = await getLocationById(params.locationSlug);
+        console.log(
+          "Location fetched by ID:",
+          location ? "success" : "not found"
+        );
+      } catch (idError) {
+        console.error("Error fetching location by ID:", idError);
+        location = null;
+      }
     }
 
     if (location) {
+      console.log("Location found:", {
+        id: location.id,
+        name: location.name,
+        phone_number: location.phone_number,
+        hasHeading: !!location.heading,
+        hasContent: !!location.content,
+      });
+
       // Fetch profiles for this location
-      profiles = await getModels(location.id.toString());
+      try {
+        profiles = await getModels(location.id.toString());
+        console.log("Profiles fetched:", profiles.length);
+      } catch (profileError) {
+        console.error("Error fetching profiles:", profileError);
+        profiles = [];
+      }
+    } else {
+      console.log("No location found for slug:", params.locationSlug);
     }
   } catch (error) {
-    console.error("Error fetching location data:", error);
+    console.error("Critical error in LocationPage:", error);
     // Continue with empty data instead of throwing
   }
 
@@ -166,6 +225,48 @@ export default async function LocationPage({
       answer: `Pay with cash, UPI, credit cards, or safe digital transfers for a seamless, stress free booking.`,
     },
   ];
+
+  console.log("Rendering location page with data:", {
+    hasLocation: !!location,
+    profilesCount: profiles.length,
+    locationName,
+    phoneNumber: location?.phone_number,
+  });
+
+  // Fallback content if no location data is available
+  if (!location) {
+    console.log("Rendering fallback page due to no location data");
+    return (
+      <>
+        <Header />
+        <div className="min-h-screen bg-gray-50">
+          <BannerWrapper />
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div className="text-center mb-12">
+              <h1 className="text-3xl font-bold mb-4">
+                {locationName} Escorts Service
+              </h1>
+              <p className="text-lg text-gray-600">
+                Premium escort services in {locationName}. Safe, discreet, and
+                professional.
+              </p>
+            </div>
+            <Gallery showHeading={false} />
+            <div className="max-w-6xl mx-auto">
+              <Disclaimer />
+            </div>
+          </div>
+          <section>
+            <PhoneIcon number={undefined} />
+          </section>
+          <section>
+            <WhatsAppIcon number={undefined} />
+          </section>
+        </div>
+        <Footer />
+      </>
+    );
+  }
 
   return (
     <>

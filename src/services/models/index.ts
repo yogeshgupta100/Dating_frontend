@@ -55,7 +55,6 @@ export const getModels = async (locationId?: string): Promise<Model[]> => {
 
   // Check cache first
   if (isModelCacheValid(cacheKey)) {
-    console.log("Returning cached models");
     return getCachedModel(cacheKey);
   }
 
@@ -69,7 +68,19 @@ export const getModels = async (locationId?: string): Promise<Model[]> => {
       headers: defaultHeaders,
     });
 
+    if (!response.ok) {
+      console.error(`Models API error: ${response.status} ${response.statusText}`);
+      throw new Error(`Models API error: ${response.status}`);
+    }
+
     const data = await handleResponse(response);
+    
+    // Validate the response data
+    if (!Array.isArray(data)) {
+      console.error("Invalid models response data:", data);
+      throw new Error("Invalid models response data");
+    }
+
     setCachedModel(cacheKey, data);
     return data;
   } catch (error) {
@@ -78,11 +89,11 @@ export const getModels = async (locationId?: string): Promise<Model[]> => {
     // Return cached data if available, even if expired
     const cached = getCachedModel(cacheKey);
     if (cached) {
-      console.log("Returning expired cached models due to error");
       return cached;
     }
 
-    throw error;
+    // Return empty array instead of throwing
+    return [];
   }
 };
 
