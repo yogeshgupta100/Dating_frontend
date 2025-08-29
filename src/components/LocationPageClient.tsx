@@ -52,6 +52,7 @@ export default function LocationPageClient({
   const [location, setLocation] = useState<LocationResponse | null>(
     initialLocation || null
   );
+  const [isLoading, setIsLoading] = useState(!initialLocation);
   const [faqData, setFaqData] = useState<string>("");
   const router = useRouter();
   const params = useParams();
@@ -61,6 +62,25 @@ export default function LocationPageClient({
   const toggleFaq = (index: number) => {
     setExpandedFaq(expandedFaq === index ? null : index);
   };
+
+  // Add a small delay to ensure phone number is properly set before showing icons
+  useEffect(() => {
+    if (
+      location &&
+      location.phone_number &&
+      location.phone_number !== "00000000"
+    ) {
+      // Add a small delay to ensure the phone number is properly processed
+      const timer = setTimeout(() => {
+        console.log(
+          "LocationPageClient: Phone number ready for icons:",
+          location.phone_number
+        );
+      }, 100);
+
+      return () => clearTimeout(timer);
+    }
+  }, [location?.phone_number]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -78,6 +98,7 @@ export default function LocationPageClient({
             initialLocation
           );
           setLocation(initialLocation);
+          setIsLoading(false);
 
           // Fetch profiles for this location
           console.log(
@@ -87,45 +108,6 @@ export default function LocationPageClient({
           const profilesData = await getModels(initialLocation.id.toString());
           setProfiles(profilesData);
 
-          // For debugging: also try to fetch fresh location data to see if API is working
-          console.log(
-            "LocationPageClient: Debugging - trying to fetch fresh location data"
-          );
-          try {
-            // Clear cache first
-            clearLocationCache(locationSlug);
-            const freshLocationData = await getLocationBySlug(
-              locationSlug || "",
-              true
-            ); // force refresh
-            console.log(
-              "LocationPageClient: Fresh location data result:",
-              freshLocationData
-            );
-
-            // Also test direct fetch
-            console.log("LocationPageClient: Testing direct fetch...");
-            const directResponse = await fetch(
-              `https://api.pokkoo.in/states/slug/${locationSlug}`,
-              {
-                method: "GET",
-                headers: {
-                  Accept: "application/json",
-                  "Content-Type": "application/json",
-                },
-              }
-            );
-            console.log(
-              "LocationPageClient: Direct fetch status:",
-              directResponse.status
-            );
-            if (directResponse.ok) {
-              const directData = await directResponse.json();
-              console.log("LocationPageClient: Direct fetch data:", directData);
-            }
-          } catch (debugError) {
-            console.log("LocationPageClient: Debug fetch failed:", debugError);
-          }
           return;
         }
 
@@ -156,6 +138,7 @@ export default function LocationPageClient({
             locationData
           );
           setLocation(locationData);
+          setIsLoading(false);
 
           // Fetch profiles for this location
           console.log(
@@ -169,6 +152,7 @@ export default function LocationPageClient({
             "LocationPageClient: No location data found for slug:",
             locationSlug
           );
+          setIsLoading(false);
         }
       } catch (error) {
         console.error(
@@ -280,25 +264,6 @@ export default function LocationPageClient({
         <Banner />
 
         <div id="home" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          {/* Debug section - remove in production */}
-          <div className="mb-4 p-4 bg-yellow-100 border border-yellow-400 rounded">
-            <h3 className="font-bold text-yellow-800 mb-2">Debug Info:</h3>
-            <p className="text-sm text-yellow-700 mb-2">
-              Location Slug: {locationSlug} | Has Location:{" "}
-              {location ? "Yes" : "No"} | Location ID: {location?.id || "N/A"}
-            </p>
-            <button
-              onClick={() => {
-                console.log("Clearing cache and refetching...");
-                clearLocationCache(locationSlug);
-                window.location.reload();
-              }}
-              className="px-3 py-1 bg-yellow-500 text-white text-sm rounded hover:bg-yellow-600"
-            >
-              Clear Cache & Reload
-            </button>
-          </div>
-
           <div className="text-center mb-12 location-content">
             <h1 className="mx-auto font-bold mb-4">
               {location?.heading ||
@@ -410,29 +375,22 @@ export default function LocationPageClient({
           </div>
         </div>
 
-        <section>
-          <PhoneIcon
-            number={
-              location?.phone_number &&
-              location.phone_number !== "" &&
-              location.phone_number !== "00000000"
-                ? location.phone_number
-                : undefined
-            }
-          />
-        </section>
+        {/* Only render phone icons when we have valid location data and not loading */}
+        {!isLoading &&
+          location &&
+          location.phone_number &&
+          location.phone_number !== "" &&
+          location.phone_number !== "00000000" && (
+            <>
+              <section>
+                <PhoneIcon number={location.phone_number} />
+              </section>
 
-        <section>
-          <WhatsAppIcon
-            number={
-              location?.phone_number &&
-              location.phone_number !== "" &&
-              location.phone_number !== "00000000"
-                ? location.phone_number
-                : undefined
-            }
-          />
-        </section>
+              <section>
+                <WhatsAppIcon number={location.phone_number} />
+              </section>
+            </>
+          )}
       </div>
       <Footer />
     </>

@@ -20,14 +20,14 @@ const WhatsAppIcon: React.FC<{ number?: string }> = ({ number }) => {
     });
 
     // If a valid number is passed via props, use it immediately
-    if (number && number.trim()) {
+    if (number && number.trim() && number !== "00000000") {
       console.log("WhatsAppIcon: Using provided number:", number);
       setDisplayNumber(number);
       return;
     }
 
-    // If no valid number, use the global phone number from context
-    if (globalPhoneNumber) {
+    // If no valid number from props, use the global phone number from context
+    if (globalPhoneNumber && globalPhoneNumber !== "00000000") {
       console.log(
         "WhatsAppIcon: Using global phone number:",
         globalPhoneNumber
@@ -45,7 +45,8 @@ const WhatsAppIcon: React.FC<{ number?: string }> = ({ number }) => {
   if (
     !displayNumber ||
     typeof displayNumber !== "string" ||
-    !displayNumber.trim()
+    !displayNumber.trim() ||
+    displayNumber === "00000000"
   ) {
     return null;
   }
