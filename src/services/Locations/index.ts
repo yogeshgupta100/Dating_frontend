@@ -101,37 +101,49 @@ export const getLocationBySlug = async (
 ): Promise<LocationResponse | null> => {
   const cacheKey = `location-slug-${slug}`;
 
+  console.log("getLocationBySlug: Starting fetch for slug:", slug);
+
   // Check cache first (unless force refresh is requested)
   if (!forceRefresh && isLocationCacheValid(cacheKey)) {
+    console.log("getLocationBySlug: Returning cached data for slug:", slug);
     return getCachedLocation(cacheKey);
   }
 
   try {
-    const response = await fetchWithTimeout(`${url}/states/slug/${slug}`, {
+    const apiUrl = `${url}/states/slug/${slug}`;
+    console.log("getLocationBySlug: Making API call to:", apiUrl);
+    
+    const response = await fetchWithTimeout(apiUrl, {
       method: "GET",
       headers: defaultHeaders,
     });
 
+    console.log("getLocationBySlug: Response status:", response.status, response.statusText);
+    
     if (response.status === 404) {
+      console.log("getLocationBySlug: Location not found (404) for slug:", slug);
       setCachedLocation(cacheKey, null);
       return null;
     }
 
     if (!response.ok) {
-      console.error(`API error: ${response.status} ${response.statusText}`);
+      console.error(`getLocationBySlug: API error: ${response.status} ${response.statusText}`);
       throw new Error(`API error: ${response.status}`);
     }
 
+    console.log("getLocationBySlug: Response is OK, parsing data...");
     const data = await handleResponse(response);
 
+    console.log("getLocationBySlug: Raw response data:", data);
+    
     // Validate the response data
     if (!data || typeof data !== "object") {
-      console.error("Invalid response data:", data);
+      console.error("getLocationBySlug: Invalid response data:", data);
       throw new Error("Invalid response data");
     }
 
     // Debug the location data structure
-    console.log("Location API Response Debug:", {
+    console.log("getLocationBySlug: Location API Response Debug:", {
       hasData: !!data,
       dataType: typeof data,
       dataKeys: Object.keys(data),
@@ -142,17 +154,20 @@ export const getLocationBySlug = async (
       id: data.id,
     });
 
+    console.log("getLocationBySlug: Caching and returning data for slug:", slug);
     setCachedLocation(cacheKey, data);
     return data;
   } catch (error) {
-    console.error("Error in getLocationBySlug:", error);
+    console.error("getLocationBySlug: Error fetching location by slug:", slug, error);
 
     // Return cached data if available
     const cached = getCachedLocation(cacheKey);
     if (cached !== undefined) {
+      console.log("getLocationBySlug: Returning cached data due to error for slug:", slug);
       return cached;
     }
 
+    console.log("getLocationBySlug: No cached data available, returning null for slug:", slug);
     // Don't throw the error, return null instead
     return null;
   }

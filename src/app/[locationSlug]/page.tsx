@@ -89,14 +89,46 @@ export default async function LocationPage({
 }) {
   // Pre-fetch location data for better SEO and faster initial load
   let location: LocationResponse | null = null;
+
+  console.log(
+    "LocationPage: Starting server-side fetch for slug:",
+    params.locationSlug
+  );
+
   try {
-    location = await getLocationBySlug(params.locationSlug);
+    console.log(
+      "LocationPage: Fetching location by slug:",
+      params.locationSlug
+    );
+    // Force refresh to ensure we get fresh data
+    location = await getLocationBySlug(params.locationSlug, true);
+
     if (!location) {
+      console.log(
+        "LocationPage: Location not found by slug, trying by ID:",
+        params.locationSlug
+      );
       location = await getLocationById(params.locationSlug);
     }
+
+    if (location) {
+      console.log("LocationPage: Location data fetched successfully:", {
+        id: location.id,
+        name: location.name,
+        slug: location.slug,
+      });
+    } else {
+      console.log(
+        "LocationPage: No location data found for slug:",
+        params.locationSlug
+      );
+    }
   } catch (error) {
-    console.error("Error fetching location data:", error);
+    console.error("LocationPage: Error fetching location data:", error);
+    // Don't fail the page if server-side fetch fails, let client-side handle it
   }
 
+  // Always render the client component, even if server-side fetch failed
+  // The client component will handle fetching the data if initialLocation is null
   return <LocationPageClient initialLocation={location} />;
 }

@@ -16,6 +16,7 @@ import {
   getLocationBySlug,
   getLocations,
   getLocationById,
+  clearLocationCache,
 } from "../services/Locations";
 import { Banner } from "./Banner";
 import { api } from "../services/api";
@@ -64,33 +65,116 @@ export default function LocationPageClient({
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // If we already have initial location data, use it
+        console.log("LocationPageClient: Starting data fetch", {
+          locationSlug,
+          hasInitialLocation: !!initialLocation,
+          initialLocationId: initialLocation?.id,
+        });
+
+        // If we already have initial location data, use it but still fetch profiles
         if (initialLocation) {
+          console.log(
+            "LocationPageClient: Using initial location data",
+            initialLocation
+          );
           setLocation(initialLocation);
 
           // Fetch profiles for this location
+          console.log(
+            "LocationPageClient: Fetching profiles for location ID",
+            initialLocation.id
+          );
           const profilesData = await getModels(initialLocation.id.toString());
           setProfiles(profilesData);
+
+          // For debugging: also try to fetch fresh location data to see if API is working
+          console.log(
+            "LocationPageClient: Debugging - trying to fetch fresh location data"
+          );
+          try {
+            // Clear cache first
+            clearLocationCache(locationSlug);
+            const freshLocationData = await getLocationBySlug(
+              locationSlug || "",
+              true
+            ); // force refresh
+            console.log(
+              "LocationPageClient: Fresh location data result:",
+              freshLocationData
+            );
+
+            // Also test direct fetch
+            console.log("LocationPageClient: Testing direct fetch...");
+            const directResponse = await fetch(
+              `https://api.pokkoo.in/states/slug/${locationSlug}`,
+              {
+                method: "GET",
+                headers: {
+                  Accept: "application/json",
+                  "Content-Type": "application/json",
+                },
+              }
+            );
+            console.log(
+              "LocationPageClient: Direct fetch status:",
+              directResponse.status
+            );
+            if (directResponse.ok) {
+              const directData = await directResponse.json();
+              console.log("LocationPageClient: Direct fetch data:", directData);
+            }
+          } catch (debugError) {
+            console.log("LocationPageClient: Debug fetch failed:", debugError);
+          }
           return;
         }
 
+        // If no initial location data, always fetch from API
+        console.log(
+          "LocationPageClient: No initial location, fetching from API"
+        );
+
         // First try to get location by slug
+        console.log(
+          "LocationPageClient: Fetching location by slug:",
+          locationSlug
+        );
         let locationData = await getLocationBySlug(locationSlug || "");
 
         // If not found by slug, try to get by ID (fallback)
         if (!locationData) {
+          console.log(
+            "LocationPageClient: Location not found by slug, trying by ID:",
+            locationSlug
+          );
           locationData = await getLocationById(locationSlug);
         }
 
         if (locationData) {
+          console.log(
+            "LocationPageClient: Location data fetched successfully",
+            locationData
+          );
           setLocation(locationData);
 
           // Fetch profiles for this location
+          console.log(
+            "LocationPageClient: Fetching profiles for location ID",
+            locationData.id
+          );
           const profilesData = await getModels(locationData.id.toString());
           setProfiles(profilesData);
+        } else {
+          console.log(
+            "LocationPageClient: No location data found for slug:",
+            locationSlug
+          );
         }
       } catch (error) {
-        console.error("Error fetching location data:", error);
+        console.error(
+          "LocationPageClient: Error fetching location data:",
+          error
+        );
       }
     };
 
@@ -196,6 +280,25 @@ export default function LocationPageClient({
         <Banner />
 
         <div id="home" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          {/* Debug section - remove in production */}
+          <div className="mb-4 p-4 bg-yellow-100 border border-yellow-400 rounded">
+            <h3 className="font-bold text-yellow-800 mb-2">Debug Info:</h3>
+            <p className="text-sm text-yellow-700 mb-2">
+              Location Slug: {locationSlug} | Has Location:{" "}
+              {location ? "Yes" : "No"} | Location ID: {location?.id || "N/A"}
+            </p>
+            <button
+              onClick={() => {
+                console.log("Clearing cache and refetching...");
+                clearLocationCache(locationSlug);
+                window.location.reload();
+              }}
+              className="px-3 py-1 bg-yellow-500 text-white text-sm rounded hover:bg-yellow-600"
+            >
+              Clear Cache & Reload
+            </button>
+          </div>
+
           <div className="text-center mb-12 location-content">
             <h1 className="mx-auto font-bold mb-4">
               {location?.heading ||
