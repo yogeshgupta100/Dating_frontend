@@ -39,10 +39,18 @@ const galleryImages = [
   "http://res.cloudinary.com/dpmknwklm/image/upload/v1751050379/dating-app/profiles/sjinrqpbizy9qdri4kqz.jpg",
 ];
 
-export default function LocationPageClient() {
+interface LocationPageClientProps {
+  initialLocation?: LocationResponse | null;
+}
+
+export default function LocationPageClient({
+  initialLocation,
+}: LocationPageClientProps) {
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
   const [profiles, setProfiles] = useState<Model[]>([]);
-  const [location, setLocation] = useState<LocationResponse | null>(null);
+  const [location, setLocation] = useState<LocationResponse | null>(
+    initialLocation || null
+  );
   const [faqData, setFaqData] = useState<string>("");
   const router = useRouter();
   const params = useParams();
@@ -56,6 +64,16 @@ export default function LocationPageClient() {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // If we already have initial location data, use it
+        if (initialLocation) {
+          setLocation(initialLocation);
+
+          // Fetch profiles for this location
+          const profilesData = await getModels(initialLocation.id.toString());
+          setProfiles(profilesData);
+          return;
+        }
+
         // First try to get location by slug
         let locationData = await getLocationBySlug(locationSlug || "");
 
@@ -77,7 +95,7 @@ export default function LocationPageClient() {
     };
 
     fetchData();
-  }, [locationSlug]);
+  }, [locationSlug, initialLocation]);
 
   const formatLocationName = (locationName: string | undefined) => {
     if (!locationName) return "Featured Profiles";
@@ -168,11 +186,21 @@ export default function LocationPageClient() {
     <>
       <Header />
       <div className="min-h-screen bg-gray-50">
+        {/* Structured Data for SEO */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(profilesPageStructuredData),
+          }}
+        />
         <Banner />
 
         <div id="home" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="text-center mb-12 location-content">
-            <h1 className=" mx-auto font-bold mb-4">{location?.heading}</h1>
+            <h1 className="mx-auto font-bold mb-4">
+              {location?.heading ||
+                `${locationName} Escorts - Premium Call Girls Service`}
+            </h1>
             <div
               className="text-lg text-gray-800 max-w-6xl text-center mx-auto md:pt-4 location-content"
               dangerouslySetInnerHTML={renderHtmlContent(
@@ -190,6 +218,10 @@ export default function LocationPageClient() {
                 desc={profile.description}
                 location={location?.name}
                 services={profile.services}
+                profileId={profile.id}
+                profileSlug={profile.slug}
+                locationSlug={locationSlug}
+                existingSlugs={profiles.map((p) => p.slug).filter(Boolean)}
               />
             ))}
           </div>
@@ -204,6 +236,12 @@ export default function LocationPageClient() {
                   location?.content || ""
                 )}
               />
+              {/* SEO-friendly content fallback for search engines */}
+              {location?.content && (
+                <div className="sr-only">
+                  {location.content.replace(/<[^>]*>/g, "")}
+                </div>
+              )}
             </div>
           </section>
 

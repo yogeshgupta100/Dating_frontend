@@ -1,7 +1,9 @@
 "use client";
 
 import React from "react";
+import { useRouter } from "next/navigation";
 import { renderHtmlContent } from "../utils/htmlUtils";
+import { generateProfileSlug } from "../utils/slug";
 
 interface ProfileCardProps {
   img: File | string;
@@ -10,6 +12,10 @@ interface ProfileCardProps {
   location?: string;
   age?: number;
   services?: string[];
+  profileId?: number;
+  profileSlug?: string;
+  locationSlug?: string;
+  existingSlugs?: string[];
 }
 
 // Client component for handling File objects
@@ -64,12 +70,29 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
   location,
   age,
   services = [],
+  profileId,
+  profileSlug,
+  locationSlug,
+  existingSlugs = [],
 }) => {
+  const router = useRouter();
+
   const getAltText = () => {
     const parts = [heading];
     if (location) parts.push(location);
     if (age) parts.push(`${age} years old`);
     return `${parts.join(", ")} - Escort Profile`;
+  };
+
+  const handleCardClick = () => {
+    if (!locationSlug) return;
+
+    // Use existing slug if available, otherwise generate one
+    const finalSlug =
+      profileSlug ||
+      generateProfileSlug(heading || "profile", locationSlug, existingSlugs);
+
+    router.push(`/${locationSlug}/${finalSlug}`);
   };
 
   const CardContent = () => (
@@ -144,7 +167,18 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
   );
 
   return (
-    <article className="w-full bg-white rounded-2xl shadow-md flex flex-row items-stretch p-4 md:px-4 mb-6 mx-auto cursor-pointer hover:shadow-lg transition-shadow">
+    <article
+      className="w-full bg-white rounded-2xl shadow-md flex flex-row items-stretch p-4 md:px-4 mb-6 mx-auto cursor-pointer hover:shadow-lg transition-shadow"
+      onClick={handleCardClick}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          handleCardClick();
+        }
+      }}
+    >
       <CardContent />
     </article>
   );

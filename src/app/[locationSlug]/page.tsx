@@ -12,6 +12,7 @@ import {
   getLocationById,
   getLocations,
 } from "../../services/Locations";
+import { LocationResponse } from "../../services";
 
 // Enable dynamic rendering for this page
 export const dynamic = "force-dynamic";
@@ -81,6 +82,21 @@ export async function generateMetadata({
   }
 }
 
-export default function LocationPage() {
-  return <LocationPageClient />;
+export default async function LocationPage({
+  params,
+}: {
+  params: { locationSlug: string };
+}) {
+  // Pre-fetch location data for better SEO and faster initial load
+  let location: LocationResponse | null = null;
+  try {
+    location = await getLocationBySlug(params.locationSlug);
+    if (!location) {
+      location = await getLocationById(params.locationSlug);
+    }
+  } catch (error) {
+    console.error("Error fetching location data:", error);
+  }
+
+  return <LocationPageClient initialLocation={location} />;
 }
