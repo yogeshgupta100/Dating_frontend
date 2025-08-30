@@ -375,22 +375,18 @@ export default function LocationPageClient({
           </div>
         </div>
 
-        {/* Only render phone icons when we have valid location data and not loading */}
-        {!isLoading &&
-          location &&
-          location.phone_number &&
-          location.phone_number !== "" &&
-          location.phone_number !== "00000000" && (
-            <>
-              <section>
-                <PhoneIcon number={location.phone_number} />
-              </section>
+        {/* Render phone icons - they will fallback to global phone if no location phone */}
+        {!isLoading && (
+          <>
+            <section>
+              <PhoneIcon number={location?.phone_number} />
+            </section>
 
-              <section>
-                <WhatsAppIcon number={location.phone_number} />
-              </section>
-            </>
-          )}
+            <section>
+              <WhatsAppIcon number={location?.phone_number} />
+            </section>
+          </>
+        )}
       </div>
       <Footer />
     </>
