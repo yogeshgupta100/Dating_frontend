@@ -1,21 +1,22 @@
 import { Metadata } from "next";
 import LocationPageClient from "../../components/LocationPageClient";
-import SEO from "../../components/SEO";
-import {
-  slugToText,
-  generatePageTitle,
-  generateMetaDescription,
-  generateKeywords,
-} from "../../utils/slug";
-import {
-  getLocationBySlug,
-  getLocationById,
-  getLocations,
-} from "../../services/Locations";
+import { getLocationBySlug, getLocationById } from "../../services/Locations";
 import { LocationResponse } from "../../services";
 
-// Enable dynamic rendering for this page
+// Force fresh data
 export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
+// 🔑 Shared fetch function
+async function fetchLocation(slug: string): Promise<LocationResponse | null> {
+  let location = await getLocationBySlug(slug, true);
+
+  if (!location) {
+    location = await getLocationById(slug);
+  }
+
+  return location;
+}
 
 // Server-side metadata generation
 export async function generateMetadata({
@@ -24,7 +25,7 @@ export async function generateMetadata({
   params: { locationSlug: string };
 }): Promise<Metadata> {
   try {
-    const location = await getLocationBySlug(params.locationSlug);
+    const location = await fetchLocation(params.locationSlug);
 
     if (!location) {
       return {
@@ -87,48 +88,7 @@ export default async function LocationPage({
 }: {
   params: { locationSlug: string };
 }) {
-  // Pre-fetch location data for better SEO and faster initial load
-  let location: LocationResponse | null = null;
+  const location = await fetchLocation(params.locationSlug);
 
-  console.log(
-    "LocationPage: Starting server-side fetch for slug:",
-    params.locationSlug
-  );
-
-  try {
-    console.log(
-      "LocationPage: Fetching location by slug:",
-      params.locationSlug
-    );
-    // Force refresh to ensure we get fresh data
-    location = await getLocationBySlug(params.locationSlug, true);
-
-    if (!location) {
-      console.log(
-        "LocationPage: Location not found by slug, trying by ID:",
-        params.locationSlug
-      );
-      location = await getLocationById(params.locationSlug);
-    }
-
-    if (location) {
-      console.log("LocationPage: Location data fetched successfully:", {
-        id: location.id,
-        name: location.name,
-        slug: location.slug,
-      });
-    } else {
-      console.log(
-        "LocationPage: No location data found for slug:",
-        params.locationSlug
-      );
-    }
-  } catch (error) {
-    console.error("LocationPage: Error fetching location data:", error);
-    // Don't fail the page if server-side fetch fails, let client-side handle it
-  }
-
-  // Always render the client component, even if server-side fetch failed
-  // The client component will handle fetching the data if initialLocation is null
   return <LocationPageClient initialLocation={location} />;
 }
