@@ -4,9 +4,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://pokkoo.in";
   const currentDate = new Date().toISOString();
 
-  console.log("🔍 Generating dynamic sitemap for production...");
+  // Production sitemap generation
 
-  // Start with static pages
+  // Start with static pages - excluding admin routes
   const staticPages: MetadataRoute.Sitemap = [
     {
       url: `${baseUrl}/`,
@@ -14,17 +14,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "daily" as const,
       priority: 1.0,
     },
+    {
+      url: `${baseUrl}/test-api`,
+      lastModified: currentDate,
+      changeFrequency: "monthly" as const,
+      priority: 0.1,
+    },
   ];
 
   let locationPages: MetadataRoute.Sitemap = [];
   let modelPages: MetadataRoute.Sitemap = [];
 
   try {
-    console.log("📡 Fetching ALL locations from API...");
-
     // Direct API call to ensure we get all locations
     const apiUrl = "https://api.pokkoo.in/states/";
-    console.log("🌐 API URL:", apiUrl);
 
     const response = await fetch(apiUrl, {
       method: "GET",
@@ -32,23 +35,28 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         Accept: "application/json",
         "Content-Type": "application/json",
         "ngrok-skip-browser-warning": "true",
+        "User-Agent": "Pokkoo-Sitemap-Generator/1.0",
       },
       // Add timeout for large datasets
       signal: AbortSignal.timeout(120000), // 2 minutes for very large datasets
+      // Add cache control for better performance
+      cache: "no-store", // Ensure fresh data
     });
 
     if (!response.ok) {
-      throw new Error(`API responded with status: ${response.status}`);
+      throw new Error(
+        `API responded with status: ${response.status} - ${response.statusText}`
+      );
     }
 
     const locations = await response.json();
-    console.log(
-      `✅ Successfully fetched ${locations?.length || 0} locations from API`
-    );
+
+    // Validate response structure
+    if (!Array.isArray(locations)) {
+      throw new Error("API response is not an array");
+    }
 
     if (locations && Array.isArray(locations) && locations.length > 0) {
-      console.log("📍 Processing all locations for sitemap...");
-
       // Process ALL locations from database - no limits
       locationPages = locations.map((location) => {
         const locationUrl = `${baseUrl}/${location.slug || location.id}/`;
@@ -60,22 +68,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         };
       });
 
-      console.log(`✅ Added ${locationPages.length} location pages to sitemap`);
-
       // Fetch models for first 50 locations to get good coverage without overwhelming the sitemap
-      console.log("👥 Fetching models for first 50 locations...");
       const locationsToProcess = locations.slice(0, 50);
 
       // Process models in batches to avoid timeout
       const batchSize = 10;
+      let totalModelsProcessed = 0;
+
       for (let i = 0; i < locationsToProcess.length; i += batchSize) {
         const batch = locationsToProcess.slice(i, i + batchSize);
 
         await Promise.all(
           batch.map(async (location) => {
             try {
-              console.log(`🔍 Fetching models for: ${location.name}`);
-
               const modelsResponse = await fetch(
                 `https://api.pokkoo.in/models/${location.id}`,
                 {
@@ -84,16 +89,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
                     Accept: "application/json",
                     "Content-Type": "application/json",
                     "ngrok-skip-browser-warning": "true",
+                    "User-Agent": "Pokkoo-Sitemap-Generator/1.0",
                   },
                   signal: AbortSignal.timeout(15000), // 15 seconds
+                  cache: "no-store", // Ensure fresh data
                 }
               );
 
               if (modelsResponse.ok) {
                 const models = await modelsResponse.json();
-                console.log(
-                  `✅ Found ${models?.length || 0} models for ${location.name}`
-                );
 
                 if (models && Array.isArray(models) && models.length > 0) {
                   // Limit to 15 models per location for better coverage
@@ -111,28 +115,27 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
                       };
                     });
                   modelPages.push(...locationModelPages);
+                  totalModelsProcessed += limitedModels.length;
                 }
               }
             } catch (error) {
-              console.error(
-                `❌ Error fetching models for ${location.name}:`,
-                error
-              );
               // Continue with other locations
             }
           })
         );
+
+        // Add small delay between batches to avoid overwhelming the API
+        if (i + batchSize < locationsToProcess.length) {
+          await new Promise((resolve) => setTimeout(resolve, 100));
+        }
       }
     } else {
-      console.log("⚠️ No locations found from API, using fallback data");
       throw new Error("No locations returned from API");
     }
   } catch (error) {
-    console.error("❌ Error generating dynamic sitemap:", error);
-
     // Fallback: Add comprehensive location data if API fails
-    console.log("🔄 Using comprehensive fallback locations...");
     const fallbackLocations = [
+      // Major Cities
       { name: "Delhi", slug: "delhi" },
       { name: "Mumbai", slug: "mumbai" },
       { name: "Bangalore", slug: "bangalore" },
@@ -152,10 +155,73 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       { name: "Patna", slug: "patna" },
       { name: "Vadodara", slug: "vadodara" },
       { name: "Ghaziabad", slug: "ghaziabad" },
+
+      // Tier 2 Cities
+      { name: "Gurgaon", slug: "call-girl-gurgaon" },
+      { name: "Noida", slug: "call-girl-noida" },
+      { name: "Faridabad", slug: "call-girl-faridabad" },
+      { name: "Chandigarh", slug: "call-girl-chandigarh" },
+      { name: "Jaipur", slug: "call-girl-jaipur" },
+      { name: "Jodhpur", slug: "call-girl-jodhpur" },
+      { name: "Udaipur", slug: "call-girl-udaipur" },
+      { name: "Kochi", slug: "call-girl-kochi" },
+      { name: "Thiruvananthapuram", slug: "call-girl-thiruvananthapuram" },
+      { name: "Coimbatore", slug: "call-girl-coimbatore" },
+      { name: "Madurai", slug: "call-girl-madurai" },
+      { name: "Tiruchirappalli", slug: "call-girl-tiruchirappalli" },
+      { name: "Salem", slug: "call-girl-salem" },
+      { name: "Tirunelveli", slug: "call-girl-tirunelveli" },
+      { name: "Erode", slug: "call-girl-erode" },
+      { name: "Vellore", slug: "call-girl-vellore" },
+      { name: "Tiruppur", slug: "call-girl-tiruppur" },
+      { name: "Dindigul", slug: "call-girl-dindigul" },
+      { name: "Thanjavur", slug: "call-girl-thanjavur" },
+      { name: "Ranchi", slug: "call-girl-ranchi" },
+      { name: "Jamshedpur", slug: "call-girl-jamshedpur" },
+      { name: "Dhanbad", slug: "call-girl-dhanbad" },
+      { name: "Bokaro", slug: "call-girl-bokaro" },
+      { name: "Deoghar", slug: "call-girl-deoghar" },
+      { name: "Phusro", slug: "call-girl-phusro" },
+      { name: "Hazaribagh", slug: "call-girl-hazaribagh" },
+      { name: "Giridih", slug: "call-girl-giridih" },
+      { name: "Ramgarh", slug: "call-girl-ramgarh" },
+      { name: "Medininagar", slug: "call-girl-medininagar" },
       { name: "Chas", slug: "chas-call-girl" },
       { name: "Gwalior", slug: "call-girl-gwalior" },
       { name: "Shivamogga", slug: "call-girl-shivamogga" },
       { name: "Pokkoo", slug: "Pokkoo" },
+
+      // Additional Popular Locations
+      { name: "Goa", slug: "call-girl-goa" },
+      { name: "Kerala", slug: "call-girl-kerala" },
+      { name: "Karnataka", slug: "call-girl-karnataka" },
+      { name: "Tamil Nadu", slug: "call-girl-tamil-nadu" },
+      { name: "Maharashtra", slug: "call-girl-maharashtra" },
+      { name: "Gujarat", slug: "call-girl-gujarat" },
+      { name: "Rajasthan", slug: "call-girl-rajasthan" },
+      { name: "Uttar Pradesh", slug: "call-girl-uttar-pradesh" },
+      { name: "Madhya Pradesh", slug: "call-girl-madhya-pradesh" },
+      { name: "West Bengal", slug: "call-girl-west-bengal" },
+      { name: "Bihar", slug: "call-girl-bihar" },
+      { name: "Jharkhand", slug: "call-girl-jharkhand" },
+      { name: "Odisha", slug: "call-girl-odisha" },
+      { name: "Chhattisgarh", slug: "call-girl-chhattisgarh" },
+      { name: "Andhra Pradesh", slug: "call-girl-andhra-pradesh" },
+      { name: "Telangana", slug: "call-girl-telangana" },
+      { name: "Haryana", slug: "call-girl-haryana" },
+      { name: "Punjab", slug: "call-girl-punjab" },
+      { name: "Himachal Pradesh", slug: "call-girl-himachal-pradesh" },
+      { name: "Uttarakhand", slug: "call-girl-uttarakhand" },
+      { name: "Jammu and Kashmir", slug: "call-girl-jammu-kashmir" },
+      { name: "Ladakh", slug: "call-girl-ladakh" },
+      { name: "Assam", slug: "call-girl-assam" },
+      { name: "Manipur", slug: "call-girl-manipur" },
+      { name: "Meghalaya", slug: "call-girl-meghalaya" },
+      { name: "Mizoram", slug: "call-girl-mizoram" },
+      { name: "Nagaland", slug: "call-girl-nagaland" },
+      { name: "Tripura", slug: "call-girl-tripura" },
+      { name: "Arunachal Pradesh", slug: "call-girl-arunachal-pradesh" },
+      { name: "Sikkim", slug: "call-girl-sikkim" },
     ];
 
     locationPages = fallbackLocations.map((location) => ({
@@ -179,10 +245,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }
 
   const allPages = [...staticPages, ...locationPages, ...modelPages];
-  console.log(`🎉 Sitemap generated with ${allPages.length} total URLs:`);
-  console.log(`   - ${staticPages.length} static pages`);
-  console.log(`   - ${locationPages.length} location pages`);
-  console.log(`   - ${modelPages.length} model pages`);
 
   return allPages;
 }
