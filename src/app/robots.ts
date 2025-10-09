@@ -6,17 +6,17 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/admin/", "/api/", "/_next/", "/static/"],
+        disallow: ["/admin/", "/api/", "/test-api", "/_next/", "/static/"],
       },
       {
         userAgent: "Googlebot",
         allow: "/",
-        disallow: ["/admin/", "/api/"],
+        disallow: ["/admin/", "/api/", "/test-api"],
       },
       {
         userAgent: "Bingbot",
         allow: "/",
-        disallow: ["/admin/", "/api/"],
+        disallow: ["/admin/", "/api/", "/test-api"],
       },
     ],
     sitemap: "https://pokkoo.in/sitemap.xml",
