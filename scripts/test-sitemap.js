@@ -56,7 +56,7 @@ async function testSitemap() {
     console.log("\n📊 Testing production sitemap...");
     const sitemapTest = await new Promise((resolve, reject) => {
       https
-        .get("https://pokkoo.in/sitemap.xml", (res) => {
+        .get("https://hi.pokkoo.in/sitemap.xml", (res) => {
           let data = "";
           res.on("data", (chunk) => (data += chunk));
           res.on("end", () => {

@@ -2,8 +2,8 @@
 const nextConfig = {
   trailingSlash: true,
   images: {
-    domains: ['pokkoo.in'],
-    formats: ['image/webp', 'image/avif'],
+    domains: ["hi.pokkoo.in"],
+    formats: ["image/webp", "image/avif"],
   },
   experimental: {
     serverComponentsExternalPackages: [],
@@ -13,38 +13,38 @@ const nextConfig = {
   // Performance optimizations
   swcMinify: true,
   compiler: {
-    removeConsole: process.env.NODE_ENV === 'production',
+    removeConsole: process.env.NODE_ENV === "production",
   },
   // Optimize video loading
   async headers() {
     return [
       {
-        source: '/(.*)',
+        source: "/(.*)",
         headers: [
           {
-            key: 'X-Content-Type-Options',
-            value: 'nosniff',
+            key: "X-Content-Type-Options",
+            value: "nosniff",
           },
           {
-            key: 'X-Frame-Options',
-            value: 'DENY',
+            key: "X-Frame-Options",
+            value: "DENY",
           },
           {
-            key: 'X-XSS-Protection',
-            value: '1; mode=block',
+            key: "X-XSS-Protection",
+            value: "1; mode=block",
           },
         ],
       },
       {
-        source: '/callgirlvideo.mp4',
+        source: "/callgirlvideo.mp4",
         headers: [
           {
-            key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
           },
           {
-            key: 'Accept-Ranges',
-            value: 'bytes',
+            key: "Accept-Ranges",
+            value: "bytes",
           },
         ],
       },
@@ -54,17 +54,17 @@ const nextConfig = {
     config.module.rules.push(
       {
         test: /\.svg$/,
-        use: ['@svgr/webpack'],
+        use: ["@svgr/webpack"],
       },
       {
         test: /\.(mp4|webm|ogg)$/i,
         use: [
           {
-            loader: 'file-loader',
+            loader: "file-loader",
             options: {
-              publicPath: '/_next/static/videos',
-              outputPath: 'static/videos',
-              name: '[name].[hash].[ext]',
+              publicPath: "/_next/static/videos",
+              outputPath: "static/videos",
+              name: "[name].[hash].[ext]",
             },
           },
         ],
@@ -75,4 +75,3 @@ const nextConfig = {
 };
 
 module.exports = nextConfig;
-

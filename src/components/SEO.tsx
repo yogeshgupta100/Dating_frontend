@@ -17,15 +17,15 @@ const SEO: React.FC<SEOProps> = ({
   title = "Pokkoo Escorts Service - Premium Call Girls with Cash Payment & Free Delivery",
   description = "Premium Pokkoo escorts service offering verified call girls with cash payment and free door delivery 24/7. Safe, discreet, and professional escort services in Pokkoo.",
   keywords = "Pokkoo escorts, call girls Pokkoo, escort service Pokkoo, Pokkoo call girls, premium escorts Pokkoo, verified escorts Pokkoo",
-  image = "https://pokkoo.in/og-image.jpg",
-  url = "https://pokkoo.in",
+  image = "https://hi.pokkoo.in/og-image.jpg",
+  url = "https://hi.pokkoo.in",
   type = "website",
   structuredData,
   canonical,
   breadcrumbs = [],
   pathname = "",
 }) => {
-  const currentUrl = canonical || `https://pokkoo.in${pathname}`;
+  const currentUrl = canonical || `https://hi.pokkoo.in${pathname}`;
 
   console.log(
     title,
@@ -45,7 +45,7 @@ const SEO: React.FC<SEOProps> = ({
     if (breadcrumbs.length === 0) {
       // Auto-generate breadcrumbs from URL
       const pathSegments = pathname.split("/").filter(Boolean);
-      const autoBreadcrumbs = [{ name: "Home", url: "https://pokkoo.in/" }];
+      const autoBreadcrumbs = [{ name: "Home", url: "https://hi.pokkoo.in/" }];
 
       let currentPath = "";
       pathSegments.forEach((segment, index) => {
@@ -53,7 +53,7 @@ const SEO: React.FC<SEOProps> = ({
         const name = segment.charAt(0).toUpperCase() + segment.slice(1);
         autoBreadcrumbs.push({
           name: name,
-          url: `https://pokkoo.in${currentPath}`,
+          url: `https://hi.pokkoo.in${currentPath}`,
         });
       });
 
@@ -124,7 +124,7 @@ const SEO: React.FC<SEOProps> = ({
       <meta property="og:image" content={image} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
-      <meta property="og:site_name" content="https://pokkoo.in" />
+      <meta property="og:site_name" content="https://hi.pokkoo.in" />
       <meta property="og:locale" content="en_US" />
 
       {/* Twitter */}

@@ -19,7 +19,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/admin/", "/api/", "/test-api"],
       },
     ],
-    sitemap: "https://pokkoo.in/sitemap.xml",
-    host: "https://pokkoo.in",
+    sitemap: "https://hi.pokkoo.in/sitemap.xml",
+    host: "https://hi.pokkoo.in",
   };
 }

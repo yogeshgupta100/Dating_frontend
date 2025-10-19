@@ -26,7 +26,7 @@ https
         // Test 2: Check production sitemap
         console.log("\n2️⃣ Testing production sitemap...");
         https
-          .get("https://pokkoo.in/sitemap.xml", (sitemapRes) => {
+          .get("https://hi.pokkoo.in/sitemap.xml", (sitemapRes) => {
             let sitemapData = "";
             sitemapRes.on("data", (chunk) => (sitemapData += chunk));
             sitemapRes.on("end", () => {

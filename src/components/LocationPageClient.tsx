@@ -182,7 +182,7 @@ export default function LocationPageClient({
       locationSlug || "",
       location?.content || ""
     ),
-    url: `https://pokkoo.in/${locationSlug}`,
+    url: `https://hi.pokkoo.in/${locationSlug}`,
     mainEntity: {
       "@type": "ItemList",
       name: `${locationName} Escort Profiles`,
@@ -196,7 +196,7 @@ export default function LocationPageClient({
           name: profile.name || profile.heading,
           description: profile.description,
           image: profile.profile_img,
-          url: `https://pokkoo.in/${locationSlug}/${
+          url: `https://hi.pokkoo.in/${locationSlug}/${
             profile.slug ||
             generateProfileSlug(
               profile.name || profile.heading || "profile",
@@ -214,13 +214,13 @@ export default function LocationPageClient({
           "@type": "ListItem",
           position: 1,
           name: "Home",
-          item: "https://pokkoo.in",
+          item: "https://hi.pokkoo.in",
         },
         {
           "@type": "ListItem",
           position: 2,
           name: locationName,
-          item: `https://pokkoo.in/${locationSlug}`,
+          item: `https://hi.pokkoo.in/${locationSlug}`,
         },
       ],
     },
