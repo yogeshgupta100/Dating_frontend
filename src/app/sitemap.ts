@@ -28,7 +28,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        "ngrok-skip-browser-warning": "true",
         "User-Agent": "Pokkoo-Sitemap-Generator/1.0",
       },
       // Add timeout for large datasets
@@ -82,7 +81,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
                   headers: {
                     Accept: "application/json",
                     "Content-Type": "application/json",
-                    "ngrok-skip-browser-warning": "true",
                     "User-Agent": "Pokkoo-Sitemap-Generator/1.0",
                   },
                   signal: AbortSignal.timeout(15000), // 15 seconds

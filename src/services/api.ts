@@ -100,7 +100,11 @@ export const handleResponse = async (response: Response) => {
 export const defaultHeaders = {
   Accept: "application/json",
   "Content-Type": "application/json",
-  "ngrok-skip-browser-warning": "true", // optional, for ngrok
+  // Only include ngrok header for localhost development
+  ...(typeof window !== "undefined" &&
+    window.location.hostname === "localhost" && {
+      "ngrok-skip-browser-warning": "true",
+    }),
 };
 
 // API service with caching and optimization
