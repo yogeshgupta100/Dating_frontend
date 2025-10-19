@@ -100,7 +100,7 @@ export const handleResponse = async (response: Response) => {
 export const defaultHeaders = {
   Accept: "application/json",
   "Content-Type": "application/json",
-  "ngrok-skip-browser-warning": "true",
+  "ngrok-skip-browser-warning": "true", // optional, for ngrok
 };
 
 // API service with caching and optimization
@@ -120,6 +120,8 @@ export const api = {
       const response = await fetchWithTimeout(`${url}/faq`, {
         method: "GET",
         headers: defaultHeaders,
+        mode: "cors", // enable CORS
+        credentials: "include", // include cookies
       });
 
       const data = await handleResponse(response);
