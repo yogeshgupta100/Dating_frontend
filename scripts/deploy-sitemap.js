@@ -39,20 +39,21 @@ async function deploySitemap() {
     console.log("\n2️⃣ Testing current production sitemap...");
     const currentSitemap = await new Promise((resolve, reject) => {
       https
-        .get("https://hi.pokkoo.in/sitemap.xml", (res) => {
+        .get("https://pokkoo.co.in/sitemap.xml", (res) => {
           let data = "";
           res.on("data", (chunk) => (data += chunk));
           res.on("end", () => {
             try {
               const locationUrls =
-                data.match(/<loc>https:\/\/pokkoo\.in\/[^<]+<\/loc>/g) || [];
+                data.match(/<loc>https:\/\/pokkoo\.co\.in\/[^<]+<\/loc>/g) ||
+                [];
               const staticUrls =
                 data.match(
-                  /<loc>https:\/\/pokkoo\.in\/(about|contact|terms|privacy)<\/loc>/g
+                  /<loc>https:\/\/pokkoo\.co\.in\/(about|contact|terms|privacy)<\/loc>/g
                 ) || [];
               const modelUrls =
                 data.match(
-                  /<loc>https:\/\/pokkoo\.in\/[^\/]+\/[^<]+<\/loc>/g
+                  /<loc>https:\/\/pokkoo\.co\.in\/[^\/]+\/[^<]+<\/loc>/g
                 ) || [];
 
               resolve({

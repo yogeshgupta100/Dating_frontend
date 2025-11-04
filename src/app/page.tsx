@@ -14,11 +14,11 @@ export async function generateMetadata(): Promise<Metadata> {
       title: "Call Girls and Escort Service Adult meetings in India - Pokkoo",
       description:
         "Pokkoo.in is India & No.1 ads posting site for Independent call girl and escort services in India. Browse our categories to book an call girl available 24/7 and get sex dating in India Post your ads.",
-      url: "https://hi.pokkoo.in",
+      url: "https://pokkoo.co.in",
       siteName: "Pokkoo Escorts Service",
       images: [
         {
-          url: "https://hi.pokkoo.in/og-image.jpg",
+          url: "https://pokkoo.co.in/og-image.jpg",
           width: 1200,
           height: 630,
         },
@@ -32,10 +32,10 @@ export async function generateMetadata(): Promise<Metadata> {
         "Pokkoo Escorts Service - Premium Call Girls with Cash Payment & Free Delivery",
       description:
         "Premium Pokkoo escorts service offering verified call girls with cash payment and free door delivery 24/7. Safe, discreet, and professional escort services in Pokkoo.",
-      images: ["https://hi.pokkoo.in/og-image.jpg"],
+      images: ["https://pokkoo.co.in/og-image.jpg"],
     },
     alternates: {
-      canonical: "https://hi.pokkoo.in",
+      canonical: "https://pokkoo.co.in",
     },
   };
 }
@@ -47,13 +47,13 @@ export default function HomePage() {
     name: "Call Girls and Escort Service Adult meetings in India - Pokkoo",
     description:
       "Pokkoo.in is India & No.1 ads posting site for Independent call girl and escort services in India. Browse our categories to book an call girl available 24/7 and get sex dating in India Post your ads.",
-    url: "https://hi.pokkoo.in",
+    url: "https://pokkoo.co.in",
     mainEntity: {
       "@type": "LocalBusiness",
       name: "Call Girls and Escort Service Adult meetings in India - Pokkoo",
       description:
         "Pokkoo.in is India & No.1 ads posting site for Independent call girl and escort services in India. Browse our categories to book an call girl available 24/7 and get sex dating in India Post your ads.",
-      url: "https://hi.pokkoo.in",
+      url: "https://pokkoo.co.in",
       address: {
         "@type": "PostalAddress",
         addressLocality: "India",
@@ -92,7 +92,7 @@ export default function HomePage() {
           "@type": "ListItem",
           position: 1,
           name: "Home",
-          item: "https://hi.pokkoo.in",
+          item: "https://pokkoo.co.in",
         },
       ],
     },
@@ -104,10 +104,10 @@ export default function HomePage() {
         title="Call Girls and Escort Service Adult meetings in India - Pokkoo"
         description="Pokkoo.in is India & No.1 ads posting site for Independent call girl and escort services in India. Browse our categories to book an call girl available 24/7 and get sex dating in India Post your ads."
         keywords="call girl, call girls, call girl service, call girls service, escort service, escorts service, pokkoo, cash payment, call girl near me, call girl whatsapp number, call girl contact number"
-        url="https://hi.pokkoo.in"
+        url="https://pokkoo.co.in"
         structuredData={homePageStructuredData}
         pathname="/"
-        canonical="https://hi.pokkoo.in"
+        canonical="https://pokkoo.co.in"
       />
       <HomePageClient />
     </>

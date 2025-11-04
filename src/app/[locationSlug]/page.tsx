@@ -52,11 +52,11 @@ export async function generateMetadata({
       openGraph: {
         title: pageTitle,
         description: pageDescription,
-        url: `https://hi.pokkoo.in/${params.locationSlug}`,
+        url: `https://pokkoo.co.in/${params.locationSlug}`,
         siteName: "Pokkoo Escorts Service",
         images: [
           {
-            url: "https://hi.pokkoo.in/og-image.jpg",
+            url: "https://pokkoo.co.in/og-image.jpg",
             width: 1200,
             height: 630,
           },
@@ -68,10 +68,10 @@ export async function generateMetadata({
         card: "summary_large_image",
         title: pageTitle,
         description: pageDescription,
-        images: ["https://hi.pokkoo.in/og-image.jpg"],
+        images: ["https://pokkoo.co.in/og-image.jpg"],
       },
       alternates: {
-        canonical: `https://hi.pokkoo.in/${params.locationSlug}`,
+        canonical: `https://pokkoo.co.in/${params.locationSlug}`,
       },
     };
   } catch (error) {

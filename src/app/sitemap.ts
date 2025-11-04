@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = "https://hi.pokkoo.in";
+  const baseUrl = "https://pokkoo.co.in";
   const currentDate = new Date().toISOString();
 
   // Production sitemap generation

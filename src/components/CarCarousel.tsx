@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import React, { useState, useEffect } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface CarCarouselProps {
   images: string[];
@@ -7,10 +7,10 @@ interface CarCarouselProps {
   title?: string;
 }
 
-const CarCarousel: React.FC<CarCarouselProps> = ({ 
-  images, 
-  altTexts = [], 
-  title = "Premium Escort Gallery" 
+const CarCarousel: React.FC<CarCarouselProps> = ({
+  images,
+  altTexts = [],
+  title = "Premium Escort Gallery",
 }) => {
   const initialIndex = Math.floor(images.length / 2);
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
@@ -25,7 +25,9 @@ const CarCarousel: React.FC<CarCarouselProps> = ({
   const prevSlide = () => {
     if (isTransitioning) return;
     setIsTransitioning(true);
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
+    setCurrentIndex(
+      (prevIndex) => (prevIndex - 1 + images.length) % images.length
+    );
   };
 
   const goToSlide = (index: number) => {
@@ -44,10 +46,10 @@ const CarCarousel: React.FC<CarCarouselProps> = ({
   const getCardStyle = (index: number) => {
     const diff = index - currentIndex;
     const absIndex = Math.abs(diff);
-    
+
     if (absIndex === 0) {
       return {
-        transform: 'translateX(0%) scale(1)',
+        transform: "translateX(0%) scale(1)",
         zIndex: 30,
         opacity: 1,
       };
@@ -83,7 +85,7 @@ const CarCarousel: React.FC<CarCarouselProps> = ({
   };
 
   return (
-    <section 
+    <section
       className="relative w-full max-w-6xl mx-auto px-4"
       aria-label={title}
       role="region"
@@ -95,14 +97,16 @@ const CarCarousel: React.FC<CarCarouselProps> = ({
             className="absolute top-1/2 left-1/2 w-80 md:w-96 h-56 md:h-96 cursor-pointer transition-all duration-500 ease-in-out"
             style={{
               ...getCardStyle(index),
-              transform: `translate(-50%, -50%) ${getCardStyle(index).transform}`,
+              transform: `translate(-50%, -50%) ${
+                getCardStyle(index).transform
+              }`,
             }}
             onClick={() => goToSlide(index)}
             role="button"
             tabIndex={0}
             aria-label={`View ${getAltText(index)}`}
             onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
+              if (e.key === "Enter" || e.key === " ") {
                 e.preventDefault();
                 goToSlide(index);
               }
@@ -132,7 +136,7 @@ const CarCarousel: React.FC<CarCarouselProps> = ({
       >
         <ChevronLeft className="w-6 h-6" />
       </button>
-      
+
       <button
         onClick={nextSlide}
         className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 z-30"
@@ -143,7 +147,7 @@ const CarCarousel: React.FC<CarCarouselProps> = ({
         <ChevronRight className="w-6 h-6" />
       </button>
 
-      <nav 
+      <nav
         className="flex justify-center space-x-2 mt-8"
         aria-label="Image navigation"
         role="navigation"
@@ -154,8 +158,8 @@ const CarCarousel: React.FC<CarCarouselProps> = ({
             onClick={() => goToSlide(index)}
             className={`w-3 h-3 rounded-full transition-all duration-200 ${
               index === currentIndex
-                ? 'bg-red-500 w-8'
-                : 'bg-gray-300 hover:bg-gray-400'
+                ? "bg-red-500 w-8"
+                : "bg-gray-300 hover:bg-gray-400"
             }`}
             disabled={isTransitioning}
             aria-label={`Go to image ${index + 1}`}
@@ -166,7 +170,9 @@ const CarCarousel: React.FC<CarCarouselProps> = ({
 
       {/* Screen reader status */}
       <div className="sr-only" aria-live="polite" aria-atomic="true">
-        {`Showing image ${currentIndex + 1} of ${images.length}: ${getAltText(currentIndex)}`}
+        {`Showing image ${currentIndex + 1} of ${images.length}: ${getAltText(
+          currentIndex
+        )}`}
       </div>
     </section>
   );

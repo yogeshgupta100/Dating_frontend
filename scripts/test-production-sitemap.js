@@ -26,20 +26,21 @@ https
         // Test 2: Check production sitemap
         console.log("\n2️⃣ Testing production sitemap...");
         https
-          .get("https://hi.pokkoo.in/sitemap.xml", (sitemapRes) => {
+          .get("https://pokkoo.co.in/sitemap.xml", (sitemapRes) => {
             let sitemapData = "";
             sitemapRes.on("data", (chunk) => (sitemapData += chunk));
             sitemapRes.on("end", () => {
               const locationUrls =
-                sitemapData.match(/<loc>https:\/\/pokkoo\.in\/[^<]+<\/loc>/g) ||
-                [];
+                sitemapData.match(
+                  /<loc>https:\/\/pokkoo\.co\.in\/[^<]+<\/loc>/g
+                ) || [];
               const staticUrls =
                 sitemapData.match(
-                  /<loc>https:\/\/pokkoo\.in\/(about|contact|terms|privacy)<\/loc>/g
+                  /<loc>https:\/\/pokkoo\.co\.in\/(about|contact|terms|privacy)<\/loc>/g
                 ) || [];
               const modelUrls =
                 sitemapData.match(
-                  /<loc>https:\/\/pokkoo\.in\/[^\/]+\/[^<]+<\/loc>/g
+                  /<loc>https:\/\/pokkoo\.co\.in\/[^\/]+\/[^<]+<\/loc>/g
                 ) || [];
 
               console.log(`📊 Sitemap Analysis:`);
