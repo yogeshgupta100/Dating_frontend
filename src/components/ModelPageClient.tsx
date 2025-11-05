@@ -15,6 +15,7 @@ import { STATIC_SERVICES } from "../constants/services";
 import banner_img from "../../public/banner_img.jpeg";
 import { getProfileBySlug, getProfile } from "../services/models";
 import { getLocationBySlug } from "../services/Locations";
+import { ensureHttpsUrl } from "../utils/imageUtils";
 
 interface ModelPageClientProps {
   profile: any;
@@ -184,7 +185,10 @@ const ModelPageClient: React.FC<ModelPageClientProps> = ({
           <div className="w-full md:w-96 mb-6 md:mb-0 flex justify-center md:justify-start">
             <div className="w-80 h-80 md:w-96 md:h-96">
               <img
-                src={(profile?.profile_img as any) ?? "/default-profile.jpg"}
+                src={
+                  ensureHttpsUrl(profile?.profile_img as any) ??
+                  "/default-profile.jpg"
+                }
                 alt={(profile?.name as any) ?? "Profile"}
                 className="w-full h-full rounded-xl object-cover shadow-lg bg-white"
                 loading="eager"

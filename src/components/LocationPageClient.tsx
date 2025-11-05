@@ -30,14 +30,15 @@ import { useProfileStore } from "../store/profileStore";
 import { renderHtmlContent } from "../utils/htmlUtils";
 import { VerifiedSection } from "./VerifiedSection";
 import Gallery from "./Gallery";
+import { ensureHttpsUrl } from "../utils/imageUtils";
 
 const galleryImages = [
-  "http://res.cloudinary.com/dpmknwklm/image/upload/v1751050380/dating-app/banners/fefp5wju9louqsqy9j2d.jpg",
-  "http://res.cloudinary.com/dpmknwklm/image/upload/v1751050513/dating-app/profiles/byl4mt7g46ewv6jzoe87.jpg",
-  "http://res.cloudinary.com/dpmknwklm/image/upload/v1751050459/dating-app/banners/az09b062duh3bceedxzl.jpg",
-  "http://res.cloudinary.com/dpmknwklm/image/upload/v1751050513/dating-app/banners/skse6swh4lklbzigazx9.jpg",
-  "http://res.cloudinary.com/dpmknwklm/image/upload/v1751050458/dating-app/profiles/fgsym9bjyi9mxxumhpje.jpg",
-  "http://res.cloudinary.com/dpmknwklm/image/upload/v1751050379/dating-app/profiles/sjinrqpbizy9qdri4kqz.jpg",
+  "https://res.cloudinary.com/dpmknwklm/image/upload/v1751050380/dating-app/banners/fefp5wju9louqsqy9j2d.jpg",
+  "https://res.cloudinary.com/dpmknwklm/image/upload/v1751050513/dating-app/profiles/byl4mt7g46ewv6jzoe87.jpg",
+  "https://res.cloudinary.com/dpmknwklm/image/upload/v1751050459/dating-app/banners/az09b062duh3bceedxzl.jpg",
+  "https://res.cloudinary.com/dpmknwklm/image/upload/v1751050513/dating-app/banners/skse6swh4lklbzigazx9.jpg",
+  "https://res.cloudinary.com/dpmknwklm/image/upload/v1751050458/dating-app/profiles/fgsym9bjyi9mxxumhpje.jpg",
+  "https://res.cloudinary.com/dpmknwklm/image/upload/v1751050379/dating-app/profiles/sjinrqpbizy9qdri4kqz.jpg",
 ];
 
 interface LocationPageClientProps {
@@ -195,7 +196,10 @@ export default function LocationPageClient({
           "@type": "Person",
           name: profile.name || profile.heading,
           description: profile.description,
-          image: profile.profile_img,
+          image:
+            typeof profile.profile_img === "string"
+              ? ensureHttpsUrl(profile.profile_img)
+              : profile.profile_img || "",
           url: `https://pokkoo.co.in/${locationSlug}/${
             profile.slug ||
             generateProfileSlug(

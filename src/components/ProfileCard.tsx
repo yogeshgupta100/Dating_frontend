@@ -4,6 +4,7 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import { renderHtmlContent } from "../utils/htmlUtils";
 import { generateProfileSlug } from "../utils/slug";
+import { ensureHttpsUrl } from "../utils/imageUtils";
 
 interface ProfileCardProps {
   img: File | string;
@@ -37,7 +38,7 @@ const ClientImageHandler: React.FC<{ img: File | string; alt: string }> = ({
         URL.revokeObjectURL(objectUrl);
       };
     } else if (typeof img === "string") {
-      setImageSrc(img);
+      setImageSrc(ensureHttpsUrl(img));
     }
   }, [img]);
 
@@ -102,7 +103,7 @@ const ProfileCard: React.FC<ProfileCardProps> = ({
           <ClientImageHandler img={img} alt={getAltText()} />
         ) : typeof img === "string" && img ? (
           <img
-            src={img}
+            src={ensureHttpsUrl(img)}
             alt={getAltText()}
             className="w-full h-full object-cover"
             loading="lazy"

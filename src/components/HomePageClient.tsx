@@ -19,11 +19,11 @@ import { VerifiedSection } from "./VerifiedSection";
 import Gallery from "./Gallery";
 
 const carImages = [
-  "http://res.cloudinary.com/dpmknwklm/image/upload/v1751050380/dating-app/banners/fefp5wju9louqsqy9j2d.jpg",
-  "http://res.cloudinary.com/dpmknwklm/image/upload/v1751050513/dating-app/profiles/byl4mt7g46ewv6jzoe87.jpg",
-  "http://res.cloudinary.com/dpmknwklm/image/upload/v1751050513/dating-app/banners/skse6swh4lklbzigazx9.jpg",
-  "http://res.cloudinary.com/dpmknwklm/image/upload/v1751050458/dating-app/profiles/fgsym9bjyi9mxxumhpje.jpg",
-  "http://res.cloudinary.com/dpmknwklm/image/upload/v1751050379/dating-app/profiles/sjinrqpbizy9qdri4kqz.jpg",
+  "https://res.cloudinary.com/dpmknwklm/image/upload/v1751050380/dating-app/banners/fefp5wju9louqsqy9j2d.jpg",
+  "https://res.cloudinary.com/dpmknwklm/image/upload/v1751050513/dating-app/profiles/byl4mt7g46ewv6jzoe87.jpg",
+  "https://res.cloudinary.com/dpmknwklm/image/upload/v1751050513/dating-app/banners/skse6swh4lklbzigazx9.jpg",
+  "https://res.cloudinary.com/dpmknwklm/image/upload/v1751050458/dating-app/profiles/fgsym9bjyi9mxxumhpje.jpg",
+  "https://res.cloudinary.com/dpmknwklm/image/upload/v1751050379/dating-app/profiles/sjinrqpbizy9qdri4kqz.jpg",
 ];
 
 const paragraph = `Thank you for taking time to learn a bit better. Contact Pokkoo call girls services only for real parson, We have Girls for B2B Enjoy Naked Sex And Whatspects; Spa Shower Bath Sexy Gals Only by Aromatherapy, Spa, Happy Ending Massage, Nude B2B Massage Rain Bath Tantric Massage BDSM Candle Massage Bubb sucking, licking, blowing work, call and out call feature 3 by beautiful and sexy girls with 5-star Hotel and Home Services are also available. Economical Rate, 100% Satisfaction. Visit Here for Pokkoo Call Girls 24x7 Services! Quick Contact Us`;

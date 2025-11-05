@@ -1,16 +1,16 @@
 const peopleImages = [
-  "http://res.cloudinary.com/dpmknwklm/image/upload/v1751049871/dating-app/profiles/mbe9jv6ihlv5fgjptprp.jpg",
-  "http://res.cloudinary.com/dpmknwklm/image/upload/v1751049872/dating-app/banners/wm287wzsdiggyr0xtkba.jpg",
-  "http://res.cloudinary.com/dpmknwklm/image/upload/v1751049989/dating-app/profiles/dojb5cqr52mk3ga3vpml.jpg",
-  "http://res.cloudinary.com/dpmknwklm/image/upload/v1751049990/dating-app/banners/ykqumosukus28xrwxvwg.jpg",
-  "http://res.cloudinary.com/dpmknwklm/image/upload/v1751050049/dating-app/profiles/iqqwqwwcxcr2r7bbzi0q.jpg",
-  "http://res.cloudinary.com/dpmknwklm/image/upload/v1751465865/dating-app/banners/fc5p4mw16fk4e6mopvvt.jpg",
-  "http://res.cloudinary.com/dpmknwklm/image/upload/v1751050111/dating-app/profiles/g3xrm1lrfh29ewmjmlpy.jpg",
-  "http://res.cloudinary.com/dpmknwklm/image/upload/v1751050112/dating-app/banners/oyalqpnjkkujluuyijqw.jpg",
-  "http://res.cloudinary.com/dpmknwklm/image/upload/v1751050173/dating-app/profiles/kxvsxbcpeff2feu6tzbu.jpg",
-  "http://res.cloudinary.com/dpmknwklm/image/upload/v1751050174/dating-app/banners/zjkxwf4bmuvctck69xcn.jpg",
-  "http://res.cloudinary.com/dpmknwklm/image/upload/v1751050250/dating-app/profiles/g2oaayk7kmygvohl2gio.jpg",
-  "http://res.cloudinary.com/dpmknwklm/image/upload/v1751050251/dating-app/banners/s24fxawbtejuuxgr54fc.jpg",
+  "https://res.cloudinary.com/dpmknwklm/image/upload/v1751049871/dating-app/profiles/mbe9jv6ihlv5fgjptprp.jpg",
+  "https://res.cloudinary.com/dpmknwklm/image/upload/v1751049872/dating-app/banners/wm287wzsdiggyr0xtkba.jpg",
+  "https://res.cloudinary.com/dpmknwklm/image/upload/v1751049989/dating-app/profiles/dojb5cqr52mk3ga3vpml.jpg",
+  "https://res.cloudinary.com/dpmknwklm/image/upload/v1751049990/dating-app/banners/ykqumosukus28xrwxvwg.jpg",
+  "https://res.cloudinary.com/dpmknwklm/image/upload/v1751050049/dating-app/profiles/iqqwqwwcxcr2r7bbzi0q.jpg",
+  "https://res.cloudinary.com/dpmknwklm/image/upload/v1751465865/dating-app/banners/fc5p4mw16fk4e6mopvvt.jpg",
+  "https://res.cloudinary.com/dpmknwklm/image/upload/v1751050111/dating-app/profiles/g3xrm1lrfh29ewmjmlpy.jpg",
+  "https://res.cloudinary.com/dpmknwklm/image/upload/v1751050112/dating-app/banners/oyalqpnjkkujluuyijqw.jpg",
+  "https://res.cloudinary.com/dpmknwklm/image/upload/v1751050173/dating-app/profiles/kxvsxbcpeff2feu6tzbu.jpg",
+  "https://res.cloudinary.com/dpmknwklm/image/upload/v1751050174/dating-app/banners/zjkxwf4bmuvctck69xcn.jpg",
+  "https://res.cloudinary.com/dpmknwklm/image/upload/v1751050250/dating-app/profiles/g2oaayk7kmygvohl2gio.jpg",
+  "https://res.cloudinary.com/dpmknwklm/image/upload/v1751050251/dating-app/banners/s24fxawbtejuuxgr54fc.jpg",
 ];
 
 export default function Gallery({
