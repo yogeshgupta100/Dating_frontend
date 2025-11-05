@@ -65,8 +65,10 @@ const fetchWithTimeout = async (
 export const getLocations = async (): Promise<LocationResponse[]> => {
   const cacheKey = "all-locations";
 
-  // Check cache first
-  if (isLocationCacheValid(cacheKey)) {
+  // Check cache first (skip during build to prevent caching large responses)
+  const isBuildTime = process.env.NODE_ENV === "production" && typeof window === "undefined";
+  
+  if (!isBuildTime && isLocationCacheValid(cacheKey)) {
     console.log("Returning cached locations");
     return getCachedLocation(cacheKey);
   }
@@ -76,7 +78,10 @@ export const getLocations = async (): Promise<LocationResponse[]> => {
     const response = await fetchWithTimeout(`${url}/states`, {
       method: "GET",
       headers: defaultHeaders,
-    });
+      // Disable caching during build to prevent Next.js from trying to cache large responses
+      cache: isBuildTime ? "no-store" : undefined,
+      next: isBuildTime ? { revalidate: 0 } : undefined,
+    } as RequestInit);
 
     const data = await handleResponse(response);
     setCachedLocation(cacheKey, data);

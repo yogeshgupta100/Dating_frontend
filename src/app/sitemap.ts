@@ -1,5 +1,9 @@
 import { MetadataRoute } from "next";
 
+// Force dynamic generation to prevent caching large responses
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = "https://pokkoo.co.in";
   const currentDate = new Date().toISOString();
@@ -32,9 +36,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       },
       // Add timeout for large datasets
       signal: AbortSignal.timeout(120000), // 2 minutes for very large datasets
-      // Add cache control for better performance
-      cache: "no-store", // Ensure fresh data
-    });
+      // Use no-store to prevent Next.js from trying to cache large responses
+      cache: "no-store", // Ensure fresh data and prevent caching
+      // Add next option to disable Next.js caching completely
+      next: { revalidate: 0 },
+    } as RequestInit);
 
     if (!response.ok) {
       throw new Error(
@@ -42,7 +48,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       );
     }
 
-    const locations = await response.json();
+    let locations;
+    try {
+      locations = await response.json();
+    } catch (parseError) {
+      console.error("Error parsing API response:", parseError);
+      throw new Error("Failed to parse API response");
+    }
 
     // Validate response structure
     if (!Array.isArray(locations)) {
@@ -84,8 +96,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
                     "User-Agent": "Pokkoo-Sitemap-Generator/1.0",
                   },
                   signal: AbortSignal.timeout(15000), // 15 seconds
-                  cache: "no-store", // Ensure fresh data
-                }
+                  cache: "no-store", // Ensure fresh data and prevent caching
+                  next: { revalidate: 0 }, // Disable Next.js caching
+                } as RequestInit
               );
 
               if (modelsResponse.ok) {
